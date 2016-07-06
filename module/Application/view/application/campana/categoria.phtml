@@ -1,0 +1,144 @@
+<div  class="container">
+<?php
+
+function crearUrl($str_cadena) {
+    $nueva_cadena = trim($str_cadena);
+    $nueva_cadena = str_replace('-', ' ', $nueva_cadena);
+    $nueva_cadena = str_replace(' ', '-', $nueva_cadena);
+    $nueva_cadena = str_replace(chr(47), '-', $nueva_cadena);
+    $nueva_cadena = str_replace(chr(63), '', $nueva_cadena);
+    return $nueva_cadena;
+}
+
+$anterior = '';
+$contador = 0;
+$ultimo   = '';
+foreach ($data as $dato) {
+    if ($dato['mostrar'] == 0 ) continue;
+    if ($dato['categoria'] != $anterior) {
+        $contador = 0;
+        if( $ultimo == 'uno' ) {
+            $ultimo = 'dos';
+        } else {
+            $ultimo = 'uno';
+        }
+        
+        $position = ' left';
+        
+        if ($anterior != '') {
+            ?>
+            </div> 
+            </div>
+            </section>
+        <?php } ?>
+        <section id="<?php echo base64_encode($dato['categoria']); ?>">
+            <div class="titulo_ofertas_categoria">Mostrando resultados para <b><?php echo $dato['categoria']; ?><?php if( $subcategoria != null ) { ?> ( <?php echo $dato['subcategoria']; ?> )<?php } ?></b></div>
+            <div class="box_center"><div>
+                    <div class="campana-en-linea">
+                    <?php
+                }
+                $contador++;
+                if( $ultimo == 'uno' ) {
+                    if($contador > 3) {
+                        $contador = 1;
+                        $ultimo = 'dos';
+                        $position = ' left';
+                        ?>
+                        </div>
+                        <div class="campana-en-linea">
+                        <?php
+                    } else {
+                        switch($contador) {
+                            case 1: $position = ' left';
+                                break;
+                            case 2: $position = ' center';
+                                break;
+                            case 3: $position = ' right';
+                                break;
+                        }
+                    }
+                } else {
+                    if($contador > 2) {
+                        $contador = 1;
+                        $ultimo = 'uno';
+                        $position = ' left';
+                        ?>
+                        </div>
+                        <div class="campana-en-linea">
+                        <?php
+                    } else {
+                        switch($contador) {
+                            case 1: $position = ' left';
+                                break;
+                            case 2: $position = ' right';
+                                break;
+                        }
+                    }
+                }
+                
+                $ruta_imagen_pro = $directorio.$dato['id_campana'].$sep_path.'small2'.$sep_path.'image1.jpg';
+                if (file_exists($ruta_imagen_pro)){
+                    ob_start();
+                    $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+                    imagejpeg($resource_image);
+                    $imagedata = ob_get_clean();
+                    $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+                } else {
+                    $image = '';
+                }
+                
+                ?>
+                <div class="campana-stilo-<?php echo $ultimo.$position;?>" data-id="<?php echo $dato['id_campana']; ?>">
+                    <a href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>">
+                        <span class=""></span>
+                    </a>
+                    <div class="img_container">
+                        <a href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>">
+                            <span class=""></span>
+                            <img  class="lazy campana-imgreferencia-<?php echo $ultimo;?>" data-original="<?php echo $image; ?>" src="../../../img/buenisimo_placeholder.png" alt="<?php echo $dato['subtitulo']; ?>" />
+                            <span class="campana-texto-descuento-<?php echo $ultimo;?>">-<?php echo $dato['descuento']; ?>%</span>
+                            <?php if( $dato['maximo_cupones'] > 0 ) { 
+                                    $quedan = $dato['maximo_cupones'] - $dato['vendidos'];
+                                    if( $quedan <= 10 ) { 
+                                        if( $quedan <= 0 ) { ?>
+                                    <span class="campana-quedan-agotado-<?php echo $ultimo;?>">¡Agotado!</span>
+                                        <?php } else { ?>
+                                    <span class="campana-quedan-<?php echo $ultimo;?>">Sólo quedan<br><?php echo $quedan;?> ofertas</span>
+                                        <?php }
+                                    }
+                                } ?>
+                        </a>
+                    </div>
+                    <div class="campana-texto-detalle-<?php echo $ultimo;?>">
+                        <a href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>" target="_self" title="<?php echo $dato['subtitulo']; ?>" class="description"><?php echo $dato['subtitulo']; ?></a>
+                    </div>
+                    <div class="campana-tarifario-<?php echo $ultimo;?>">
+                        <div class="campana-precio-regular"><div class="campana-precio-center"><?php echo $moneda['simbolo'];?> <?php echo $dato['precio_regular']; ?></div></div>
+                        <div class="campana-precio-oferta-<?php echo $ultimo;?>"><?php echo $moneda['simbolo'];?>&nbsp;<?php echo $dato['precio_especial']; ?></div>
+                        <div class="campana-precio-boton"><a class="btn btn-ver-oferta-<?php echo $ultimo;?>" href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html" title="Ver oferta">Ver oferta »</a></div>
+                    </div>
+                    <p class="campana-vendidos-<?php echo $ultimo;?>">Vendidos: <?php echo $dato['vendidos']; ?> ofertas</p>
+                </div>
+
+
+
+                <?php
+                $anterior = $dato['categoria'];
+            }
+            if ($anterior != '') {
+                ?>
+            </div> 
+        </div>
+                </div>
+    </section>
+    <?php
+}
+?>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("img.lazy").lazyload();
+        
+        $(".carrusel-principal").css("display","none");
+    });
+</script>

@@ -1,0 +1,11 @@
+<?php if( count($categorias) > 0 ) { ?>
+<label for="id_categoria" class="col-lg-3 control-label">Tipo Habitación :</label>
+<div class="col-lg-7"> 
+    <select class="form-control input-sm" name="id_categoria" id="id_categoria">
+        <option value="0">Seleccione un Tipo Habitación</option>
+        <?php foreach ($categorias as $categoria) { ?>
+            <option value="<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['descripcion_categoria']; ?></option>
+        <?php } ?>
+    </select>
+</div>
+<?php } ?>

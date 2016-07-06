@@ -1,0 +1,371 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Registro de Hospedaje</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="descripcion_hospedaje" class="col-lg-3 control-label">Nombre de Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('descripcion_hospedaje')); ?>
+                <?php echo $this->formRow($this->form->get('id_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_tipo" class="col-lg-3 control-label">Tipo Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('id_tipo')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_pais" class="col-lg-3 control-label">Pais :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('id_pais')); ?>
+            </div>
+        </div>
+        <div class="form-group" id="contenido-departamento">
+            <label for="id_departamento" class="col-lg-3 control-label">Ciudad :</label>
+            <div class="col-lg-7"> 
+                <?php echo $this->formRow($this->form->get('id_departamento')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="categoria_hospedaje" class="col-lg-3 control-label">Categoría de Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('categoria_hospedaje')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="direccion_hospedaje" class="col-lg-3 control-label">Dirección Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('direccion_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="telefono_hospedaje" class="col-lg-3 control-label">Teléfono Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('telefono_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="observacion" class="col-lg-3 control-label">Información Check In/Out :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('observacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email_confirmacion" class="col-lg-3 control-label">Email Confirmación :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('email_confirmacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_adicionales_hospedaje[]" class="col-lg-3 control-label">Adicionales Comunes :</label>
+            <div class="col-lg-7">
+                <?php $contador = 0;
+                      foreach ($adicionalesHospedaje as $adicionalHos) {
+                        $contador++; ?>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="id_adicionales_hospedaje[]" id="id_adicionales_hospedaje[]" value="<?php echo $adicionalHos['id_adicionales']; ?>" <?php if($adicionalHos['seleccionado'] != '0') { ?>checked<?php } ?>> <?php echo $adicionalHos['descripcion_adicionales']; ?>
+                            </label>
+                        </div>
+                <?php } ?>    
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_validez" class="col-lg-3 control-label">Tipos de Habitaciones:</label>
+            <div class="col-lg-7" >
+                <div class="well">
+                
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="js-tabla-opciones">
+                        <thead >
+                            <tr class="btn-danger">
+                                <th>#</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Adicionales</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $contador = 0;
+                            foreach ($categoriasHospedaje as $categoria) {
+                                $contador++;
+                                ?>
+                            <tr class="warning" id="filaOpcion<?php echo $categoria['id_categoria']; ?>">
+                                    <td><span class="badge"><?php echo $contador; ?></span></td>
+                                    <td><div id="descripcion<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['descripcion_categoria']; ?></div></td>
+                                    <td><div id="importe<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['importe_habitacion']; ?></div></td>
+                                    <td>
+                                        <div id="adicionales<?php echo $categoria['id_categoria']; ?>">
+                                        <?php $adicionales = $categoria['adicionales'];
+                                              foreach ($adicionales as $adicional) { ?>
+                                                  <div>
+                                                        <li>
+                                                            <?php echo $adicional['descripcion_adicionales']; ?>
+                                                        </li>
+                                                  </div>
+                                                
+                                        <?php } ?>
+                                        </div>
+                                    </td>
+                                    <td><div class="btn btn-warning" onclick="javascript:edicionTipoHabitacion('<?php echo $categoria['id_hospedaje']; ?>', '<?php echo $categoria['id_categoria']; ?>','filaOpcion<?php echo $categoria['id_categoria']; ?>')" title="Modificar Tipo Habitación"><span class="glyphicon glyphicon-edit"></span></div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="btn btn-warning" onclick="javascript:nuevoTipoHabitacion()" title='Nuevo Tipo Habitación'><samp class=" glyphicon glyphicon-file"></samp> Nuevo Tipo Habitación</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-7">
+                <?php echo $this->formRow($this->form->get('submit')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php echo $this->formRow($this->form->get('btn-regresar')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="modal fade" id="modalEditor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title" id="myModalLabel"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="id_categoria" class="col-lg-4 control-label">Tipo Habitación :</label>
+                        <div class="col-xs-9"> 
+                            <input type="hidden" class="form-control" name="tipo_registro" id="tipo_registro" value="">
+                            <select class="form-control input-sm" name="id_categoria" id="id_categoria">
+                                <option value="0">Seleccione Tipo Habitación</option>
+                                <?php foreach ($categoriaHabitacion as $categoria) { ?>
+                                    <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->descripcion_categoria; ?></option>
+                                <?php } ?>
+                            </select>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="importe_habitacion" class="col-lg-4 control-label">Precio Habitación :</label>
+                        <div class="col-xs-9"> 
+                            <input type="text" class="form-control" name="importe_habitacion" id="importe_habitacion" value="">
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="contenido-adicionale-habitacion">
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" onclick="javascript:grabaHabitacion();"> &nbsp; Ok &nbsp; </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Delete button popover confirmation
+        $('#hospedajeForm').formValidation({
+            message: 'El valor no es válido.',
+            err: {
+                container: 'tooltip'
+            },
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh',
+            },
+            fields: {
+                descripcion_hospedaje: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre el Nombre del Hospedaje.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9ñáéíóúÑÁÉÍÓÚ& ,.-]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 150,
+                            message: 'Este campo debe contener 150 caracteres como máximo.'
+                        }
+                    }
+                },
+                id_tipo: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        greaterThan: {
+                            value: 1,
+                            message: 'Por favor seleciione el Tipo de Hospedaje.'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            $("#modalConfirmacion").modal('show');
+        });
+        
+        $('#id_pais').change(function(){
+            var pais   = $('#id_pais').val();
+            $.ajax({
+                type: "POST",
+                url: "/index/departamentos",
+                data: {pais: pais},
+                success: function (data) {
+                    $('#contenido-departamento').html(data);
+                }
+            });
+        });
+
+        $("#modal-confirmacion-si").click(
+            function (e) {
+                $('button').removeClass('fv-hidden-submit disabled').addClass('fv-hidden-submit');
+                $('.fv-hidden-submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+                $('.fv-hidden-submit').click();
+            }
+        );
+
+        $("#modal-confirmacion-no").click(
+            function (e) {
+                $('#submit').removeClass('btn btn-primary disabled').addClass('btn btn-primary');
+                $('#submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+            }
+        );
+
+        $("#btn-regresar").click(
+            function (e) {
+                $("#modalCancelacion").modal('show');
+            }
+        );
+
+        $("#modal-cancelacion-si").click(
+            function (e) {
+                $(location).attr('href','/dashboard/hospedaje/list');
+            }
+        );
+
+        $("#modal-cancelacion-no").click(
+            function (e) {
+                $("#modalCancelacion").modal('hide');
+            }
+        );
+
+
+    });
+    
+    function nuevoTipoHabitacion() {
+        var id_hospedaje;
+        var id_categoria;
+        
+        id_hospedaje = 0;
+        id_categoria = 0;
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/hospedaje/adicionaleshabitacion",
+            data: {id_hospedaje: id_hospedaje, id_categoria:id_categoria},
+            success: function (data) {
+                $('#contenido-adicionale-habitacion').html(data);
+                $('#id_categoria').val('0');
+                $('#id_categoria').removeAttr('disabled');
+                $('#importe_habitacion').val('0.00');
+                $('#tipo_registro').val('N');
+                $('#myModalLabel').html('Registro de Tipo Habitación');
+                $('#modalEditor').modal('show');
+                
+            }
+        });
+    }
+    
+    function edicionTipoHabitacion(id_hospedaje, id_categoria, idFila) {
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/hospedaje/adicionaleshabitacion",
+            data: {id_hospedaje: id_hospedaje, id_categoria:id_categoria},
+            success: function (data) {
+                $('#contenido-adicionale-habitacion').html(data);
+                $('#id_categoria').val(id_categoria);
+                $('#id_categoria').attr('disabled','true');
+                $('#importe_habitacion').val($('#importe' + id_categoria ).html());
+                $('#tipo_registro').val('M');
+                $('#myModalLabel').html('Modificación de Tipo Habitación');
+                $('#modalEditor').modal('show');
+                
+            }
+        });
+    }
+    
+    /*function edicionOpcion(id_opcion, id_campana, idFila) {
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/campana/editopcion",
+            data: {opcion: id_opcion, campana: id_campana},
+            success: function (data) {
+                var datos = $.parseJSON(data);
+                if (datos[0]) {
+                    $('#content').html(datos[0].descripcion);
+                    $('#pk_idfila').val(idFila);
+                    $('#precio_regular').val(datos[0].precio_regular);
+                    $('#precio_especial').val(datos[0].precio_especial);
+                    $('#comision').val(datos[0].comision);
+                    $('#pk_campana').val(datos[0].id_campana);
+                    $('#pk_campana_opcion').val(datos[0].id_campana_opcion);
+                    $('#content').data('liveEdit').startedit();
+                    $('#modalEditor').modal('show');
+                }
+            }
+        });
+    }*/
+    
+    function grabaHabitacion() {
+
+        var id_hospedaje = $('#id_hospedaje').val();
+        var id_categoria = $('#id_categoria').val();
+        var importe_habitacion = $('#importe_habitacion').val();
+        var tipo_registro = $('#tipo_registro').val();
+        var adicionales_habitacion = $('input[name="adicionales_habitacion[]"]').serializeArray();
+        
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/hospedaje/savehabitacion",
+            data: {id_hospedaje: id_hospedaje, id_categoria: id_categoria, importe_habitacion: importe_habitacion, adicionales_habitacion: adicionales_habitacion, tipo_registro:tipo_registro},
+            success: function (data) {
+                var datos = $.parseJSON(data)
+                //alert(datos);
+                if (datos) {
+                    /*$('#descripcion' + id_campana_opcion).html(descripcion);
+                    if (datos.resultado == 'I') {
+                        $('#js-tabla-opciones tr:last').after('<tr id="filaOpcion' + datos.id + '"><td></td><td></td><td>' + precio_regular + '</td><td>' + precio_especial + '</td><td>' + comision + '</td><td><div class="btn btn-success" onclick="javascript:edicionOpcion(\'' + datos.id + '\',\'' + id_campana + '\',\'filaOpcion' + datos.id + '\')">Editar</div></td></tr>');
+                    } else {
+                        $('#' + filaEditada).find('td').eq(1).html('<div id="descripcion' + datos.id + '">' + descripcion + '</div>');
+                        $('#' + filaEditada).find('td').eq(2).html(precio_regular);
+                        $('#' + filaEditada).find('td').eq(3).html(precio_especial);
+                        $('#' + filaEditada).find('td').eq(4).html(comision);
+                    }
+                    $('#modalEditor').modal('hide');*/
+
+                }
+            }
+        });
+
+        
+    }
+</script>

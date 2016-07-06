@@ -1,0 +1,40 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Datos Pago</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-lg-15">
+                <table class="table">
+                    <tr class="info">
+                        <th>Razón Social</th>
+                        <th>Titular</th>
+                        <th>CI/RUC</th>
+                        <th>Banco</th>
+                        <th>Tipo Cuenta</th>
+                        <th>N° Cuenta</th>
+                        <th>Correo Confirmación</th>
+                    </tr>
+                    <?php $i = 0;
+                    foreach( $datos as $campana ) { 
+                        $i++; ?>
+                    <tr class="<?php if( $i%2 == 0 ) {
+                                       echo 'warning';
+                                     } else {
+                                       echo 'success';
+                                     }
+                               ?>">
+                        <td><?php echo $campana['razon_social'];?></td>
+                        <td><?php echo $campana['titular_cuenta'];?></td>
+                        <td><?php echo $campana['ruc_titular'];?></td>
+                        <td><?php echo $campana['banco_cuenta'];?></td>
+                        <td><?php echo $campana['tipo_cuenta'];?></td>
+                        <td><?php echo $campana['numero_cuenta'];?></td>
+                        <td><?php echo $campana['email_facturacion'];?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

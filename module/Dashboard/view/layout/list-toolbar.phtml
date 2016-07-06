@@ -1,0 +1,279 @@
+<div>
+<?php
+//echo $this->controllerName();
+switch ($this->controllerName()) {
+    case 'Dashboard\Controller\User' :
+        $titulo = "Administración de Usuarios";
+        $enlace = "Nuevo Usuario";
+        break;
+    case 'Dashboard\Controller\Role' :
+        $titulo = "Administración de Roles";
+        $enlace = "Nuevo Rol";
+        break;
+    case 'Dashboard\Controller\Campana' :
+        $titulo = "Administración de Campañas";
+        $enlace = "Nueva Campaña";
+        break;
+    case 'Dashboard\Controller\Empresa' :
+        $titulo = "Administración de Empresas";
+        $enlace = "Nueva Empresa";
+        break;
+    case 'Dashboard\Controller\Pagobancario' :
+        $titulo = "Administración de Pagos Bancarios";
+        $enlace = "";
+        break;
+    case 'Dashboard\Controller\Tipohospedaje' :
+        $titulo = "Administración de Tipo de Hospedaje";
+        $enlace = "Nuevo Tipo de Hospedaje";
+        break;
+    case 'Dashboard\Controller\Adicionales' :
+        $titulo = "Administración de Adicionales del Establecimiento";
+        $enlace = "Nuevo Adicional del Establecimiento";
+        break;
+    case 'Dashboard\Controller\Categoriahabitacion' :
+        $titulo = "Administración de Tipo de Habitación";
+        $enlace = "Nuevo Tipo de Habitación";
+        break;
+    case 'Dashboard\Controller\Hospedaje' :
+        $titulo = "Administración de Hospedajes";
+        $enlace = "Nuevo Hospedaje";
+        break;
+    case 'Dashboard\Controller\Voucher' :
+        $titulo = "Administración de Voucher de Hospedaje";
+        $enlace = "Nuevo Voucher de Hospedaje";
+        break;
+    default :
+        $titulo = "";
+        $enlace = "";
+        break;
+}
+?>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <div>
+            <div class="btn-group tabla-grilla">
+                <span class="titulo-tabla-grilla">
+                    <?php echo $titulo; ?>
+                </span>
+                <?php if( $enlace != "") { ?>
+                <button class="btn btn-active boton-nuevo-grilla" id="btnAdd" name="btnAdd" value="add"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> <?php echo $enlace; ?>
+                </button>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+</div>
+<script type="text/javascript">
+
+    function visualizar(campana){
+        $.ajax({
+            type: "POST",
+            url: "/campana/preview",
+            data: {id: campana},
+            success: function (data) {
+                $('#bodyPreview').html(data);
+                $('#modalPreview').modal('show');
+            }
+        });
+    }
+    
+    function registrarcontrato(empresa){
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/contrato",
+            data: {id: empresa},
+            success: function (data) {
+                var contrato = $.parseJSON(data);
+                if (contrato) {
+                    if (contrato.id_contrato == -1) {
+                        $('#id_empresa').val(empresa);
+                        $('#modalContrato').modal('show');
+                    } else {
+                        var form = $('<form method="post" action="/dashboard/empresa/editarcontrato">' +
+                                     '<input type="hidden" name="id_contrato" value="' + contrato.id_contrato + '">' +
+                                     '</form>');
+                        $(form).submit();
+                    }
+                }
+            }
+        });
+    }
+    
+    function registraranexocontrato(campana){
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/anexocontrato",
+            data: {id: campana},
+            success: function (data) {
+                var contrato = $.parseJSON(data);
+                if (contrato) {
+                    if (contrato.id_contrato == -1 && contrato.id_anexocontrato == -1) {
+                        alert('Debe registrar el contrato para generar el anexo.');
+                    } else {
+                        if (contrato.id_anexocontrato == -1) {
+                            $('#id_contrato').val(contrato.id_contrato);
+                            $('#id_campana').val(campana);
+                            $('#nombre_contrato').val(contrato.nombre_contrato);
+                            $('#nombre_contacto').val(contrato.nombre_contacto);
+                            $('#email_contacto').val(contrato.email_contacto);
+                            $('#modalAnexoContrato').modal('show');
+                        } else {
+                            var form = $('<form method="post" action="/dashboard/empresa/editaranexocontrato">' +
+                                         '<input type="hidden" name="id_contrato" value="' + contrato.id_contrato + '">' +
+                                         '<input type="hidden" name="id_campana" value="' + campana + '">' +
+                                         '</form>');
+                            $(form).submit();
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function registrarpagobancario(cupon){
+    
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/pagobancario/prepagado",
+            data: {id: cupon},
+            success: function (data) {
+                var prepago = $.parseJSON(data);
+                if (prepago) {
+                    if (prepago.pagado == -1) {
+                        $('#numero_operacion').val(prepago.operacion);
+                        $('#numero_operacion').removeAttr('readonly');
+                        $('#fecha_operacion').val(prepago.fecha_operacion);
+                        $('#fecha_operacion').removeAttr('readonly');
+                        $('#generar_Pagobancario').removeAttr('disabled');
+                    } else {
+                        $('#numero_operacion').val(prepago.operacion);
+                        $('#numero_operacion').attr('readonly','true');
+                        $('#fecha_operacion').val(prepago.fecha_operacion);
+                        $('#fecha_operacion').attr('readonly','true');
+                        $('#generar_Pagobancario').attr('disabled','true');
+                    } 
+                    $('#id_cupon').val(cupon);
+                    $('#modalPagobancario').modal('show');
+                }
+            }
+        });
+    }
+    
+    function enviarcupones(cupon){
+    
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/pagobancario/prepagado",
+            data: {id: cupon},
+            success: function (data) {
+                var prepago = $.parseJSON(data);
+                if (prepago) {
+                    if (prepago.pagado == -1) {
+                        alert('Voucher no ha sido pagado.');
+                    } else {
+                        $('#email_cupon').val('');
+                        $('#id_cupon').val(cupon);
+                        $('#modalVoucherbancario').modal('show');
+                    } 
+                }
+            }
+        });
+    }
+    
+    function enviarcuponesmail(){
+        var id_cupon = $("#id_cupon").val();
+        var email_cupon = $("#email_cupon").val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/pagobancario/reenviarvoucher",
+            data: {id_cupon:id_cupon, email:email_cupon},
+            success: function (data) {
+                var datos = $.parseJSON(data);
+                if (datos) {
+                    if (datos.respuesta == 1) {
+                        $('#modalVoucherbancario').modal('hide');
+                    } 
+                }
+            }
+        });
+    } 
+    
+    function generarcontrato(){
+        var id_empresa = $("#id_empresa").val();
+        var nombre = $("#nombre").val();
+        var email = $("#email").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/registrarcontrato",
+            data: {id_empresa:id_empresa, nombre:nombre, email:email},
+            success: function (data) {
+                var contrato = $.parseJSON(data);
+                if (contrato) {
+                    if (contrato.id_contrato == -1) {
+                        $('#modalContrato').modal('hide');
+                    } else {
+                        var form = $('<form method="post" action="/dashboard/empresa/editarcontrato">' +
+                                     '<input type="hidden" name="id_contrato" value="' + contrato.id_contrato + '">' +
+                                     '</form>');
+                        $(form).submit();
+                    }
+                }
+            }
+        });
+    } 
+    
+    function generaranexocontrato(){
+        var id_contrato = $("#id_contrato").val();
+        var id_campana = $("#id_campana").val();
+        var nombre_contacto = $("#nombre_contacto").val();
+        var email_contacto = $("#email_contacto").val();
+        var nombre_contrato = $("#nombre_contrato").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/registraranexocontrato",
+            data: {id_contrato:id_contrato,id_campana:id_campana, nombre_contacto:nombre_contacto, email_contacto:email_contacto, nombre_contrato:nombre_contrato},
+            success: function (data) {
+                var contrato = $.parseJSON(data);
+                if (contrato) {
+                    if (contrato.id_anexocontrato == -1) {
+                        $('#modalAnexoContrato').modal('hide');
+                    } else {
+                        var form = $('<form method="post" action="/dashboard/empresa/editaranexocontrato">' +
+                                     '<input type="hidden" name="id_contrato" value="' + contrato.id_contrato + '">' +
+                                     '<input type="hidden" name="id_campana" value="' + id_campana + '">' +
+                                     '</form>');
+                        $(form).submit();
+                    }
+                }
+            }
+        });
+    } 
+    
+    function generarpagobancario(){
+        var id_cupon         = $("#id_cupon").val();
+        var numero_operacion = $("#numero_operacion").val();
+        var fecha_operacion  = $("#fecha_operacion").val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/pagobancario/registrarpagobancario",
+            data: {id_cupon:id_cupon, numero_operacion:numero_operacion, fecha_operacion:fecha_operacion},
+            success: function (data) {
+                var datos = $.parseJSON(data);
+                if (datos) {
+                    if (datos.respuesta == -1 ) {
+                        alert('No se puedo resgistrar el pago.');
+                    } else {
+                        alert('Se registro correctamente el pago.');
+                    }
+                }
+                $('#modalPagobancario').modal('hide');
+            }
+        });
+    } 
+</script>

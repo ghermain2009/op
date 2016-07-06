@@ -1,0 +1,12 @@
+<?php if( count($provincias) > 0 ) { ?>
+<label for="zona" class="col-lg-5 control-label afiliacion">Elige tu zona:</label>
+<div class="col-xs-7 validacion"> 
+    <select class="form-control" name="zona" id="zona">
+        <option value="">-- Selecciona tu zona --</option>
+        <?php foreach ($provincias as $provincia) { ?>
+            <option value="<?php echo $provincia['id_provincia']; ?>"><?php echo $provincia['descripcion']; ?></option>
+        <?php } ?>
+    </select>
+    <span class="help-block with-errors"></span>
+</div>
+<?php } ?>

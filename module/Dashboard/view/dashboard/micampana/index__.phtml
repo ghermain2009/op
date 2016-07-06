@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es-ES"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (t, e, n) {
+                function r(n) {
+                    if (!e[n]) {
+                        var o = e[n] = {exports: {}};
+                        t[n][0].call(o.exports, function (e) {
+                            var o = t[n][1][e];
+                            return r(o ? o : e)
+                        }, o, o.exports)
+                    }
+                    return e[n].exports
+                }
+                if ("function" == typeof __nr_require)
+                    return __nr_require;
+                for (var o = 0; o < n.length; o++)
+                    r(n[o]);
+                return r
+            }({QJf3ax: [function (t, e) {
+                        function n(t) {
+                            function e(e, n, a) {
+                                t && t(e, n, a), a || (a = {});
+                                for (var c = u(e), f = c.length, s = i(a, o, r), p = 0; f > p; p++)
+                                    c[p].apply(s, n);
+                                return s
+                            }
+                            function a(t, e) {
+                                f[t] = u(t).concat(e)
+                            }
+                            function u(t) {
+                                return f[t] || []
+                            }
+                            function c() {
+                                return n(e)
+                            }
+                            var f = {};
+                            return{on: a, emit: e, create: c, listeners: u, _events: f}
+                        }
+                        function r() {
+                            return{}
+                        }
+                        var o = "nr@context", i = t("gos");
+                        e.exports = n()
+                    }, {gos: "7eSDFh"}], ee: [function (t, e) {
+                        e.exports = t("QJf3ax")
+                    }, {}], gos: [function (t, e) {
+                        e.exports = t("7eSDFh")
+                    }, {}], "7eSDFh": [function (t, e) {
+                        function n(t, e, n) {
+                            if (r.call(t, e))
+                                return t[e];
+                            var o = n();
+                            if (Object.defineProperty && Object.keys)
+                                try {
+                                    return Object.defineProperty(t, e, {value: o, writable: !0, enumerable: !1}), o
+                                } catch (i) {
+                                }
+                            return t[e] = o, o
+                        }
+                        var r = Object.prototype.hasOwnProperty;
+                        e.exports = n
+                    }, {}], D5DuLP: [function (t, e) {
+                        function n(t, e, n) {
+                            return r.listeners(t).length ? r.emit(t, e, n) : (o[t] || (o[t] = []), void o[t].push(e))
+                        }
+                        var r = t("ee").create(), o = {};
+                        e.exports = n, n.ee = r, r.q = o
+                    }, {ee: "QJf3ax"}], handle: [function (t, e) {
+                        e.exports = t("D5DuLP")
+                    }, {}], XL7HBI: [function (t, e) {
+                        function n(t) {
+                            var e = typeof t;
+                            return!t || "object" !== e && "function" !== e ? -1 : t === window ? 0 : i(t, o, function () {
+                                return r++
+                            })
+                        }
+                        var r = 1, o = "nr@id", i = t("gos");
+                        e.exports = n
+                    }, {gos: "7eSDFh"}], id: [function (t, e) {
+                        e.exports = t("XL7HBI")
+                    }, {}], loader: [function (t, e) {
+                        e.exports = t("G9z0Bl")
+                    }, {}], G9z0Bl: [function (t, e) {
+                        function n() {
+                            var t = l.info = NREUM.info;
+                            if (t && t.agent && t.licenseKey && t.applicationID && c && c.body) {
+                                l.proto = "https" === p.split(":")[0] || t.sslForHttp ? "https://" : "http://", a("mark", ["onload", i()]);
+                                var e = c.createElement("script");
+                                e.src = l.proto + t.agent, c.body.appendChild(e)
+                            }
+                        }
+                        function r() {
+                            "complete" === c.readyState && o()
+                        }
+                        function o() {
+                            a("mark", ["domContent", i()])
+                        }
+                        function i() {
+                            return(new Date).getTime()
+                        }
+                        var a = t("handle"), u = window, c = u.document, f = "addEventListener", s = "attachEvent", p = ("" + location).split("?")[0], l = e.exports = {offset: i(), origin: p, features: {}};
+                        c[f] ? (c[f]("DOMContentLoaded", o, !1), u[f]("load", n, !1)) : (c[s]("onreadystatechange", r), u[s]("onload", n)), a("mark", ["firstbyte", i()])
+                    }, {handle: "D5DuLP"}]}, {}, ["G9z0Bl"]);</script>
+        <title>Mi Groupon · Admin</title>
+        <link href="http://www.migroupon.com/img/favicon_new.ico" rel="shortcut icon">
+
+
+        <!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="/css/merchant-center/ie.css"/>
+<script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" type="text/javascript"></script>
+<![endif]-->
+        <!--[if lt IE 9]>
+                <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <script type="text/javascript">
+            var partner = {"id": "86455", "name": "One Peru Travel", "email_contact": "operaciones@oneperutravel.com", "name_contact": "Cinthya Arriola", "phone_contact": "986181444", "country": "PE", "external_id": null, "coupons_sold": null, "refunded": null, "revenue": null, "rubro": "OTROSSERVICIOS", "sf_account_id": "001C000001BQwwsIAD", "features": null, "website": null, "mediaplan_status": null, "city": "Travel & Shopping", "mediaplan_needed": "0", "retain": null, "partner_manager": "57632", "sales_rep": "fatima.munoz@groupon.com", "vatin": null, "contract_name": null, "vatin_type_id": "0", "created": "2013-02-22 15:59:42", "modified": "2015-01-29 19:05:08", "status_dnr": "0", "PartnerSetting": [{"id": "24904", "partner_id": "86455", "label": "Ingresar datos del cliente despu\u00e9s de validar un Groupon", "key": "show_customer_popup", "value": "0", "visible": "1"}, {"id": "26242", "partner_id": "86455", "label": "Tipo de vista de deals en Dashboard", "key": "dashboard_deals_view_type", "value": "table", "visible": "0"}, {"id": "35209", "partner_id": "86455", "label": "Tipo de vista de deals en Dashboard", "key": "dashboard_deals_view_type", "value": "chart", "visible": "0"}, {"id": "35211", "partner_id": "86455", "label": "Tipo de vista de deals en Dashboard", "key": "dashboard_deals_view_type", "value": "chart", "visible": "0"}], "PartnerManager": {"id": "57632", "country": "PE", "name": "Giuliana Amoretti", "email": "giuliana.amoretti@groupon.com", "phone": "+5114464409", "picture_url": "http:\/\/validargroupon-deal-docs.s3.amazonaws.com\/2518459-giuli_pe.png"}};
+        </script>
+    </head>
+    <body>
+        
+
+        <div id="cont_alert">
+            <div id="messages_header" class="inner">
+            </div>
+        </div>
+
+
+        <!-- Modal de validación -->
+        <div class="modal hide fade" id="validatecoupons">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel"> Validar Groupones</h3>
+                <a href="http://www.migroupon.com/#code" data-toggle="modal">
+                    <span class="icon-question-sign"></span>
+                </a>
+            </div>
+
+            <div id="contModal" class="modal-body modal-validate">				
+                <div id="one-validate" class="one-validate validation-box">
+                    <input type="hidden" id="couponCode" value="-1">
+                    <div class="control-group">
+                        <input type="text" class="couponCode single-input input reseteableOnChange" placeholder="Ingrese código de validación">
+                        <button class="btn btn-warning btn-large searchCoupon findCoupon single" data-validate="one-validate" data-original-title="Buscador de Groupones">
+                            <i class="iconSearch"></i>
+                            <span>Buscar</span>
+                        </button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="validation-result">
+                        <p class="alert alert-success message validation-success" style="display:none">
+                            <span></span>
+                        </p>
+                        <p class="alert alert-error message validation-error" style="display:none">
+                            <span></span>
+                        </p>
+                        <div id="validation-details">
+                            <p class="message" style="display:none;">Información del Groupon</p>
+
+                            <p id="coupon-status" class="message coupon-details">
+                                <strong>Estado del Groupon: </strong>
+                                <span></span>
+                            </p>
+                            <p id="coupon-status-payment" class="message coupon-details">
+                                <strong>Estado del pago: </strong>
+                                <span></span>
+                            </p>
+                            <p id="coupon-checked-date" class="message coupon-details">
+                                <strong>Fecha de uso: </strong>
+                                <span></span>
+                            </p>
+                        </div>
+                    </div>			</div>
+                <div id="multi-validate" class="multi-validate validation-box">
+                    <div class="control-group">
+                        <div class="control-group">
+                            <textarea class="couponCode multi-input reseteableOnChange" placeholder="Separe múltiples códigos con coma. ej: PE12345678,PE12345679"></textarea>
+                            <button class="btn btn-warning btn-large findCouponsBatch" data-validate="multi-validate" data-original-title="Buscador de Groupones">
+                                <span>Validar</span>
+                            </button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="validation-result">
+                            <p class="alert alert-success message validation-success" style="display:none">
+                                <span></span>
+                            </p>
+                            <p class="alert alert-error message validation-error" style="display:none">
+                                <span></span>
+                            </p>
+                            <div class="validation-error-codes">
+                                <div class="codes">
+
+                                </div>
+                            </div>
+                        </div>				</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal form add info-->
+        <div class="modal hide fade" id="info-cupon">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <!--<h3 id="myModalLabel">Agregar información sobre tus clientes</h3>-->
+                <h3 id="myModalLabelInfo">Editar información sobre tus clientes</h3>
+            </div>
+            <!--form class="form-horizontal form-line"-->
+            <form class="form-horizontal form-line" enctype="multipart/form-data" id="CustomerInfoForm" method="post" action="http://www.migroupon.com/customers/add" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div>  <div class="alert alert-error" id="addUserMetadaError" style="display:none">
+                    Debe ingresar por lo menos el nombre del cliente
+                </div>
+                <input type="hidden" name="data[Customer][customer_id]" value="" id="CustomerId">  <input type="hidden" name="data[Customer][deal_id]" id="ci_deal_id">  <input type="hidden" name="data[Customer][deal_partner_id]" id="ci_deal_partner_id">  <input type="hidden" name="data[Customer][validation_code]" value="" id="ci_validation_code">  <input type="hidden" name="data[Customer][code]" value="" id="ci_code">	<div class="modal-body">
+                    <p>Esta herramienta es muy útil para tu negocio. Te recomendamos usarla ya que con ella podrás crear una sólida base de datos y tener un registro del comportamiento de cada cliente.</p>
+                    <div class="control-group">
+                        <label class="control-label">Nombre:</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_726188753" class="input" style="">
+                                <div class="group">
+                                    <div class="text ">
+                                        <input name="data[Customer][name]" type="text" class="reseteableOnChange" id="CustomerName"><p class="text-error"></p>
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">E-mail:</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_101929273" class="input" style="">
+                                <div class="group">
+                                    <div class="text ">
+                                        <input name="data[Customer][email]" type="text" class="" id="CustomerEmail">
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Teléfono:</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_2104460279" class="input" style="">
+                                <div class="group">
+                                    <div class="text ">
+                                        <input name="data[Customer][phone]" type="text" class="" id="CustomerPhone">
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Sexo</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_2135442841" class="input" style="">
+                                <div class="group">
+                                    <div class="select ">
+                                        <select name="data[Customer][gender]" class="" fields="" id="CustomerGender">
+                                            <option value="">Seleccione</option>
+                                            <option value="male">Masculino</option>
+                                            <option value="female">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Primera visita:</label>
+                        <div class="controls">
+                            <label class="checkbox inline">
+                                <input type="hidden" value="0" id="visit_" name="data[Customer][first_visit]">
+                                <input type="checkbox" id="visit" value="1" class="checkbox" name="data[Customer][first_visit]">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Consumo total:</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_1062651713" class="input" style="">
+                                <div class="group">
+                                    <div class="text ">
+                                        <input name="data[Customer][total_bill]" type="text" class="" id="CustomerTotalBill">
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Notas:</label>
+                        <div class="controls">
+                            <div id="CustomerInfoForm_section_745848496" class="input" style="">
+                                <div class="group">
+                                    <div class="textarea  ">
+                                        <textarea name="data[Customer][notes]" class="" rows="4" cols="40" id="CustomerNotes"></textarea>
+                                    </div>
+                                </div>
+                            </div>		</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary submitCustomerInfo"  id="CustomerInfoFormSubmit">Guardar</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                </div>
+            </form></div>
+
+        <!-- modal search coupons-->
+        <div class="modal hide fade searchcoupons" id="searchCoupons">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Buscador de Groupones</h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+        <div class="banners">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <a href="http://www.grouponempresas.com/" target="_blank">
+                <div class="banner-inner">
+                    <h3>¿Ya conoces <img src="./Mi Groupon · Admin_files/logo_empresas.jpg" alt="Groupon empresas"> ?</h3>
+                    <p>Infórmate aquí acerca de los beneficios de estar en Groupon</p>
+                </div>
+            </a> 
+            <div class="foot"></div>
+        </div>
+        <section id="wrapper">
+            <script type="text/javascript">
+                var gaugeChartsToRender = 5;
+                var couponCode = '';
+                var couponsGraph = '{"DAY_SOLD":{"start_date":"Saturday 17 de January","end_date":"Sunday 15 de February","categories":{"bottom":["17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10","11","12","13","14","15"],"tooltip":["17 de January","18 de January","19 de January","20 de January","21 de January","22 de January","23 de January","24 de January","25 de January","26 de January","27 de January","28 de January","29 de January","30 de January","31 de January"," 1 de February"," 2 de February"," 3 de February"," 4 de February"," 5 de February"," 6 de February"," 7 de February"," 8 de February"," 9 de February","10 de February","11 de February","12 de February","13 de February","14 de February","15 de February"]},"data":["4",0,"3",0,"4","5",0,0,0,"7","6","3","9","3","3",0,"9","1","4","3","3",0,"3","2","7","6","10","1",0,0]},"DAY_USED":{"start_date":"Saturday 17 de January","end_date":"Sunday 15 de February","categories":{"bottom":["17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10","11","12","13","14","15"],"tooltip":["17 de January","18 de January","19 de January","20 de January","21 de January","22 de January","23 de January","24 de January","25 de January","26 de January","27 de January","28 de January","29 de January","30 de January","31 de January"," 1 de February"," 2 de February"," 3 de February"," 4 de February"," 5 de February"," 6 de February"," 7 de February"," 8 de February"," 9 de February","10 de February","11 de February","12 de February","13 de February","14 de February","15 de February"]},"data":["7",0,"3",0,0,0,0,0,0,0,0,0,0,"1","10",0,0,0,0,0,0,"24",0,0,0,0,0,0,"15",0]},"WEEK_SOLD":{"start_date":"Sunday  2 de November","end_date":"Sunday 15 de February","categories":{"bottom":[" 2 Nov"," 9 Nov","16 Nov","23 Nov","30 Nov"," 7 Dec","14 Dec","21 Dec","28 Dec"," 4 Jan","11 Jan","18 Jan","25 Jan"," 1 Feb"," 8 Feb","15 Feb"],"tooltip":[" 2 de November"," 9 de November","16 de November","23 de November","30 de November"," 7 de December","14 de December","21 de December","28 de December"," 4 de January","11 de January","18 de January","25 de January"," 1 de February"," 8 de February","15 de February"]},"data":["5","5","34","33","40","16","8","2","3",0,"3","9","12","31","23","26"]},"WEEK_USED":{"start_date":"Sunday  2 de November","end_date":"Sunday 15 de February","categories":{"bottom":[" 2 Nov"," 9 Nov","16 Nov","23 Nov","30 Nov"," 7 Dec","14 Dec","21 Dec","28 Dec"," 4 Jan","11 Jan","18 Jan","25 Jan"," 1 Feb"," 8 Feb","15 Feb"],"tooltip":[" 2 de November"," 9 de November","16 de November","23 de November","30 de November"," 7 de December","14 de December","21 de December","28 de December"," 4 de January","11 de January","18 de January","25 de January"," 1 de February"," 8 de February","15 de February"]},"data":["11","5","17","25","29",0,"24","4","5","1","3","7","3","11","24","15"]},"MONTH_SOLD":{"start_date":"March del 2014","end_date":"February del 2015","categories":{"bottom":["Mar<br>2014","Apr<br>2014","May<br>2014","Jun<br>2014","Jul<br>2014","Aug<br>2014","Sep<br>2014","Oct<br>2014","Nov<br>2014","Dec<br>2014","Jan<br>2015","Feb<br>2015"],"tooltip":["March del 2014","April del 2014","May del 2014","June del 2014","July del 2014","August del 2014","September del 2014","October del 2014","November del 2014","December del 2014","January del 2015","February del 2015"]},"data":["17","3","23","19","26","61","51","76","112","29","55","49"]},"MONTH_USED":{"start_date":"March del 2014","end_date":"February del 2015","categories":{"bottom":["Mar<br>2014","Apr<br>2014","May<br>2014","Jun<br>2014","Jul<br>2014","Aug<br>2014","Sep<br>2014","Oct<br>2014","Nov<br>2014","Dec<br>2014","Jan<br>2015","Feb<br>2015"],"tooltip":["March del 2014","April del 2014","May del 2014","June del 2014","July del 2014","August del 2014","September del 2014","October del 2014","November del 2014","December del 2014","January del 2015","February del 2015"]},"data":["12","5","14","15","12","48","51","62","76","34","26","46"]}}';
+            </script>
+            <script type="text/javascript" src="/js/admin/graphics-dashboard.js"></script><section id="content-inner" class="clearfix">
+                <h1 class="lower">One Peru Travel</h1> <h2>Inicio</h2>
+
+                <section class="content cont-data clearfix">
+                    <div class="box-validate">
+                        <div class="moduleHeader clearfix">
+                            <a id="showValidate" class="link-collapse" data-toggle="collapse" href="http://www.migroupon.com/#conValidate"> <span class="icon-arrow-up"></span> Ocultar</a>
+                            <h4>
+                                Validar Groupones
+                            </h4>
+                            <a href="http://www.migroupon.com/#code" data-toggle="modal">
+                                <span class="icon-question-sign bttooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="¿Dónde encuentro el código de validación?"></span>
+                            </a>
+                        </div>
+                        <div id="conValidate" class="moduleContent clearfix collapse in">
+                            <div class="left-side">
+                                <div class="tab-triangle"></div>
+                                <div class="tab active validator">
+                                    <a id="validate-single-main" href="http://www.migroupon.com/#" data-toggle="one-validate">
+                                        <span class="icon-barcode"></span><span>Por uno</span>
+                                    </a>
+                                </div>
+                                <div class="tab validator">
+                                    <a id="validate-multi-main" href="http://www.migroupon.com/#" data-toggle="multi-validate">
+                                        <span class="icon-barcode"></span><span>Por varios</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="right-side">
+                                <div class="payment-date">
+                                    <p>Para conocer la fecha de tu próximo pago, haz click <a href="http://www.migroupon.com/files/CalendarioPagos2014_PE.pdf" target="blank">aquí</a></p>
+                                </div>
+                                <div id="single-validate-widget" class="one-validate contTab">
+                                    <div class="control-group">
+                                        <input type="text" class="couponCode single-input input reseteableOnChange" id="single-code-validation" placeholder="Ingrese código de validación">
+                                        <button class="btn btn-warning validate-coupon" data-validate="one-validate">
+                                            <i class="iconSearch"></i>
+                                            <span>Validar</span>
+                                        </button>
+                                        <button class="btn btn-small btn-primary find-coupon">
+                                            <span>Consultar</span>
+                                        </button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="validation-result">
+                                        <p class="alert alert-success message validation-success" style="display:none">
+                                            <a class="close" data-dismiss="alert" href="http://www.migroupon.com/#">×</a>
+                                            <span></span>
+                                        </p>
+                                        <p class="alert alert-error message validation-error" style="display:none">
+                                            <a class="close" data-dismiss="alert" href="http://www.migroupon.com/#">×</a>
+                                            <span></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="multi-validate-widget" class="multi-validate contTab" style="display: none;">
+                                    <div class="control-group">
+                                        <textarea class="couponCode multi-input reseteableOnChange" placeholder="Separe múltiples códigos con coma. ej: PE12345678,PE12345679"></textarea>
+                                        <button class="btn btn-warning btn-large findCouponsBatch" data-validate="multi-validate" data-original-title="Buscador de Groupones">
+                                            <span>Validar</span>
+                                        </button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="validation-result">
+                                        <p class="alert alert-success message validation-success" style="display:none">
+                                            <span></span>
+                                        </p>
+                                        <p class="alert alert-error message validation-error" style="display:none">
+                                            <span></span>
+                                        </p>
+                                        <div class="validation-error-codes">
+                                            <div class="codes">
+
+                                            </div>
+                                        </div>
+                                    </div>      </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modal validar codigo-->
+                    <div class="modal hide fade" id="code">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">¿Dónde encuentro el código de validación?</h3>
+                        </div>
+                        <form class="form-horizontal form-line">
+                            <div class="modal-body">
+                                <img alt="Ejemplo de donde encontrar el codigo" src="./Mi Groupon · Admin_files/codigogroupon_PE.jpg">
+                            </div>
+                        </form>
+                    </div>		<div class="boxes-merchant partner-profile">
+                        <div class="moduleHeader">
+                            <a id="showPartner" class="link-collapse" data-toggle="collapse" href="http://www.migroupon.com/#ContPm"> <span class="icon-arrow-up"></span> Ocultar</a> Partner Management
+                        </div>
+                        <div id="ContPm" class="moduleContent clearfix collapse in">
+                            <div class="inner">
+                                <div style="display:none;" class="alert-success" id="pm-msg-enviado">
+                                    <span class="icon-ok"></span> Tu consulta fue enviada satisfactoriamente.
+                                </div>
+                                <div class="contPartnerProfile">
+                                    <div class="info-pm" style="width: 480px;">
+                                        <span>Para contactarte con tu Partner Manager, puedes escribir a <a href="mailto:socios.pe@groupon.com">socios.pe@groupon.com</a> o hacer click en <a id="contact-pm-opt" href="http://www.migroupon.com/#contact-pm" data-toggle="modal" class="btn btn-large btn-success">Contactar a PM</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modal contactar pm -->
+                    <div class="modal hide fade" id="contact-pm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Contactar a mi PM</h3>
+                        </div>
+                        <form class="form-horizontal form-line">
+                            <div class="modal-body">
+                                <fieldset>
+                                    <div id="dealIdSelect" class="control-group">
+                                        <label class="control-label" for="inputEmail">ID Campaña</label>
+                                        <div class="controls">
+                                            <select name="deal_id" id="contact-pm-deal-id">
+                                                <option value="0">Ninguna en particular</option>
+                                                <option value="1002363609" data-title="Desde S/.129 por full day en Ica y Paracas + tubulares + sandboard + desayuno + traslados con One Perú Travel. Elige fecha">1002363609</option>                    <option value="1002362029" data-title="Ica: desde S/.199 por 1 o 2 noches para dos + desayunos en Villa Jazmín">1002362029</option>                    <option value="1002350708" data-title="Vichayito: desde S/.289 por 2 noches para dos + desayunos en Aquarena. Elige habitación">1002350708</option>                    <option value="1002284893" data-title="Valle de Colca: desde S/.395 por 2 o 3 noches para dos + desayuno buffet + actividades en El Refugio del Colca">1002284893</option>                    <option value="1002283740" data-title="S/.135 en vez de S/.270 por full day en Ica y Paracas + tubulares + sandboard + desayuno + traslados con One Perú Travel">1002283740</option>              </select>
+                                            <p id="dealIdSelect-error" class="text-error"></p>
+                                            <!--<input type="text" name="deal_id" id="contact-pm-deal-id" value="">-->
+                                        </div>
+                                    </div>
+                                    <div style="display:none" id="publication_title" class="control-group">
+                                        <label class="control-label" for="inputEmail">Título de publicación</label>
+                                        <div class="controls">
+                                            <p style="display:none" id="contentTitle"></p>
+                                        </div>
+                                    </div>
+                                    <div id="contactReason" class="control-group">
+                                        <label class="control-label" for="inputEmail">Motivo a consultar</label>
+                                        <div class="controls">
+                                            <select name="topic" id="contact-pm-topic" class="reseteableOnChange">
+                                                <option value="0">Selecciona</option>
+                                                <option>Consultas acerca de la emisión de boletas</option>
+                                                <option>Devoluciones de Groupones</option>
+                                                <option>Interés en volver a publicar</option>
+                                                <option>Modificar datos de pago y/o facturación</option>
+                                                <option>Problemas en la publicación</option>
+                                                <option>Problemas con facturas</option>
+                                                <option>Problema con algún cliente</option>
+                                                <option>Pagos y liquidaciones</option>
+                                                <option>Solicitar cambio de password</option>
+                                                <option>Validación de Groupones</option>
+                                                <option>Otro</option>
+                                            </select>
+                                            <p id="contactReason-error" class="text-error"></p>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="inputEmail">Comentarios</label>
+                                        <div class="controls">
+                                            <textarea name="message" placeholder="Escribe tus comentarios aquí" id="contact-pm-message" rows="4" cols="40" class="reseteableOnChange"></textarea>
+                                            <p id="contact-pm-error" class="text-error"></p>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" id="contact-pm-btn" data-loading-text="Enviar" type="button">Enviar</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>		<div class="cupons-validated clearfix">
+                        <div class="moduleHeader">Últimos Groupones validados</div>
+                        <input type="hidden" id="partnerId" value="86455">
+                        <div id="lastUsedCoupons" class="moduleContent"><table class="table">
+                                <colgroup>
+                                    <col width="25%">
+                                    <col width="25%">
+                                    <col width="25%">
+                                    <col width="25%">
+                                </colgroup>
+                                <tbody>
+                                    <tr destacado="">
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Código del Groupon">PE7800631779</td>
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de validación ">14-02-2015</td>
+                                        <td><a href="http://www.migroupon.com/admin/deals/view/1002350709" class="bttooltip" data-toggle="tooltip" data-placement="right" data-original-title="Ver esta Publicación">1002350709</a></td>
+                                        <td class="middle">
+                                            <a id="customer-1002350709-PE7800631779-1D229" class="btn btn-mini btn-success CustomerInfoFormOpt" href="http://www.migroupon.com/#info-cupon" data-toggle="modal" validation_code="PE7800631779" code="1D229" deal_id="1002350709" deal_partner_id="6587468"><span class="icon-plus"></span> Agregar</a>
+                                        </td>
+                                    </tr>
+                                    <tr destacado="">
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Código del Groupon">PE9872670932</td>
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de validación ">14-02-2015</td>
+                                        <td><a href="http://www.migroupon.com/admin/deals/view/1002350709" class="bttooltip" data-toggle="tooltip" data-placement="right" data-original-title="Ver esta Publicación">1002350709</a></td>
+                                        <td class="middle">
+                                            <a id="customer-1002350709-PE9872670932-886F8" class="btn btn-mini btn-success CustomerInfoFormOpt" href="http://www.migroupon.com/#info-cupon" data-toggle="modal" validation_code="PE9872670932" code="886F8" deal_id="1002350709" deal_partner_id="6587468"><span class="icon-plus"></span> Agregar</a>
+                                        </td>
+                                    </tr>
+                                    <tr destacado="">
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Código del Groupon">PE7927050585</td>
+                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de validación ">14-02-2015</td>
+                                        <td><a href="http://www.migroupon.com/admin/deals/view/1002350709" class="bttooltip" data-toggle="tooltip" data-placement="right" data-original-title="Ver esta Publicación">1002350709</a></td>
+                                        <td class="middle">
+                                            <a id="customer-1002350709-PE7927050585-F1D84" class="btn btn-mini btn-success CustomerInfoFormOpt" href="http://www.migroupon.com/#info-cupon" data-toggle="modal" validation_code="PE7927050585" code="F1D84" deal_id="1002350709" deal_partner_id="6587468"><span class="icon-plus"></span> Agregar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="moduleFooter">
+                                <a href="http://www.migroupon.com/admin/coupons/index">Ver listado completo de Groupones validados</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="payment-box" class="my-payments">
+                        <div class="moduleHeader">Los pagos más recientes
+                            <div class="btn-group">
+                                <button class="btn active" data-toggle="tab" href="#payments">Liquidaciones</button>
+                                <button class="btn" data-toggle="tab" href="#bills">Facturas</button>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="payments">
+                                <div class="moduleContent">
+                                    <table class="table">
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="30%">
+                                            <col width="25%">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="http://www.migroupon.com/admin/settlements/details/5969314" class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Ver esta liquidación">5969314</a></td>
+                                                <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de emisión">13-02-2015</td>
+                                                <td class="bttooltip listTotal" data-toggle="tooltip" data-placement="top" data-original-title="Total">PEN S/. 0,00</td>
+                                                <td><a class="btn btn-mini" href="http://www.migroupon.com/admin/settlements/view/5969314"><img width="16" height="16" src="./Mi Groupon · Admin_files/pdf.png" alt="PDF"> Descargar</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="http://www.migroupon.com/admin/settlements/details/5969315" class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Ver esta liquidación">5969315</a></td>
+                                                <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de emisión">13-02-2015</td>
+                                                <td class="bttooltip listTotal" data-toggle="tooltip" data-placement="top" data-original-title="Total">PEN S/. 0,00</td>
+                                                <td><a class="btn btn-mini" href="http://www.migroupon.com/admin/settlements/view/5969315"><img width="16" height="16" src="./Mi Groupon · Admin_files/pdf.png" alt="PDF"> Descargar</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="http://www.migroupon.com/admin/settlements/details/5969212" class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Ver esta liquidación">5969212</a></td>
+                                                <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de emisión">13-02-2015</td>
+                                                <td class="bttooltip listTotal" data-toggle="tooltip" data-placement="top" data-original-title="Total">PEN S/. 0,00</td>
+                                                <td><a class="btn btn-mini" href="http://www.migroupon.com/admin/settlements/view/5969212"><img width="16" height="16" src="./Mi Groupon · Admin_files/pdf.png" alt="PDF"> Descargar</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="moduleFooter">
+                                        <a href="http://www.migroupon.com/admin/settlements/index/?t=listPayments">Ver listado completo de liquidaciones</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="bills">
+                                <div class="moduleContent">
+                                    <p class="no-data">No existen datos de facturas</p><table class="table">
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="30%">
+                                            <col width="25%">
+                                        </colgroup>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="historic">
+                        <div class="moduleHeader">Histórico de campañas</div>
+                        <div class="moduleContent clearfix">
+                            <div id="myHistoricCarousel" class="carousel slide">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <span class="data-history data-validated boxGraphic">
+                                            <span class="number">631</span>
+                                            <span class="detailSlide">
+                                                <img src="./Mi Groupon · Admin_files/icono_cupon.png">
+                                                <span>Groupones validados</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="data-history data-payed boxGraphic">
+                                            <span class="number">598</span>
+                                            <span class="detailSlide">
+                                                <img src="./Mi Groupon · Admin_files/icono_cupon_paid.png">
+                                                <span>Groupones pagados</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="data-history data-total boxGraphic">
+                                            <span class="number">PEN S/. 114.551</span>
+                                            <span class="detailSlide">
+                                                <img src="./Mi Groupon · Admin_files/icono_all_payments.png">
+                                                <span>Monto total pagado</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Carousel nav -->
+                                <a class="carousel-control left" href="http://www.migroupon.com/#myHistoricCarousel" data-slide="prev">‹</a>
+                                <a class="carousel-control right" href="http://www.migroupon.com/#myHistoricCarousel" data-slide="next">›</a>
+                                <!-- circles -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myHistoricCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myHistoricCarousel" data-slide-to="1" class=""></li>
+                                    <li data-target="#myHistoricCarousel" data-slide-to="2" class=""></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="presentCampaigns">
+                        <div class="moduleHeader">Campaña actual</div>
+                        <div class="moduleContent clearfix">
+                            <div class="active-deals">
+                                <h3>
+                                    1 Campaña Activa
+                                </h3>
+                                <table class="table table-bordered" id="activecampaignTable" data-campaignid="20150126006C000000wBOMWIA4" style="cursor: pointer;">
+                                    <colgroup>
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="45%">
+                                        <col width="15%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Activa desde</th>
+                                            <th>Activa hasta</th>
+                                            <th>Ubicación</th>
+                                            <th>Groupones vendidos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Revisa el detalle de esta campaña">
+                                            <td>26-01-2015</td>
+                                            <td>17-02-2015</td>
+                                            <td>
+                                                Lima,
+                                            </td>
+                                            <td>39</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="moduleFooter">
+                                    <a href="http://www.migroupon.com/admin/campaigns/index">Ver listado histórico de campañas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sales-redemptions-box">
+                        <div class="moduleHeader">Ventas y validaciones
+                            <div class="btn-group">
+                                <button class="btn graph-sold" data-toggle="tab" href="#sales">Ventas</button>
+                                <button class="btn graph-used active" data-toggle="tab" href="#redemptions">Validaciones</button>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="moduleContent cont-loading graphicTabs" style="display:none">
+                                <div>
+                                    <img src="./Mi Groupon · Admin_files/loadingSpinnerDotless.png">
+                                    <span>Cargando...</span>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="sales">
+                                <div class="moduleContent">
+                                    <div class="graph-filter">
+                                        <p>Estas viendo:</p>
+                                        <select class="couponsSelect" data_status="SOLD">
+                                            <option value="DAY">Los últimos 30 días</option>
+                                            <option value="WEEK">Los últimos 4 meses</option>
+                                            <option value="MONTH">Los últimos 12 meses</option>
+                                        </select>
+                                    </div>
+                                    <div class="graph-sales-redemptions">
+                                        <div id="couponsGraphSOLD"></div>
+                                        <p class="date-rank">Saturday 17 de January - Sunday 15 de February</p>
+                                        <p class="refundNote">Nota: El gráfico de ventas no incluye los cupones devueltos</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade active in" id="redemptions">
+                                <div class="moduleContent">
+                                    <div class="graph-filter">
+                                        <p>Estas viendo:</p>
+                                        <select class="couponsSelect" data_status="USED">
+                                            <option value="DAY">Los últimos 30 días</option>
+                                            <option value="WEEK">Los últimos 4 meses</option>
+                                            <option value="MONTH">Los últimos 12 meses</option>
+                                        </select>
+                                    </div>
+                                    <div class="graph-sales-redemptions">
+                                        <div id="couponsGraphUSED">
+                                       <div class="highcharts-container" id="highcharts-6" 
+                                            style="position: relative; overflow:hidden; width: 1040px; height: 250px; text-align: left; 
+                                            line-height: normal; z-index: 0; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif; 
+                                            font-size: 12px;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1040" height="250"><defs>
+                                           <clippath id="highcharts-7"><rect fill="none" x="0" y="0" width="998" height="210"></rect></clippath></defs>
+                                           <rect rx="5" ry="5" fill="#FFFFFF" x="0" y="0" width="1040" height="250" stroke-width="0.000001"></rect>
+                                           <g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1">
+                                           <path fill="none" d="M 32 150.5 L 1030 150.5" stroke="#C0C0C0" stroke-width="1" zIndex="1"></path>
+                                           <path fill="none" d="M 32 80.5 L 1030 80.5" stroke="#C0C0C0" stroke-width="1" zIndex="1"></path>
+                                           <path fill="none" d="M 32 10.5 L 1030 10.5" stroke="#C0C0C0" stroke-width="1" zIndex="1"></path>
+                                           <path fill="none" d="M 32 220.5 L 1030 220.5" stroke="#C0C0C0" stroke-width="1" zIndex="1"></path></g>
+                                           <g class="highcharts-axis" zIndex="2"><path fill="none" d="M 98.5 220 L 98.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 131.5 220 L 131.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 164.5 220 L 164.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 197.5 220 L 197.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 231.5 220 L 231.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 264.5 220 L 264.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 297.5 220 L 297.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 330.5 220 L 330.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 364.5 220 L 364.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 397.5 220 L 397.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 430.5 220 L 430.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 463.5 220 L 463.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 497.5 220 L 497.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 530.5 220 L 530.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 563.5 220 L 563.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 597.5 220 L 597.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 630.5 220 L 630.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 663.5 220 L 663.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 696.5 220 L 696.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 730.5 220 L 730.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 763.5 220 L 763.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 796.5 220 L 796.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 829.5 220 L 829.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 863.5 220 L 863.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 896.5 220 L 896.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 929.5 220 L 929.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 962.5 220 L 962.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 996.5 220 L 996.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 1029.5 220 L 1029.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 64.5 220 L 64.5 225" stroke="#C0D0E0" stroke-width="1"></path>
+                                           <path fill="none" d="M 32 220.5 L 1030 220.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g>
+                                           <g class="highcharts-axis" zIndex="2"></g>
+                                           <g class="highcharts-series-group" zIndex="3">
+                                           <g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(32,10)" clip-path="url(#highcharts-7)">
+                                           <rect fill="none" x="8.5" y="160.5" width="15" height="49" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" 
+                                                 stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect>
+                                           <rect fill="none" x="8.5" y="160.5" width="15" height="49" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" 
+                                                 stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect>
+                                           <rect fill="none" x="8.5" y="160.5" width="15" height="49" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" 
+                                                 stroke-opacity="0.15" transform="translate(1, 1)"></rect>
+                                           <rect fill="#7aa34b" x="8.5" y="160.5" width="15" height="49" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="41.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="41.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="41.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="41.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="75.5" y="188.5" width="15" height="21" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="75.5" y="188.5" width="15" height="21" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="75.5" y="188.5" width="15" height="21" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="75.5" y="188.5" width="15" height="21" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="108.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="108.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="108.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="108.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="141.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="141.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="141.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="141.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="174.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="174.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="174.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="174.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="208.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="208.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="208.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="208.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="241.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="241.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="241.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="241.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="274.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="274.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="274.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="274.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="308.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="308.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="308.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="308.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="341.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="341.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="341.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="341.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="374.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="374.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="374.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="374.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="407.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="407.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="407.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="407.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="441.5" y="202.5" width="15" height="7" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="441.5" y="202.5" width="15" height="7" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="441.5" y="202.5" width="15" height="7" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="441.5" y="202.5" width="15" height="7" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="474.5" y="139.5" width="15" height="70" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="474.5" y="139.5" width="15" height="70" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="474.5" y="139.5" width="15" height="70" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="474.5" y="139.5" width="15" height="70" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="507.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="507.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="507.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="507.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="540.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="540.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="540.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="540.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="574.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="574.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="574.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="574.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="607.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="607.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="607.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="607.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="640.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="640.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="640.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="640.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="673.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="673.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="673.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="673.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="707.5" y="41.5" width="15" height="168" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="707.5" y="41.5" width="15" height="168" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="707.5" y="41.5" width="15" height="168" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="707.5" y="41.5" width="15" height="168" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="740.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="740.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="740.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="740.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="773.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="773.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="773.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="773.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="807.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="807.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="807.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="807.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="840.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="840.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="840.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="840.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="873.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="873.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="873.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="873.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="906.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="906.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="906.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="906.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="940.5" y="104.5" width="15" height="105" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="940.5" y="104.5" width="15" height="105" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="940.5" y="104.5" width="15" height="105" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="940.5" y="104.5" width="15" height="105" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect><rect fill="none" x="973.5" y="209.5" width="15" height="0" stroke-width="5" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect fill="none" x="973.5" y="209.5" width="15" height="0" stroke-width="3" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect fill="none" x="973.5" y="209.5" width="15" height="0" stroke-width="1" stroke="black" rx="2" ry="2" isShadow="true" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect fill="#7aa34b" x="973.5" y="209.5" width="15" height="0" stroke-width="1" stroke="#FFFFFF" rx="2" ry="2"></rect></g><g class="highcharts-markers" visibility="visible" zIndex="0.1" transform="translate(32,10)"></g></g><g class="highcharts-axis-labels" zIndex="7"><text x="48.63333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="48.63333333333333">17</tspan></text><text x="81.9" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="81.9">18</tspan></text><text x="115.16666666666666" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="115.16666666666666">19</tspan></text><text x="148.43333333333334" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="148.43333333333334">20</tspan></text><text x="181.7" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="181.7">21</tspan></text><text x="214.96666666666667" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="214.96666666666667">22</tspan></text><text x="248.23333333333335" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="248.23333333333335">23</tspan></text><text x="281.5" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="281.5">24</tspan></text><text x="314.76666666666665" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="314.76666666666665">25</tspan></text><text x="348.0333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="348.0333333333333">26</tspan></text><text x="381.3" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="381.3">27</tspan></text><text x="414.56666666666666" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="414.56666666666666">28</tspan></text><text x="447.8333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="447.8333333333333">29</tspan></text><text x="481.09999999999997" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="481.09999999999997">30</tspan></text><text x="514.3666666666667" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="514.3666666666667">31</tspan></text><text x="547.6333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="547.6333333333333"> 1</tspan></text><text x="580.9" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="580.9"> 2</tspan></text><text x="614.1666666666666" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="614.1666666666666"> 3</tspan></text><text x="647.4333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="647.4333333333333"> 4</tspan></text><text x="680.6999999999999" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="680.6999999999999"> 5</tspan></text><text x="713.9666666666667" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="713.9666666666667"> 6</tspan></text><text x="747.2333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="747.2333333333333"> 7</tspan></text><text x="780.5" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="780.5"> 8</tspan></text><text x="813.7666666666667" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="813.7666666666667"> 9</tspan></text><text x="847.0333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="847.0333333333333">10</tspan></text><text x="880.3" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="880.3">11</tspan></text><text x="913.5666666666666" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="913.5666666666666">12</tspan></text><text x="946.8333333333333" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="946.8333333333333">13</tspan></text><text x="980.1" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="980.1">14</tspan></text><text x="1013.3666666666667" y="234" style="font-family:Verdana, sans-serif;font-size:12px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="middle" visibility="visible"><tspan x="1013.3666666666667">15</tspan></text></g><g class="highcharts-axis-labels" zIndex="7"><text x="24" y="224.1" style="font-family:'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;font-size:11px;width:479px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="end" visibility="visible"><tspan x="24">0</tspan></text><text x="24" y="154.1" style="font-family:'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;font-size:11px;width:479px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="end" visibility="visible"><tspan x="24">10</tspan></text><text x="24" y="84.1" style="font-family:'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;font-size:11px;width:479px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="end" visibility="visible"><tspan x="24">20</tspan></text><text x="24" y="14.1" style="font-family:'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;font-size:11px;width:479px;color:#cccccc;line-height:14px;fill:#cccccc;" text-anchor="end" visibility="visible"><tspan x="24">30</tspan></text></g><g class="highcharts-tooltip" zIndex="8" style="padding:0;white-space:nowrap;" visibility="hidden"><rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="5" fill-opacity="0.85" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" transform="translate(1, 1)"></rect><rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="3" fill-opacity="0.85" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" transform="translate(1, 1)"></rect><rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="1" fill-opacity="0.85" isShadow="true" stroke="black" stroke-opacity="0.15" transform="translate(1, 1)"></rect><rect rx="5" ry="5" fill="rgb(255,255,255)" x="0" y="0" width="10" height="10" stroke-width="2" fill-opacity="0.85"></rect><text x="5" y="18" style="font-family:'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;font-size:12px;color:#333333;fill:#333333;" zIndex="1"></text></g><g class="highcharts-tracker" zIndex="9"><g visibility="visible" zIndex="1" transform="translate(32,10)" clip-path="url(#highcharts-7)"><rect fill="rgb(192,192,192)" x="8.5" y="160.5" width="15" height="49" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="41.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="75.5" y="188.5" width="15" height="21" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="108.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="141.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="174.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="208.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="241.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="274.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="308.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="341.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="374.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="407.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="441.5" y="202.5" width="15" height="7" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="474.5" y="139.5" width="15" height="70" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="507.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="540.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="574.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="607.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="640.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="673.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="707.5" y="41.5" width="15" height="168" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="740.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="773.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="807.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="840.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="873.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="906.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="940.5" y="104.5" width="15" height="105" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect><rect fill="rgb(192,192,192)" x="973.5" y="207" width="15" height="6" isTracker="1424006128445" fill-opacity="0.000001" visibility="visible" style=""></rect></g></g></svg></div></div>
+                                        <p class="date-rank">Saturday 17 de January - Sunday 15 de February</p>
+                                        <p class="refundNote">Nota: El gráfico de ventas no incluye los cupones devueltos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>							</section>
+            </section>
+
+            <!-- modal republicar -->
+            <div class="modal hide fade" id="indexRepublish">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Contactar a mi Partner Manager</h3>
+                </div>
+                <form class="form-horizontal form-line">
+                    <div class="modal-body">
+                        <div id="succesNewRepublish" class="alert alert-success" style="display:none">
+                            Tu solicitud de "Publicar una nueva campaña" ha sido enviada con éxito.
+                        </div>
+                        <div id="succesRepublish" class="alert alert-success" style="display:none">
+                            Tu solicitud de "Republicar una campaña" ha sido enviada con éxito.
+                        </div>
+                        <div class="control-group" id="IndexcontactReason">
+                            <label class="control-label">Motivo a solicitar</label>
+                            <div class="controls">
+                                <select id="reason" class="reseteableOnChange">
+                                    <option value="0">Selecciona</option>
+                                    <option value="Publicar una nueva campaña">Publicar una nueva campaña</option>
+                                    <option value="Republicar una campaña">Republicar una campaña</option>
+                                </select>
+                                <p id="IndexcontactReason-error" class="text-error"></p>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Comentarios</label>
+                            <div class="controls">
+                                <textarea rows="4" cols="100" id="message" class="reseteableOnChange"></textarea>
+                                <p id="indexRepublish-error" class="text-error"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="indexRepublish_btn" type="button" data-loading-text="Enviar">Enviar</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.carousel').carousel()
+                    $.post('/admin/ajax_get_last_used_coupons_for_partner/' + 86455, function (data) {
+                        $('#lastUsedCoupons').html(data);
+                        $('.CustomerInfoFormOpt').click(CustomerInfoButtonClick);
+                    });
+                });
+            </script>
+        </section>
+        <footer>
+            <section class="inner">
+                <strong>¿Necesitas ayuda? <a href="mailto:socios.pe@groupon.com">socios.pe@groupon.com</a></strong>
+                <p>Copyright 2015 Groupon, Inc. All right reserved.</p>
+            </section>
+        </footer>					<script type="text/javascript">window.NREUM || (NREUM = {});
+            NREUM.info = {"beacon": "beacon-6.newrelic.com", "licenseKey": "3df9f10f6b", "applicationID": "1242870", "transactionName": "M1AEZURUWRBWUhVZCgoaJ1JCXFgNGFAFXQwKGg9fUlBP", "queueTime": 0, "applicationTime": 1582, "ttGuid": "", "agentToken": "", "userAttributes": "", "errorBeacon": "bam.nr-data.net", "agent": "js-agent.newrelic.com\/nr-476.min.js"}</script>
+        <div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancy-bg" id="fancy-bg-n"></div><div class="fancy-bg" id="fancy-bg-ne"></div><div class="fancy-bg" id="fancy-bg-e"></div><div class="fancy-bg" id="fancy-bg-se"></div><div class="fancy-bg" id="fancy-bg-s"></div><div class="fancy-bg" id="fancy-bg-sw"></div><div class="fancy-bg" id="fancy-bg-w"></div><div class="fancy-bg" id="fancy-bg-nw"></div><div id="fancybox-inner"></div><a id="fancybox-close"></a><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><script src="/js/admin/nr-476.min.js"></script><script type="text/javascript" src="/js/admin/3df9f10f6b"></script></body></html>

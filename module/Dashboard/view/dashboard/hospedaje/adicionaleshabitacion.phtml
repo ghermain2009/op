@@ -1,0 +1,12 @@
+<label for="adicionales_habitacion[]" class="col-lg-4 control-label">Adicionales :</label>
+<div class="col-xs-9"> 
+<?php $contador = 0;
+    foreach ($adicionales as $adicionalHab) {
+      $contador++; ?>
+      <div class="checkbox">
+          <label>
+              <input type="checkbox" name="adicionales_habitacion[]" id="adicionales_habitacion[]" value="<?php echo $adicionalHab['id_adicionales']; ?>" <?php if($adicionalHab['seleccionado'] != '0') { ?>checked<?php } ?>> <?php echo $adicionalHab['descripcion_adicionales']; ?>
+          </label>
+      </div>
+<?php } ?>
+</div>

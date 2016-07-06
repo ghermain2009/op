@@ -1,0 +1,241 @@
+<?php echo $this->doctype(); 
+use Zend\Session\Container;
+
+$user_session = new Container('user');
+
+?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Rebueno - Pago')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+                ->appendHttpEquiv('Pragma', 'no-cache')
+                ->appendHttpEquiv('Cache-Control', 'no-cache')
+                ->appendHttpEquiv('Expires', 'Sat, 1 Jan 2000 00:00:00 GMT');
+ 
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                //->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/style-op.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-social.css')
+                ->prependStylesheet($this->basePath() . '/css/docs.css')
+                ->prependStylesheet($this->basePath() . '/css/font-awesome.css')
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/jquery.maskedinput.min.js')
+                ->prependFile($this->basePath() . '/js/validator.min.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ;
+        ?>
+
+    </head>
+    <body>
+        <div class="container">
+            <header class="header_payment">
+                <div class="box_center">
+                    <div class="compra">
+                        <div><span class="logo3"></span></div>
+                        <div><span>Proceso de Compra</span></div>
+                    </div>
+                    <div class="compra"><i></i>
+                        <div><bo class="btn btn-facebook"><i class="fa fa-phone"></i></bo></div><div><span>¿Necesitas ayuda?</span><span>Solicita asistencia al <?php echo $telefono_empresa;?></span><span class="soft_font">Horario: L-V 8:00 - 20:00 S-D/F 10:00 - 14:00</span></div>
+                    </div>
+                    <div class="compra"><i></i>
+                        <div><span>Compras 100% seguras</span><span class="soft_font">SSL Encryption</span></div>
+                    </div>
+                </div>
+            </header>
+
+        </div>
+        <div class="container">
+            <?php echo $this->content; ?>
+
+        </div> <!-- /container -->
+        <div class="footer_rebueno">
+            <hr class="footer-line">
+            <div class="container">
+                <footer>
+                    <div class="box_center">
+                        <div class="box_center">
+                            <div class="col_footer contact">
+                                <h3>De Interés</h3>
+                                <ul>
+                                    <li><a href="/interes" title="Sobre Rebueno">Sobre Rebueno</a></li>
+                                    <li><a href="/interes/comofunciona">¿Cómo funciona?</a></li>
+                                    <li><a href="/interes/preguntasfrecuentes" title="Preguntas frecuentes">Preguntas frecuentes</a></li>
+                                    <li><a href="/interes/terminosycondiciones" title="Términos y Condiciones">Términos y Condiciones</a></li>
+                                    <li><a href="/interes/contactanos" title="Contáctanos">Contáctanos</a></li>
+                                    <li><a href="/interes/politicasdeprivacidad" title="Políticas de Privacidad">Políticas de Privacidad</a></li>
+                                    <li><a href="/interes/mapadesitio" title="Mapa del sitio">Mapa del sitio</a></li>
+                                </ul>
+                            </div>
+                            <div class="col_footer contact">
+                                <h3>Socios Rebueno</h3>
+                                <ul>
+                                    <li><a href="/dashboard" title="Ingresa a tu cuenta de socio">Ingresa a tu cuenta de socio</a></li>
+                                    <!--li><a href="/paginas/contacto-retailer" title="Contáctanos" class="inline_modal">Contáctenos</a></li-->
+                                </ul>
+                            </div>
+                            <div class="col_footer contactanos">
+                                <h3>Contáctanos</h3>
+                                <ul>
+                                    <li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-phone"></i></span>
+                                        <div><?php echo $telefono_empresa;?></div>
+                                    </li>
+                                    <li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-envelope"></i></span>
+                                        <div><a href="mailto:clientes@rebueno.ec" title="clientes@rebueno.ec">clientes@rebueno.ec</a><br/><a href="mailto:socios@rebueno.ec" title="socios@rebueno.ec">socios@rebueno.ec</a></div>
+                                    </li>
+                                    <li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-clock-o"></i></span>
+                                        <div>L-V 8:00 - 20:00<br>S-D/F 10:00 - 14:00</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col_footer social">
+                                <h3>Síguenos en</h3>
+                                <ul>
+                                    <li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-facebook"></i></span>
+                                        <a href="https://www.facebook.com/people/Rebueno-Ecuador/100010002690223" target="_blank" title="Rebueno-Ecuador">Rebueno-Ecuador</a>
+                                    </li>
+                                    <li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-twitter"></i></span>
+                                        <a href="https://twitter.com/RebuenoEC" target="_blank" title="@RebuenoEC">@RebuenoEC</a>
+                                    </li>
+                                    <!--li>
+                                        <span class="btn-social-icon btn-lg btn-github"><i class="fa fa-google-plus"></i></span>
+                                        <a href="https://www.facebook.com/RebuenoEcuador" target="_blank" title="RebuenoEcuador">RebuenoEcuador</a>
+                                    </li-->
+                                </ul>
+                            </div>
+                        </div>
+                        <hr class="footer-line">
+                        <div class="payment_methods"><span>Compras 100% seguras con:</span>
+                            <a href="https://pagoefectivo.pe/" title="Pago Efectivo" target="_blank" class="payment pe"></a>
+                            <a href="http://www.companiaperuanademediosdepago.pe/visanet_new/home.html" title="Visa" target="_blank" class="payment visa"></a>
+                            <a href="http://www.companiaperuanademediosdepago.pe/visa.htm" title="Verified by Visa" target="_blank" class="payment verified"></a>
+                            <a href="http://www.mastercard.com/pe/consumidores/index.html" title="MasterCard" target="_blank" class="payment master"></a>
+                            <a href="http://www.mastercard.com/us/personal/es/servicios/codigodeseguridad/" title="MasterCard Secure Code" target="_blank" class="payment secure"></a>
+                            <a href="http://www.visanet.com.pe/promovbv/bancos.html" title="Afiliate Verified by Visa" target="_blank" class="payment afiliate"></a>
+                            <p>Autorizados por Visa para realizar transacciones electrónicas</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <?php echo $this->inlineScript() ?>
+        <form name='envio' id='envio' method="post">
+            <input type="hidden" name="id" id="id" />
+            <input type="hidden" name="op" id="op" />
+            <input type="hidden" name="fl" id="fl" />
+            <input type="hidden" name="em" id="em" />
+        </form>
+    </body>
+</html>
+<script type="text/javascript">
+    function postfunction(controller, action, p1, p2, p3, p4) {
+        if (p1 === undefined)
+            p1 = null;
+        if (p2 === undefined)
+            p2 = null;
+        if (p3 === undefined)
+            p3 = null;
+        if (p4 === undefined)
+            p4 = null;
+
+        var url = "/"+controller + "/" + action;
+
+        $("#id").val(p1);
+        $("#op").val(p2);
+        $("#fl").val(p3);
+        $("#em").val(p4);
+        $('#envio').attr('action', url);
+        $('#envio').submit();
+
+    }
+    
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '<?php echo $user_session->facebook["id"];?>',
+            cookie: true,
+            xfbml: true,
+            version: '<?php echo $user_session->facebook["ve"];?>',
+            scopes: ["publish_actions"]
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id))
+            return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+    }(document, 'script', 'facebook-jssdk'));
+
+    function loginFacebook() {
+        FB.login(function (response) {
+            if (response.status === 'connected')
+                testAPI();
+        },{scope: 'public_profile,email'});
+    }
+
+    function shareFacebook() {
+        FB.ui(
+                {
+                    method: 'share',
+                    href: 'https://developers.facebook.com/docs/',
+                },
+                function (response) {
+                    if (response && !response.error_code) {
+                        alert('Posting completed.');
+                    } else {
+                        alert('Error while posting.');
+                    }
+                }
+        );
+    }
+
+    function testAPI() {
+        FB.api('/me', function (response) {
+            var email = response.email;
+            var fname = response.first_name;
+            var lname = response.last_name;
+            var sex;
+            console.log(response);
+            console.log('email -> ' + email);
+            console.log('fname -> ' + fname);
+            console.log('lname -> ' + lname);
+            console.log('sexo  -> ' + response.gender);
+            if (response.gender === 'male')
+                sex = 'M';
+            else
+                sex = 'F';
+
+            verifyUser(email, fname, lname, sex);
+        });
+    }
+
+    
+</script>

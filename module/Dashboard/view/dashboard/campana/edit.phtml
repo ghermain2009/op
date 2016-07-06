@@ -1,0 +1,994 @@
+<?php
+$id_campana = $this->form->get('id_campana')->getValue();
+
+$directorio = $ruta_imagenes;
+
+if (file_exists($directorio . "small")) {
+    $ficheros = scandir($directorio . "small");
+} else {
+    $ficheros = array();
+}
+if (file_exists($directorio . "small2")) {
+    $ficheros2 = scandir($directorio . "small2");
+} else {
+    $ficheros2 = array();
+}
+
+?>
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Modificación de Campaña</h4>
+    </div>
+    <div class="panel-body">
+        <!--div class="form-group">
+            <label for="id_campana" class="col-lg-2 control-label">Identificador :</label>
+            <div class="col-lg-8">
+                
+            </div>
+        </div-->
+        
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Título Portada :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('subtitulo')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="titulo" class="col-lg-2 control-label">Título Detalle:</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('titulo')); ?>
+                <?php echo $this->formRow($this->form->get('id_campana')); ?>
+            </div>
+        </div>
+        <!--div class="form-group">
+            <label for="descripcion" class="col-lg-2 control-label">Descripción :</label>
+            <div class="col-lg-8">
+                <?php// echo $this->formRow($this->form->get('descripcion')); ?>
+            </div>
+        </div-->
+
+        <div class="form-group">
+            <label for="sobre_campana" class="col-lg-2 control-label">Sobre Campaña :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('sobre_campana')); ?>
+                <div class="edit-texto" id="div_sobre_campana" data-toggle="sobre_campana" data-description="Sobre Campaña"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="observaciones" class="col-lg-2 control-label">Lo que debes saber :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('observaciones')); ?>
+                <div class="edit-texto" id="div_observaciones" data-toggle="observaciones" data-description="Lo que debes saber"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_empresa" class="col-lg-2 control-label">Empresa :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('id_empresa')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_inicio" class="col-lg-2 control-label">Fecha Inicio :</label>
+            <div class="col-lg-2">
+                <div class="input-group date">
+                    <?php echo $this->formRow($this->form->get('fecha_inicio')); ?>
+                    <span class="input-group-addon" id='fecha_inicio_addon'>
+                        <span class="glyphicon glyphicon-calendar" ></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hora_inicio" class="col-lg-2 control-label">Hora Inicio :</label>
+            <div class="col-lg-2">
+                <div class="input-group date">
+                    <?php echo $this->formRow($this->form->get('hora_inicio')); ?>
+                    <span class="input-group-addon" id="hora_inicio_addon">
+                        <span class="glyphicon glyphicon-time" ></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_final" class="col-lg-2 control-label">Fecha Final :</label>
+            <div class="col-lg-2">
+                <div class="input-group date">
+                    <?php echo $this->formRow($this->form->get('fecha_final')); ?>
+                    <span class="input-group-addon" id='fecha_final_addon'>
+                        <span class="glyphicon glyphicon-calendar" ></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hora_final" class="col-lg-2 control-label">Hora Final :</label>
+            <div class="col-lg-2">
+                <div class="input-group date">
+                    <?php echo $this->formRow($this->form->get('hora_final')); ?>
+                    <span class="input-group-addon" id="hora_final_addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_validez" class="col-lg-2 control-label">Fecha Validez :</label>
+            <div class="col-lg-2">
+                <div class="input-group date">
+                    <?php echo $this->formRow($this->form->get('fecha_validez')); ?>
+                    <span class="input-group-addon" id='fecha_validez_addon'>
+                        <span class="glyphicon glyphicon-calendar" ></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cantidad_cupones" class="col-lg-2 control-label">Cantidad Cupones :</label>
+            <div class="col-lg-2">
+                <div class="input-group" id='cantidad_cupones'>
+                    <?php echo $this->formRow($this->form->get('cantidad_cupones')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tiempo_online" class="col-lg-2 control-label">Tiempo Online :</label>
+            <div class="col-lg-1">
+                <div class="input-group" id='tiempo_online'>
+                    <?php echo $this->formRow($this->form->get('tiempo_online')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">Horas</label>
+        </div>
+        <div class="form-group">
+            <label for="tiempo_offline" class="col-lg-2 control-label">Tiempo Offline :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='tiempo_offline'>
+                    <?php echo $this->formRow($this->form->get('tiempo_offline')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">Horas</label>
+        </div>
+        <div class="form-group">
+            <label for="comision_campana" class="col-lg-2 control-label">Comisión de Campaña :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='comision_campana'>
+                    <?php echo $this->formRow($this->form->get('comision_campana')); ?>
+                </div>
+            </div>
+            <label class="col-lg-2 control-label">% (Porciento)</label>
+        </div>
+        <div class="form-group">
+            <label for="categoria" class="col-lg-2 control-label">Categoría :</label>
+            <div class="col-lg-8">
+                <input type="hidden" id="id_categoria" name="id_categoria" value="">
+                <select id="example-dataprovider-optgroups" multiple="multiple">
+                    <?php
+                    $grupo = '';
+                    foreach ($categorias as $categoria) {
+                        if ($categoria['categoria'] != $grupo) {
+                            if ($grupo != '') {
+                                ?>        
+                                </optgroup>
+                            <?php } ?>
+                            <optgroup label="<?php echo $categoria['categoria']; ?>">
+                            <?php } ?>
+                            <option value="<?php echo $categoria['id_sub_categoria']; ?>" <?php if ($categoria['sel'] == '1') echo 'selected'; ?>><?php echo $categoria['subcategoria']; ?></option>
+                            <?php
+                            $grupo = $categoria['categoria'];
+                        }
+                        if ($grupo != '') {
+                            ?>
+                        </optgroup>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="image-file2" class="col-lg-2 control-label">Imagen Portada :</label>
+            <div class="col-lg-8">
+                <input id="image-file2" name="image-file2" type="file" multiple=true class="file" data-upload-url="../../../../campana/upload2" data-max-file-count="1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="image-file" class="col-lg-2 control-label">Imagenes Detalle :</label>
+            <div class="col-lg-8">
+                <input id="image-file" name="image-file" type="file" multiple=true class="file" data-upload-url="../../../../campana/upload" data-max-file-count="10">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_validez" class="col-lg-2 control-label">Opciones Venta:</label>
+            <div class="col-lg-8" >
+                <div class="well">
+                
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="js-tabla-opciones">
+                        <thead >
+                            <tr class="btn-danger">
+                                <th>#</th>
+                                <th>Descripción</th>
+                                <th>Precio regular</th>
+                                <th>Precio especial</th>
+                                <th>Comisión</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $registros = 0;
+                            $contador = 0;
+                            $campana_ant = -1;
+                            $campana_opcion_ant = -1;
+                            $opcion_seleccion_ant = -1;
+                            $fila_padre = "";
+                            foreach ($opciones as $opcion) {
+                                $registros++;
+                                $campana = $opcion['id_campana'];
+                                $campana_opcion = $opcion['id_campana_opcion'];
+                                $opcion_seleccion = $opcion['id_opcion_seleccion'];
+                                if( $campana_opcion_ant != $campana_opcion ) {
+                                    $contador++;
+                                    $t_opcion_seleccion_item = '';
+                                    $t_opcion_seleccion_det_pie = '';
+                                    if( $campana_ant != -1) echo $fila_padre;
+                                }
+                                
+                                if( !empty($opcion_seleccion) ) {
+                                    if( $campana_opcion_ant != $campana_opcion ) {
+                                        $t_opcion_seleccion_cab = "<table class='table table table-bordered' id='js-tabla-seleccion".$opcion['id_campana_opcion']."' >";
+                                        $t_opcion_seleccion_cab.= "<thead >";
+                                        $t_opcion_seleccion_cab.= "<tr class='btn-info'>";
+                                        $t_opcion_seleccion_cab.= "<th>Opciones de Selección</th>";
+                                        $t_opcion_seleccion_cab.= "<th></th>";
+                                        $t_opcion_seleccion_cab.= "</tr>";
+                                        $t_opcion_seleccion_cab.= "</thead>";
+                                        $t_opcion_seleccion_cab.= "<tbody>";
+
+                                        $t_opcion_seleccion_det = "";
+
+                                        $t_opcion_seleccion_pie = "</tbody>";
+                                        $t_opcion_seleccion_pie.= "</table>";
+                                    }
+
+                                    if( $opcion_seleccion_ant != $opcion_seleccion ) {
+                                        if($opcion_seleccion_ant == -1) {
+                                            $t_opcion_seleccion_item = "";
+                                            $t_opcion_seleccion_det_pie = "";
+                                            
+                                            $t_opcion_seleccion_det.= "<tr class='info' id='filaSeleccion".$opcion['id_opcion_seleccion']."'>";
+                                            $t_opcion_seleccion_det.= "<td>";
+                                            $t_opcion_seleccion_det.= "<div class='form-group'>";
+                                            $t_opcion_seleccion_det.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opcion['descripcion_primaria']."</b> ".$opcion['descripcion_secundaria']." :</label>";
+                                            $t_opcion_seleccion_det.= "<div class='col-lg-5'>";
+                                            
+                                            
+                                        } else {
+                                            $t_opcion_seleccion_det.= $t_opcion_seleccion_item.$t_opcion_seleccion_det_pie;
+                                            $t_opcion_seleccion_det.= "<tr class='info' id='filaSeleccion".$opcion['id_opcion_seleccion']."'>";
+                                            $t_opcion_seleccion_det.= "<td>";
+                                            $t_opcion_seleccion_det.= "<div class='form-group'>";
+                                            $t_opcion_seleccion_det.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opcion['descripcion_primaria']."</b> ".$opcion['descripcion_secundaria']." :</label>";
+                                            $t_opcion_seleccion_det.= "<div class='col-lg-5'>";
+                                        }
+                                    }
+                                    
+                                    $t_opcion_seleccion_det_pie = "</div>";
+                                    $t_opcion_seleccion_det_pie.= "</td>";
+                                    $t_opcion_seleccion_det_pie.= "<td><div class='btn btn-primary' id-opcion-seleccion-editar='".$opcion['id_opcion_seleccion']."'  title='Modificar selección'><span class='glyphicon glyphicon-edit'></span></div>";
+                                    $t_opcion_seleccion_det_pie.= "<div class='btn btn-default' id-opcion-seleccion-borrar='".$opcion['id_opcion_seleccion']."' id-fila='filaSeleccion".$opcion['id_opcion_seleccion']."' title='Eliminar selección'><span class='glyphicon glyphicon-trash'></span></div>";
+                                    $t_opcion_seleccion_det_pie.= "</td>";
+                                    $t_opcion_seleccion_det_pie.= "</tr>";
+                                    
+                                    $tipo_seleccion = $opcion['tipo_seleccion']; 
+                                    $dias_bloqueo = $opcion['dias_bloqueo']; 
+                                    $utiliza_descripcion_precio = $opcion['utiliza_descripcion_precio'];
+                                    $importe = $opcion['importe_seleccion'];
+                                    $descripcion_interna = $opcion['descripcion_interna'];
+                                    
+                                    $cantidad_item = $opcion['cantidad_seleccion'];
+                                    $value = $opcion['importe_seleccion'];
+                                    
+                                    switch ($tipo_seleccion) {
+                                        case '1':
+                                            
+                                            if($opcion_seleccion_ant != $opcion_seleccion) {
+                                                if($opcion_seleccion_ant == -1) {
+                                                    $t_opcion_seleccion_item.= "<select id='' class='form-control input-sm'>";
+                                                } else {
+                                                    $t_opcion_seleccion_item.= "</select>";
+                                                    //imprimir el objeto
+                                                    $t_opcion_seleccion_item = "<select id='' class='form-control input-sm'>";
+                                                }
+                                                $cantidad_seleccion = 0;
+                                            }
+                                            
+                                            if($cantidad_seleccion == 0 && $cantidad_item == 1 ) {
+                                               $t_opcion_seleccion_item.= "<option value='-1'>Seleccionar</option>";
+                                            }
+                                            
+                                            if($cantidad_seleccion == 0 && $cantidad_item == 0 ) {
+                                                $t_opcion_seleccion_item.= "<option value='0'>0</option>";
+                                            } else {
+                                                $t_opcion_seleccion_item.= "<option value='".$cantidad_item."'>";
+                                                if($utiliza_descripcion_precio == '1') {
+                                                    $t_opcion_seleccion_item.= $cantidad_item." x ".$simbolo_moneda." ".$value;
+                                                } else {
+                                                    $t_opcion_seleccion_item.= $cantidad_item." ".$descripcion_interna." ( x ".$simbolo_moneda." ".$value." )";
+                                                }
+                                                $t_opcion_seleccion_item.= "</option>";
+                                            }
+                                            
+                                            if($registros == count($opciones)) $t_opcion_seleccion_det.= $t_opcion_seleccion_item.$t_opcion_seleccion_det_pie;
+                                            $cantidad_seleccion++;
+                                            
+                                            break;
+                                        case '2':
+                                            $t_opcion_seleccion_det.= "<input id='calendargroup' class='form-control input-sm' value='dd/mm/yyyy + ".$dias_bloqueo." días' readonly>";
+                                            //if($registros == count($opciones)) 
+                                            if($opcion_seleccion_ant != -1) {
+                                                $t_opcion_seleccion_det.= $t_opcion_seleccion_det_pie;
+                                            }
+
+                                            break;
+                                    }
+                                    
+                                    $opcion_seleccion_ant = $opcion_seleccion;
+                                    
+                                    $tabla = $t_opcion_seleccion_cab.$t_opcion_seleccion_det.$t_opcion_seleccion_pie;
+                                } else {
+                                    $t_opcion_seleccion_cab = "<table class='table table table-bordered' id='js-tabla-seleccion".$opcion['id_campana_opcion']."' >";
+                                    $t_opcion_seleccion_cab.= "<thead >";
+                                    $t_opcion_seleccion_cab.= "<tr class='btn-info'>";
+                                    $t_opcion_seleccion_cab.= "<th>Opciones de Selección</th>";
+                                    $t_opcion_seleccion_cab.= "<th></th>";
+                                    $t_opcion_seleccion_cab.= "</tr>";
+                                    $t_opcion_seleccion_cab.= "</thead>";
+                                    $t_opcion_seleccion_cab.= "<tbody>";
+
+                                    $t_opcion_seleccion_pie = "</tbody>";
+                                    $t_opcion_seleccion_pie.= "</table>";
+                                    
+                                    $tabla = $t_opcion_seleccion_cab.$t_opcion_seleccion_pie;
+                                }
+                                
+                                $fila_padre = "<tr tipo-fila='filaOpcion' class='warning' id='filaOpcion".$opcion['id_campana_opcion']."'>";
+                                $fila_padre.= "<td";
+                                //if( !empty($tabla) ) 
+                                $fila_padre.= " rowspan='2'";
+                                $fila_padre.= "><span class='badge'>".$contador."</span></td>";
+                                $fila_padre.= "<td><div id='descripcion".$opcion['id_campana_opcion']."'>".$opcion['descripcion']."</div></td>";
+                                $fila_padre.= "<td>".$opcion['precio_regular']."</td>";
+                                $fila_padre.= "<td>".$opcion['precio_especial']."</td>";
+                                $fila_padre.= "<td>".$opcion['comision']."</td>";
+                                $fila_padre.= "<td><div class='btn btn-warning' onclick=\"javascript:edicionOpcion('".$opcion['id_campana_opcion']."','".$opcion['id_campana']."','filaOpcion".$opcion['id_campana_opcion']."')\" title='Modificar opción de venta'><span class='glyphicon glyphicon-edit'></span></div>";
+                                $fila_padre.= "<div class='btn btn-success' onclick=\"javascript:eliminarOpcion('".$opcion['id_campana_opcion']."','".$opcion['id_campana']."','filaOpcion".$opcion['id_campana_opcion']."')\" title='Eliminar opción de venta'><span class='glyphicon glyphicon-trash'></span></div>";
+                                $fila_padre.= "</td>";
+                                $fila_padre.= "</tr>";
+                                //if( !empty($tabla) ) {
+                                $fila_padre.= "<tr tipo-fila='filaSeleccion' class='warning' id='filaOpcionSeleccion".$opcion['id_campana_opcion']."'>";
+                                $fila_padre.= "<td colspan='4'>".$tabla;
+                                //$fila_padre.= "<div class='btn btn-info' style='float:right' onclick=\"javascript:nuevaOpcionSeleccion('".$opcion['id_campana_opcion']."')\" title='Nueva Selección'><samp class='glyphicon glyphicon-file'></samp>Nueva Selección</div>";
+                                $fila_padre.= "<div class='btn btn-info' style='float:right' id-opcion-seleccion-nueva='".$opcion['id_campana_opcion']."' id-campana='".$opcion['id_campana']."' title='Nueva Selección'><samp class='glyphicon glyphicon-file'></samp>Nueva Selección</div>";
+                                $fila_padre.= "</td>";
+                                $fila_padre.= "<td>&nbsp;</td>";
+                                $fila_padre.= "</tr>";
+                                //}
+                                
+                                $campana_ant = $campana;
+                                $campana_opcion_ant = $campana_opcion;
+                            } 
+                            
+                            echo $fila_padre;
+
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="btn btn-danger" onclick="javascript:nuevaOpcion()" title='Nueva opción de venta'><samp class=" glyphicon glyphicon-file"></samp> Nueva Opción de venta</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-7">
+                <?php echo $this->formRow($this->form->get('submit')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /INCLUDE THIS SECTION FOR USING MODAL DIALOG -->
+<?php echo $this->form()->closeTag(); ?>
+<div id="content" class="hide"></div>
+<!-- INCLUDE THIS SECTION FOR USING MODAL DIALOG -->
+<div class="modal fade" id="modalEditor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Opción - Campaña</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                <form>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Descripción:</label>
+                        <div class="col-xs-13"> 
+                            <div id="divEditor"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio_regular" class="col-lg-4 control-label">Precio Regular:</label>
+                        <div class="col-xs-9"> 
+                            <input type="hidden" class="form-control" name="pk_idfila" id="pk_idfila" value="">
+                            <input type="hidden" class="form-control" name="pk_campana_opcion" id="pk_campana_opcion" value="">
+                            <input type="hidden" class="form-control" name="pk_campana" id="pk_campana" value="">
+                            <input type="text" class="form-control" name="precio_regular" id="precio_regular" value="">
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio_especial" class="col-lg-4 control-label">Precio Especial:</label>
+                        <div class="col-xs-9"> 
+                            <input type="text" class="form-control" name="precio_especial" id="precio_especial" value="">
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comision" class="col-lg-4 control-label">Comisión:</label>
+                        <div class="col-xs-9"> 
+                            <input type="text" class="form-control" name="comision" id="comision" value="">
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" onclick="javascript:grabaOpcion();"> &nbsp; Ok &nbsp; </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Editor HTML Selección - Opción -->
+<div class="modal fade" id="modalSeleccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSeleccion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelSeleccion">Selección - Opción</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid" id="modalSeleccionContainer">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" id-save="opcion-seleccion"> &nbsp; Ok &nbsp; </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------>
+<div id="contentText" class="hide"></div>
+<div class="modal fade" id="modalEditorText" tabindex="-1" role="dialog" aria-labelledby="myModalLabelText" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="height:400px">
+                <form>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label" id="descripcionText"></label>
+                        <input type="hidden" id="textId" value="">
+                        <div class="col-xs-13"> 
+                            <div id="divEditorText"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" onclick="javascript:grabaOpcionText();"> &nbsp; Ok &nbsp; </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor;
+
+    $("#image-file").fileinput({
+    uploadUrl: "' . Url::to(['../../../../campana/upload']) . '",
+            maxFileCount: 10,
+            overwriteInitial: false,
+            initialPreview: [
+<?php
+foreach ($ficheros as $file) {
+    if ($file == '.' || $file == '..')
+        continue;
+    
+    $ruta_imagen_pro = $directorio.'small'.$sep_path.$file;
+    if (file_exists($ruta_imagen_pro)){
+        ob_start();
+        $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+        imagejpeg($resource_image);
+        $imagedata = ob_get_clean();
+        $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+    } else {
+        $image = '';
+    }
+    ?>
+                '<img src="<?php echo $image;?>" class="file-preview-image">',
+<?php } ?>
+            ],
+            initialPreviewConfig: [
+<?php
+foreach ($ficheros as $file) {
+    if ($file == '.' || $file == '..')
+        continue;
+    ?>
+                {caption: "<?php echo $file; ?>", width: "50px", url:"../../../../campana/uploaddelete", key:'<?php echo $file; ?>'},
+<?php } ?>
+            ],
+    });
+    
+    $("#image-file2").fileinput({
+    uploadUrl: "' . Url::to(['../../../../campana/upload2']) . '",
+            maxFileCount: 1,
+            overwriteInitial: true,
+            initialPreview: [
+<?php
+unset($initial);
+foreach ($ficheros2 as $file) {
+    if ($file == '.' || $file == '..')
+        continue;
+    
+    $ruta_imagen_pro = $directorio.$sep_path.'small2'.$sep_path.$file;
+    if (file_exists($ruta_imagen_pro)){
+        ob_start();
+        $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+        imagejpeg($resource_image);
+        $imagedata = ob_get_clean();
+        $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+    } else {
+        $image ='';
+    }
+    $initial = $image;
+    ?>
+                '<img src="<?php echo $image; ?>" class="file-preview-image">',
+<?php } ?>
+            ],
+            initialPreviewConfig: [
+<?php
+foreach ($ficheros2 as $file) {
+    if ($file == '.' || $file == '..')
+        continue;
+    ?>
+                {caption: "<?php echo $file; ?>", width: "50px", url:"../../../../campana/uploaddelete2", key:'<?php echo $file; ?>'},
+<?php } ?>
+            ],
+    });
+    
+    $(document).ready(function() {
+
+        $('#image-file2').on('fileuploaded', function(event, file, previewId, index, reader) {
+           //$('#image-file2').fileinput('clear');
+           $('#image-file2').fileinput('refresh',{overwriteInitial: true,initialPreview:['<img src="<?php echo $initial;?>" class="file-preview-image">'],initialPreviewConfig:[{caption: "image1.jpg", width: "50px", url:"../../../../campana/uploaddelete2", key:'image1.jpg'}]});
+        });
+        $('#image-file2').on('filedeleted', function(event, file, previewId, index, reader) {
+           $('#image-file2').fileinput('clear');
+           //$('#image-file2').fileinput('reset');
+           //alert('hola');
+           //$('#image-file2').fileinput('refresh',{overwriteInitial: true,initialPreview:[],initialPreviewConfig:[]});
+        });
+        
+        
+        $.datetimepicker.setLocale('es');
+
+        $('#fecha_inicio,#fecha_final,#fecha_validez').datetimepicker({
+            yearOffset:0,
+            lang:'es',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y/m/d'
+        });
+        
+        $('#hora_inicio,#hora_final').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            step:5
+        });
+        
+        $("#hora_inicio_addon").click(function () {
+            $('#hora_inicio').datetimepicker('show');
+        });
+        
+        $("#hora_final_addon").click(function () {
+            $('#hora_final').datetimepicker('show');
+        });
+        
+        $("#fecha_inicio_addon").click(function () {
+            $('#fecha_inicio').datetimepicker('show');
+        });
+        
+        $("#fecha_final_addon").click(function () {
+            $('#fecha_final').datetimepicker('show');
+        });
+        
+        $("#fecha_validez_addon").click(function () {
+            $('#fecha_validez').datetimepicker('show');
+        });
+        
+        $('#fecha_inicio,#fecha_final').css('text-align','left');
+
+        $('#content').liveEdit({
+            modal_id: 'divEditor',
+            height: 380,
+            css: ['/css/bootstrap.min.css', '/css/bootstrap_extend.css'] /* Apply bootstrap css into the editing area */,
+            groups: [
+                ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                ["group4", "", ["LinkDialog"]],
+                        //["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                        /*["group5", "", ["Undo", "Redo", "SourceDialog"]]*/
+            ] /* Toolbar configuration */
+        });
+
+        $('#contentText').liveEdit({
+            modal_id: 'divEditorText',
+            height: 400,
+            css: ['/css/bootstrap.min.css', '/css/bootstrap_extend.css'] /* Apply bootstrap css into the editing area */,
+            groups: [
+                ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                ["group4", "", ["LinkDialog"]],
+                        //["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                        /*["group5", "", ["Undo", "Redo", "SourceDialog"]]*/
+            ] /* Toolbar configuration */
+        });
+
+        $('#div_sobre_campana').html($('#sobre_campana').val());
+        $('#div_observaciones').html($('#observaciones').val());
+
+        $(".edit-texto").click(function () {
+            var id = $(this).attr('data-toggle');
+            var ds = $(this).attr('data-description');
+
+            $('#textId').val(id);
+            $('#contentText').html($('#' + id).val());
+            $('#contentText').data('liveEdit').startedit();
+            $('#descripcionText').html(ds + ' :');
+            $('#modalEditorText').modal('show');
+        });
+        
+        $(".btn").click(function (e) {
+            var id_campana, id_campana_opcion, id_opcion_seleccion, id_save, id_fila, dataString;
+            
+            //Nueva opcion de seleccion
+            id_opcion_seleccion = $(this).attr('id-opcion-seleccion-nueva');
+            if (id_opcion_seleccion) { 
+                id_campana = $(this).attr('id-campana');
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/campana/nuevaseleccion",
+                    data: {campana: id_campana, campana_opcion: id_opcion_seleccion},
+                    success: function (data) {
+                        $('#modalSeleccionContainer').html(data);
+                        eventosdinamicosseleccion();
+                        $('#tipo_seleccion').change();
+                        $('#utiliza_descripcion_precio').change();
+                        $('#modalSeleccion').modal('show');
+                    }
+                });
+                e.stopPropagation();
+            }
+            
+            //Edita una opcion de seleccion por su id
+            id_opcion_seleccion = $(this).attr('id-opcion-seleccion-editar');
+            if (id_opcion_seleccion) { 
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/campana/editarseleccion",
+                    data: {opcion_seleccion: id_opcion_seleccion},
+                    success: function (data) {
+                        $('#modalSeleccionContainer').html(data);
+                        eventosdinamicosseleccion();
+                        $('#tipo_seleccion').change();
+                        $('#utiliza_descripcion_precio').change();
+                        $('#modalSeleccion').modal('show');
+                    }
+                });
+                e.stopPropagation();
+            }
+            
+            //Elimina una opcion de seleccion por su id
+            id_opcion_seleccion = $(this).attr('id-opcion-seleccion-borrar');
+            id_fila = $(this).attr('id-fila');
+            if (id_opcion_seleccion) { 
+                 $.ajax({
+                    type: "POST",
+                    url: "/dashboard/campana/borrarseleccion",
+                    data: {opcion_seleccion: id_opcion_seleccion},
+                    success: function (data) {
+                        $('#' + id_fila ).remove();
+                    }
+                });
+                e.stopPropagation();
+            }
+            
+            //Graba los modales
+            id_save = $(this).attr('id-save');
+            if (id_save) {
+                switch(id_save) {
+                    //Grabar opcion de seleccion
+                    case "opcion-seleccion":
+                        
+                        dataString = $('#frmSeleccionOpcion').serialize();
+                        id_opcion_seleccion = $('#pks_opcion_seleccion').val();
+                        id_campana_opcion = $('#pks_campana_opcion').val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/dashboard/campana/grabarseleccion",
+                            data: dataString,
+                            success: function (data) {
+                                var datos = $.parseJSON(data)
+                                if (datos) {
+                                    if (datos.resultado == 'I') {
+                                        var fila_seleccion;
+                                        fila_seleccion = "<tr class='info' id='filaSeleccion" + datos.id + "'>";
+                                        fila_seleccion+= datos.preview;
+                                        fila_seleccion+= "</tr>";
+                                        $('#js-tabla-seleccion' + id_campana_opcion + ' tr:last').after(fila_seleccion);
+                                    } else {
+                                        $('#filaSeleccion' + id_opcion_seleccion).html(datos.preview);
+                                    }
+                                    eventosdinamicosopcionseleccion();
+                                    $('#modalSeleccion').modal('hide');
+
+                                }
+                            }
+                        });
+                        e.stopPropagation();
+                        break;
+                }
+            }
+                        
+        });
+        
+    });
+    
+    function eventosdinamicosseleccion() {
+        $("#utiliza_descripcion_precio").on("change", function(){
+            switch($(this).val()) {
+                case '1':
+                    $('.form-group.bloque2.bloque3').hide();
+                    break;
+                case '2':
+                    $('.form-group.bloque2.bloque3').show();
+                    break;
+            }
+        });
+        
+        $("#tipo_seleccion").on("change", function(){
+            switch($(this).val()) {
+                case '1':
+                    if($('#valor_inicial').val() == '' ) $('#valor_inicial').val('0');
+                    if($('#valor_final').val() == '' ) $('#valor_final').val('-1');
+                    if($('#incremento').val() == '' ) $('#incremento').val('1');
+                    if($('#importe_seleccion').val() == '' ) $('#importe_seleccion').val('0.00');
+                    $('.form-group.bloque1').hide();
+                    $('.form-group.bloque2').show();
+                    $("#utiliza_descripcion_precio").change()
+                    break;
+                case '2':
+                    $('.form-group.bloque1').show();
+                    $('.form-group.bloque2').hide();
+                    break;
+            }
+        });
+        
+        $("#valor_inicial,#valor_final,#incremento,#importe_seleccion").on("change", function(){
+            var cantidad, fila_seleccion;
+            var v_inicial    = parseInt($("#valor_inicial").val());
+            var v_final      = parseInt($("#valor_final").val());
+            var v_incremento = parseInt($("#incremento").val());
+            var v_importe    = parseInt($("#importe_seleccion").val());
+
+            $("#js-tabla-valores-seleccion tr[tipo-fila='filaSeleccionDetalle']").remove();
+
+            for(var i=v_inicial; i<=v_final; i+=v_incremento) {
+                cantidad = $("#js-tabla-valores-seleccion tr[tipo-fila='filaSeleccionDetalle']").size();
+
+                cantidad++;
+
+                fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle" + cantidad + "'>";
+                fila_seleccion+= "<td><span class='badge'>" + cantidad + "</span></td>";
+                fila_seleccion+= "<td>" + i + " x </td>";
+                fila_seleccion+= "<td><input type='hidden' name='cantidad_seleccionar[]' value='" + i + "'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='" + (v_importe * i).toFixed(2) + "'></td>";
+                fila_seleccion+= "</tr>";
+
+                $('#js-tabla-valores-seleccion tr:last').after(fila_seleccion);
+            }
+            
+            var modal_height = $('#modalSeleccion').find('.modal-content').height() + 70;
+            
+            $('#modalSeleccion').find('.modal-backdrop.fade.in').css({
+               'height':modal_height+'px'
+            });
+   
+        });
+    }
+    
+    function eventosdinamicosopcionseleccion() {
+    
+        $(".btn[id-opcion-seleccion-editar]").on("click", function(){
+            //Edita una opcion de seleccion por su id
+            id_opcion_seleccion = $(this).attr('id-opcion-seleccion-editar');
+            if (id_opcion_seleccion) { 
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/campana/editarseleccion",
+                    data: {opcion_seleccion: id_opcion_seleccion},
+                    success: function (data) {
+                        $('#modalSeleccionContainer').html(data);
+                        eventosdinamicosseleccion();
+                        $('#tipo_seleccion').change();
+                        $('#utiliza_descripcion_precio').change();
+                        $('#modalSeleccion').modal('show');
+                    }
+                });
+            }
+        });
+            
+        $(".btn[id-opcion-seleccion-borrar]").on("click", function(){
+            //Elimina una opcion de seleccion por su id
+            id_opcion_seleccion = $(this).attr('id-opcion-seleccion-borrar');
+            id_fila = $(this).attr('id-fila');
+            if (id_opcion_seleccion) { 
+                 $.ajax({
+                    type: "POST",
+                    url: "/dashboard/campana/borrarseleccion",
+                    data: {opcion_seleccion: id_opcion_seleccion},
+                    success: function (data) {
+                        $('#' + id_fila ).remove();
+                    }
+                });
+            }
+        });
+    }
+    
+    function nuevaOpcion() {
+        $('#content').html('');
+        $('#pk_idfila').val('');
+        $('#precio_regular').val('0.00');
+        $('#precio_especial').val('0.00');
+        $('#comision').val('0.00');
+        $('#pk_campana').val('<?php echo $id_campana; ?>');
+        $('#pk_campana_opcion').val('');
+        $('#content').data('liveEdit').startedit();
+        $('#modalEditor').modal('show');
+    }
+    
+    function edicionOpcion(id_opcion, id_campana, idFila) {
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/campana/editopcion",
+            data: {opcion: id_opcion, campana: id_campana},
+            success: function (data) {
+                var datos = $.parseJSON(data);
+                if (datos[0]) {
+                    $('#content').html(datos[0].descripcion);
+                    $('#pk_idfila').val(idFila);
+                    $('#precio_regular').val(datos[0].precio_regular);
+                    $('#precio_especial').val(datos[0].precio_especial);
+                    $('#comision').val(datos[0].comision);
+                    $('#pk_campana').val(datos[0].id_campana);
+                    $('#pk_campana_opcion').val(datos[0].id_campana_opcion);
+                    $('#content').data('liveEdit').startedit();
+                    $('#modalEditor').modal('show');
+                }
+            }
+        });
+    }
+    
+    function eliminarOpcion(id_opcion, id_campana, idFila) {
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/campana/deleteopcion",
+            data: {opcion: id_opcion, campana: id_campana},
+            success: function (data) {
+                $('#filaOpcionSeleccion' + id_opcion ).remove();
+                $('#' + idFila ).remove();
+            }
+        });
+    }
+
+    function grabaOpcion() {
+
+        var id_campana = $('#pk_campana').val();
+        var filaEditada = $('#pk_idfila').val();
+        var id_campana_opcion = $('#pk_campana_opcion').val();
+        var descripcion = $('#content').data('liveEdit').getXHTMLBody();
+        var precio_regular = $('#precio_regular').val();
+        var precio_especial = $('#precio_especial').val();
+        var comision = $('#comision').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/campana/saveopcion",
+            data: {id_campana: id_campana, id_campana_opcion: id_campana_opcion, descripcion: descripcion, precio_regular: precio_regular, precio_especial: precio_especial, comision: comision},
+            success: function (data) {
+                var datos = $.parseJSON(data)
+                //alert(datos);
+                if (datos) {
+                    $('#descripcion' + id_campana_opcion).html(descripcion);
+                    if (datos.resultado == 'I') {
+                        var fila_seleccion;
+                        var cantidad = $("#js-tabla-opciones tr[tipo-fila='filaOpcion']").size();
+                        cantidad++;
+                        fila_seleccion = '<tr tipo-fila="filaOpcion" class="warning" id="filaOpcion' + datos.id + '">';
+                        fila_seleccion+= '<td rowspan="2" ><span class="badge">' + cantidad + '</span></td>'
+                        fila_seleccion+= '<td>' + descripcion + '</td>';
+                        fila_seleccion+= '<td>' + precio_regular + '</td>'
+                        fila_seleccion+= '<td>' + precio_especial + '</td>';
+                        fila_seleccion+= '<td>' + comision + '</td>';
+                        fila_seleccion+= '<td><div class="btn btn-warning" onclick="javascript:edicionOpcion(\'' + datos.id + '\',\'' + id_campana + '\',\'filaOpcion' + datos.id + '\')" title="Modificar opción de venta"><span class="glyphicon glyphicon-edit"></span></div>';
+                        fila_seleccion+= '<div class="btn btn-success" onclick="javascript:eliminarOpcion(\'' + datos.id + '\',\'' + id_campana + '\',\'filaOpcion' + datos.id + '\')" title="Eliminar opción de venta"><span class="glyphicon glyphicon-trash"></span></div></td>';
+                        fila_seleccion+= '</tr>';
+                        fila_seleccion+= "<tr tipo-fila='filaSeleccion' class='warning' id='filaOpcionSeleccion" + datos.id + "'>";
+                        fila_seleccion+= "<td colspan='4'>";
+                        fila_seleccion+= "<table class='table table table-bordered' id='js-tabla-seleccion" + datos.id + "' >";
+                        fila_seleccion+= "<thead >";
+                        fila_seleccion+= "<tr class='btn-info'>";
+                        fila_seleccion+= "<th>Opciones de Selección</th>";
+                        fila_seleccion+= "<th></th>";
+                        fila_seleccion+= "</tr>";
+                        fila_seleccion+= "</thead>";
+                        fila_seleccion+= "<tbody>";
+                        fila_seleccion+= "</tbody>";
+                        fila_seleccion+= "</table>";
+                        fila_seleccion+= "<div class='btn btn-info' style='float:right' id-opcion-seleccion-nueva='" + datos.id + "' id-campana='" + datos.id + "' title='Nueva Selección'><samp class='glyphicon glyphicon-file'></samp>Nueva Selección</div>";
+                        fila_seleccion+= "</td>";
+                        fila_seleccion+= "<td>&nbsp;</td>";
+                        fila_seleccion+= "</tr>";
+                        
+                        $('#js-tabla-opciones tr[tipo-fila]:last').after(fila_seleccion);
+                    } else {
+                        $('#' + filaEditada).find('td').eq(1).html('<div id="descripcion' + datos.id + '">' + descripcion + '</div>');
+                        $('#' + filaEditada).find('td').eq(2).html(precio_regular);
+                        $('#' + filaEditada).find('td').eq(3).html(precio_especial);
+                        $('#' + filaEditada).find('td').eq(4).html(comision);
+                    }
+                    $('#modalEditor').modal('hide');
+
+                }
+            }
+        });
+    }
+
+    function grabaOpcionText() {
+
+        var id_div = $('#textId').val();
+        var descripcion = $('#contentText').data('liveEdit').getXHTMLBody();
+
+        $('#' + id_div).val(descripcion);
+        $('#div_' + id_div).html(descripcion);
+
+        $('#modalEditorText').modal('hide');
+    }
+
+    $('#example-dataprovider-optgroups').multiselect({
+        enableFiltering: true,
+        onChange: function (element, checked) {
+            $('#id_categoria').val($('#example-dataprovider-optgroups').val());
+        }
+    });
+    //$('#example-dataprovider-optgroups').multiselect('dataprovider', optgroups);
+
+    
+
+</script>

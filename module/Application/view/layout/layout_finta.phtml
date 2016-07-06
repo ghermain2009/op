@@ -1,0 +1,14 @@
+<?php echo $this->doctype(); ?>
+
+<?php
+
+use Zend\Session\Container;
+
+$user_session = new Container('user');
+?>
+
+
+        <div class="container">
+            <?php echo $this->content; ?>
+        </div>
+        <!-- /container -->

@@ -1,0 +1,36 @@
+<script>
+$(document).ready(function(){
+  $('#frmPayme').submit();
+});  
+</script>
+<?php echo $this->form()->openTag($this->form); ?>
+<?php echo $this->formRow($this->form->get('acquirerId')); ?>
+<?php echo $this->formRow($this->form->get('idCommerce')); ?>
+<?php echo $this->formRow($this->form->get('purchaseOperationNumber')); ?>
+<?php echo $this->formRow($this->form->get('purchaseAmount')); ?>
+<?php echo $this->formRow($this->form->get('purchaseCurrencyCode')); ?>
+<?php echo $this->formRow($this->form->get('language')); ?>
+<?php echo $this->formRow($this->form->get('shippingFirstName')); ?>
+<?php echo $this->formRow($this->form->get('shippingLastName')); ?>
+<?php echo $this->formRow($this->form->get('shippingEmail')); ?>
+<?php echo $this->formRow($this->form->get('shippingAddress')); ?>
+<?php echo $this->formRow($this->form->get('shippingZIP')); ?>
+<?php echo $this->formRow($this->form->get('shippingCity')); ?>
+<?php echo $this->formRow($this->form->get('shippingState')); ?>
+<?php echo $this->formRow($this->form->get('shippingCountry')); ?>
+<?php echo $this->formRow($this->form->get('userCommerce')); ?>
+<?php echo $this->formRow($this->form->get('userCodePayme')); ?>
+<?php echo $this->formRow($this->form->get('descriptionProducts')); ?>
+<?php echo $this->formRow($this->form->get('programmingLanguage')); ?>
+<?php echo $this->formRow($this->form->get('reserved1')); ?>
+<?php echo $this->formRow($this->form->get('purchaseVerification')); ?>
+<?php //echo $this->formRow($this->form->get('submitbutton')); ?>
+<?php echo $this->form()->closeTag(); ?>
+<div class="container">
+    <div class="borde-cupon-externo">
+        <div class="separacion-banco">
+            <div class="en-linea logo-oferta"><div class="logo-fijo-cupon"></div></div>
+            <div>Estamos envíandote a una zona segura ...</p></div>
+        </div>
+    </div>
+</div>

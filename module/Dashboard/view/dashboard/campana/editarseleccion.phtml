@@ -1,0 +1,103 @@
+<?php echo $this->form()->openTag($this->form); ?>
+    <div class="form-group">
+        <label for="tipo_seleccion" class="col-lg-4 control-label">Tipo Selección:</label>
+        <div class="col-xs-9"> 
+            <?php echo $this->formRow($this->form->get('pks_opcion_seleccion')); ?>
+            <?php echo $this->formRow($this->form->get('pks_campana_opcion')); ?>
+            <?php echo $this->formRow($this->form->get('pks_campana')); ?>
+            <?php echo $this->formRow($this->form->get('tipo_seleccion')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="descripcion_primaria" class="col-lg-8 control-label">Descripción Primaria:</label>
+        <div class="col-xs-9"> 
+            <?php echo $this->formRow($this->form->get('descripcion_primaria')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="descripcion_secundaria" class="col-lg-8 control-label">Descripción Secundaria:</label>
+        <div class="col-xs-9"> 
+            <?php echo $this->formRow($this->form->get('descripcion_secundaria')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque1">
+        <label for="dias_bloqueo" class="col-lg-8 control-label">Días Bloqueo Calendario:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('dias_bloqueo')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque2">
+        <label for="valor_inicial" class="col-lg-8 control-label">Rango de Valores:</label>
+        <div class="col-xs-9"> 
+            <div class="col-xs-5" style="padding-left: 0px !important"> 
+                <?php echo $this->formRow($this->form->get('valor_inicial')); ?>
+                <span class="help-block with-errors"></span>
+            </div>
+            <div class="col-xs-1" style="padding-left: 30px">-</div>
+            <div class="col-xs-5" style="padding-right: 0px !important; float: right"> 
+                <?php echo $this->formRow($this->form->get('valor_final')); ?>
+                <span class="help-block with-errors"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group bloque2">
+        <label for="incremento" class="col-lg-8 control-label">Incremento de Valores:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('incremento')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque2">
+        <label for="utiliza_descripcion_precio" class="col-lg-8 control-label">Utilizar el precio como descripción interna:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('utiliza_descripcion_precio')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque2 bloque3">
+        <label for="descripcion_interna" class="col-lg-8 control-label">Descripción Interna:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('descripcion_interna')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque2">
+        <label for="importe_seleccion" class="col-lg-8 control-label">Importe Selección:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('importe_seleccion')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque2">
+        <label for="valores_seleccion" class="col-lg-8 control-label">Valores a seleccionar:</label>
+        <div class="col-xs-9"> 
+            <table class='table table table-bordered' id='js-tabla-valores-seleccion' >
+            <thead >
+                <tr class='btn-info'>
+                    <th>#</th>
+                    <th>Cantidad</th>
+                    <th>Importe x Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $cantidad = 0;
+                foreach( $selecciondetalle as $opcion) {
+                    $cantidad++;
+                    $fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle".$cantidad."'>";
+                    $fila_seleccion.= "<td><span class='badge'>".$cantidad."</span></td>";
+                    $fila_seleccion.= "<td>".$opcion['cantidad_seleccion']." x </td>";
+                    $fila_seleccion.= "<td> ".$simbolo_moneda." <input type='hidden' name='cantidad_seleccionar[]' value='".$opcion['cantidad_seleccion']."'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='".$opcion['importe_seleccion']."'></td>";
+                    $fila_seleccion.= "</tr>";
+
+                    echo $fila_seleccion;
+                } ?>
+            </tbody>
+            </table>
+        </div>
+    </div>
+<?php echo $this->form()->closeTag(); ?>

@@ -1,0 +1,520 @@
+@font-face {
+    font-family: "gotham-medium";
+    src: url('../fonts/gotham-medium-webfont.woff') format("truetype");
+}
+
+@font-face {
+    font-family: "gotham-book";
+    src: url('../fonts/gotham-book-webfont.woff') format("truetype");
+}
+
+body {
+   padding-top: 80px;
+   padding-bottom: 0px;
+   background-color:#f4f3ef;
+}
+
+/*.zf-green {
+    color: #68b604;
+}*/
+
+/* custom inclusion of right, left and below tabs */
+
+.tabs-below > .nav-tabs,
+.tabs-right > .nav-tabs,
+.tabs-left > .nav-tabs {
+  border-bottom: 0;
+}
+
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+  display: none;
+}
+
+.tab-content > .active,
+.pill-content > .active {
+  display: block;
+}
+
+.tabs-below > .nav-tabs {
+  border-top: 1px solid #ddd;
+}
+
+.tabs-below > .nav-tabs > li {
+  margin-top: -1px;
+  margin-bottom: 0;
+}
+
+.tabs-below > .nav-tabs > li > a {
+  -webkit-border-radius: 0 0 4px 4px;
+     -moz-border-radius: 0 0 4px 4px;
+          border-radius: 0 0 4px 4px;
+}
+
+.tabs-below > .nav-tabs > li > a:hover,
+.tabs-below > .nav-tabs > li > a:focus {
+  border-top-color: #ddd;
+  border-bottom-color: transparent;
+}
+
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus {
+  border-color: transparent #ddd #ddd #ddd;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
+}
+
+.tabs-right > .nav-tabs {
+  float: right;
+  margin-left: 19px;
+  border-left: 1px solid #ddd;
+}
+
+.tabs-right > .nav-tabs > li > a {
+  margin-left: -1px;
+  -webkit-border-radius: 0 4px 4px 0;
+     -moz-border-radius: 0 4px 4px 0;
+          border-radius: 0 4px 4px 0;
+}
+
+.tabs-right > .nav-tabs > li > a:hover,
+.tabs-right > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+}
+
+.tabs-right > .nav-tabs .active > a,
+.tabs-right > .nav-tabs .active > a:hover,
+.tabs-right > .nav-tabs .active > a:focus {
+  border-color: #ddd #ddd #ddd transparent;
+  *border-left-color: #ffffff;
+}
+
+/*form .alert,
+form .process
+{
+    display: none;
+}*/
+
+
+tbody a {
+    display:inline-block !important;
+    padding: 5px !important;
+    width: 30px;
+}
+
+.titulo-lista {
+    font-family: arial, sans-serif;
+    font-size: 22px;
+    color: #003399;
+}
+
+.titulo {
+    display: inline-block;
+    padding-bottom: 20px;
+} 
+
+.titulo-derecha {
+    display: inline-block;
+    //float: right;
+} 
+
+.edit-texto {
+    border-style:solid;
+    border-width: 1px;
+    border-color: #cccccc;
+    background-color: #ffffff;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    height: 90px;
+    overflow-y: auto;
+}
+
+.well {
+    background: transparent !important;
+}
+
+.bttooltipdv {
+    width: 15% !important;
+    height: 35px !important;
+    text-align: center;
+    margin-top: 5px !important;
+    padding-right: 5px !important;
+    display: inline-table !important;
+    border-bottom-color: #e3e3e3 !important;
+    border-bottom-style: solid  !important;
+    border-bottom-width: 1px;
+    font-size: 11px;
+}
+
+.bttooltipdv > a {
+    padding-top: 0px !important;
+    color: #0088cc !important;
+}
+
+.bttooltipdv.titulo {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bttooltip {
+    width: 25% !important;
+    height: 35px !important;
+    text-align: center;
+    margin-top: 5px !important;
+    padding-right: 5px !important;
+    display: inline-table !important;
+    border-bottom-color: #e3e3e3 !important;
+    border-bottom-style: solid  !important;
+    border-bottom-width: 1px;
+    font-size: 11px;
+}
+
+.bttooltip > a {
+    padding-top: 0px !important;
+    color: #0088cc !important;
+}
+
+.bttooltipp {
+    width: 25% !important;
+    height: 45px !important;
+    text-align: center;
+    margin-top: 5px !important;
+    padding-right: 5px !important;
+  
+}
+
+.bttooltipp {
+    width: 25% !important;
+    height: 30px !important;
+    text-align: center;
+    margin-top: 5px !important;
+    padding-right: 5px !important;
+  
+}
+
+.bttooltipp.cabecera {
+    width: 25% !important;
+    height: 45px !important;
+    text-align: center;
+    margin-top: 5px !important;
+    padding-right: 5px !important;
+    background-color: #5eb95e !important;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+table.total {
+    width: 100% !important;
+}
+
+.btn-group.rebueno {
+    float: right;
+    color:#000000;
+}
+
+.btn.btn-chiqui {
+    font-size: 12px;
+    height: 22px;
+    padding-top: 2px;
+}
+
+.btn.btn-chiqui.tab {
+    background: #ffffff;
+}
+
+/*.btn.btn-chiqui.tab:not(:active) {
+    background: #000fff;
+}*/
+
+.panel-heading.rebueno {
+    background: -webkit-linear-gradient( #f7d895,#fdaf06);
+    background: -moz-linear-gradient(#f7d895, #fdaf06);
+    background: -o-linear-gradient(#f7d895, #fdaf06);
+    color:#ffffff;
+    font-size: 16px !important;
+}
+
+.panel-group.collap {
+    display: inline-block; 
+    width: 570px; 
+    padding-right: 20px;  
+    vertical-align: top;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-bottom: 20px !important;
+    margin-top: 0px !important;
+}
+
+.panel-group.grafico {
+    display: inline-block; 
+    width: 1145px; 
+    padding-right: 20px;  
+    vertical-align: top;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-bottom: 20px !important;
+    margin-top: 0px !important;
+}
+
+.paneles {
+    display: inline-block;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.panel-default.detvalidados {
+    height: 460px;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}
+
+.panel-default.validados {
+    height: 160px;
+}
+
+.panel-default.validados-carrusel {
+    height: 180px;
+}
+
+.moduleFooter {
+	bottom: 10px !important;
+	margin: 10px auto 0 !important;
+	overflow: hidden !important;
+	position: relative !important;
+	text-align: center !important;
+	//width: 520px;
+}
+.moduleFooter a {
+	display: block !important;
+	font-size: 14px !important;
+	text-align: center !important;
+        color: #0088cc !important;
+}
+
+.no-data {
+    position: relative !important;
+    margin: 0px auto 0 !important;
+    top: 20px;
+    text-align: center !important;
+}
+
+.info-pm {
+    font-size: 21px;
+}
+
+.info-pm > span > a {
+    color: #0088cc;
+}
+
+.info-pm > a {
+    margin-top: 30px;
+}
+
+.table-bordered.activa {
+    width: 95%;
+    margin: 10px auto 0 !important;
+}
+
+.titulo-campana {
+    font-size: 22px !important;
+    margin: 10px auto 0 !important;
+    position: relative !important;
+    text-align: center;
+    margin-bottom: 0px !important;
+    margin-top: 2px !important;
+}
+
+/* HISTORIC */
+.historic {
+	margin: 0 20px 20px 0;
+	float: left;
+	width: 534px;
+}
+.historic .carousel {
+	padding-top: 10px;
+}
+.historic .carousel .carousel-inner {
+	min-height: 150px;
+	width: 80%;
+}
+.historic .carousel .item {
+	padding: 25px 10px;
+}
+.historic .carousel .number {
+	clear: both;
+	display: block;
+}
+.historic .moduleContent {
+	height: 203px;
+}
+.historic .carousel .item .number.numberTotal {
+	font-size: 26px;
+	font-weight: normal;
+}
+/* END HISTORIC */
+
+/*  CARRUSEL */
+.carousel .carousel-inner {
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 50%;
+}
+.carousel .carousel-indicators {
+	margin: auto;
+	width: 60px;
+}
+.carousel ol li {
+	background-color: #CCCCCC;
+	border-radius: 50%;
+	cursor: pointer;
+	height: 10px;
+	float: left;
+	list-style-type: none;
+	margin: 0 2px;
+	width: 10px;
+}
+.carousel ol li.active {
+	background-color: #949494;
+}
+.carousel .item {
+	padding: 10px;
+}
+.carousel .item .number {
+	font-size: 37px;
+	font-weight: bold;
+	color: #4d4d4d;
+}
+.carousel .item .detailSlide {
+	clear: both;
+	margin-top: 0px;
+	display: block;
+}
+.carousel .item .detailSlide span {
+	color: #808080;
+	font-size: 18px;
+	font-weight: lighter;
+	vertical-align: middle;
+}
+.carousel .item .detailSlide img {
+	margin-right: 10px;
+	width: 32px;
+}
+/* END CARRUSEL */
+
+#codigo_cupon, 
+#fecha_validacion, 
+#id_campana, 
+#fecha_inicio, 
+#precio_total,
+#id_liquidacion,
+#fecha_liquidacion,
+#cantidad_cupones,
+#total_liquidacion,
+#descripcion,
+#fecha_final,
+#vendidos,
+#validados,
+#pagados{
+    text-align: center;
+}
+
+td[data-columnuniqueid="codigo_cupon"],
+td[data-columnuniqueid="fecha_validacion"],
+td[data-columnuniqueid="id_campana"],
+td[data-columnuniqueid="fecha_inicio"],
+td[data-columnuniqueid="id_liquidacion"],
+td[data-columnuniqueid="fecha_liquidacion"],
+td[data-columnuniqueid="cantidad_cupones"],
+td[data-columnuniqueid="fecha_inicio"],
+td[data-columnuniqueid="descripcion"],
+td[data-columnuniqueid="fecha_final"],
+td[data-columnuniqueid="vendidos"],
+td[data-columnuniqueid="validados"],
+td[data-columnuniqueid="pagados"]{
+    text-align: center;
+}
+
+td[data-columnuniqueid="precio_total"],
+td[data-columnuniqueid="total_liquidacion"]{
+    text-align: right;
+}
+
+.text-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.text-right.rightdelete {
+    border-right-width: 0px;
+}
+
+.selectpicker {
+    font:15px Arial, Helvetica, sans-serif;
+    width:300px;
+    height: 30px;
+    color:#ffffff;
+    background-color:#f8d078;
+    border:1px solid #DDD;
+}
+
+
+
+/*********/
+
+.titulo-tabla-grilla {
+    font-family: 'gotham-book';
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.boton-nuevo-grilla {
+    float:right !important;
+    display: table;
+}
+
+.btn-group.tabla-grilla {
+    width:100%;
+}

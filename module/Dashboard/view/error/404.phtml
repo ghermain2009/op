@@ -1,0 +1,26 @@
+<div class="container error">
+    <div class="error_404">
+    </div>
+</div>
+<?php
+        $serviceLocator = $this->getHelperPluginManager()->getServiceLocator();
+        $config = $serviceLocator->get('config');
+        
+        $pais = $config['id_pais'];
+        $capital = $config['id_capital'];
+        
+        $departamentoTable = $serviceLocator->get('Dashboard\Model\UbidepartamentoTable');
+        $departamentos = $departamentoTable->getDepartamentosxPaisFavoritos($pais);
+        
+        $provinciaTable = $serviceLocator->get('Dashboard\Model\UbiprovinciaTable');
+        $provincias = $provinciaTable->getProvinciasxDepartamento($pais, $capital);
+        
+        $telefono_empresa = $config['empresa']['telefono'];
+        
+        $this->layout()->pais = $pais;
+        $this->layout()->capital = $capital;
+        $this->layout()->departamentos = $departamentos;
+        $this->layout()->provincias = $provincias;
+        $this->layout()->telefono_empresa = $telefono_empresa;
+        $this->layout()->pedir_registro = '1';
+?>

@@ -1,0 +1,40 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Documentos Registrados por Campaña</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-lg-15">
+                <table class="table">
+                    <tr class="info">
+                        <th>Empresa</th>
+                        <th>Campaña</th>
+                        <th>Contrato</th>
+                        <th>Anexo</th>
+                        <th>Arte</th>
+                    </tr>
+                    <?php foreach( $datos as $campana ) { ?>
+                    <tr class="<?php switch ($campana['estado_general']) {
+                                        case 'N': 
+                                            echo 'danger';
+                                            break;
+                                        case 'P':
+                                            echo 'warning';
+                                            break;
+                                        default:
+                                            echo 'success';
+                                            break;
+                                    }
+                               ?>">
+                        <td><?php echo $campana['razon_social'];?></td>
+                        <td><?php echo $campana['subtitulo'];?></td>
+                        <td><?php echo $campana['estado_contrato'];?></td>
+                        <td><?php echo $campana['estado_anexo'];?></td>
+                        <td><?php echo $campana['estado_arte'];?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

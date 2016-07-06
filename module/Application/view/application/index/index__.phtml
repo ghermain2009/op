@@ -1,0 +1,526 @@
+<div class="carrusel-afiliacion">
+    <div  class="container afiliacion">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="width:100%;height:100%">
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="slider-afiliacion fondo_pantalla_1"></div>
+                    <div class="carousel-caption"></div>
+                </div>
+                <div class="item">
+                    <div class="slider-afiliacion fondo_pantalla_2"></div>
+                    <div class="carousel-caption"></div>
+                </div>
+                <div class="item">
+                    <div class="slider-afiliacion fondo_pantalla_3"></div>
+                    <div class="carousel-caption"></div>
+                </div>
+                <div class="item">
+                    <div class="slider-afiliacion fondo_pantalla_4"></div>
+                    <div class="carousel-caption"></div>
+                </div>
+                <div class="item">
+                    <div class="slider-afiliacion fondo_pantalla_5"></div>
+                    <div class="carousel-caption"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="promocion-afiliacion" id="promocion-container" style="overflow: hidden; width: 920px; height: 181px;">
+    <div class="contenedor-formulario-promocion" style="display: block">
+        <div class="formulario-afiliacion" id="formulario-container">
+            <form id="suscribirmeForm" method="post" action="/index/suscribirme" class="">
+                <div class="form-group">
+                    <div class="col-xs-5"> 
+                        <div class="logo-fijo-afiliacion"></div>
+                    </div>
+                    <label for="logo" class="col-xs-7 control-faltan">Faltan pocos días</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="promocion-parrafo"><br/></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="promocion-parrafo">Disfrutar de momentos inolvidables con descuentos de <porcentaje>50% a más</porcentaje> en Ecuador es ya una realidad.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="promocion-parrafo">Suscríbete y recibirás por las mañanas super ofertas en tu buzón casi como tips de super utilidad.</p>
+                    </div>
+                </div>
+                <input type="hidden" name="pais" id="pais" value="<?php echo $pais; ?>">
+                <div class="form-group">
+                    <label for="ciudad" class="col-lg-5 control-label afiliacion">Elige tu ciudad:</label>
+                    <div class="col-xs-7 validacion"> 
+                        <select class="form-control" name="ciudad" id="ciudad">
+                            <option value="">-- Selecciona tu ciudad --</option>
+                            <?php foreach ($departamentos as $departamento) { ?>
+                                <option value="<?php echo $departamento['id_departamento']; ?>" <?php if ($departamento['id_departamento'] == $capital) {
+                                echo 'selected';
+                            } ?>><?php echo $departamento['descripcion']; ?></option>
+                            <?php } ?>
+                        </select>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="form-group" id="contenido-zona">
+                    <?php if( count($provincias) > 0 ) { ?>
+                    <label for="zona" class="col-lg-5 control-label afiliacion">Elige tu zona:</label>
+                    <div class="col-xs-7 validacion"> 
+                        <select class="form-control" name="zona" id="zona">
+                            <option value="">-- Selecciona tu zona --</option>
+                            <?php foreach ($provincias as $provincia) { ?>
+                                <option value="<?php echo $provincia['id_provincia']; ?>"><?php echo $provincia['descripcion']; ?></option>
+                            <?php } ?>
+                        </select>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-lg-5 control-label afiliacion">Email:</label>
+                    <div class="col-xs-7 validacion"> 
+                        <input type="text" class="form-control" name="email" id="email" value="" >
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="genero" class="col-lg-5 control-label afiliacion">Género:</label>
+                    <div class="col-xs-7 validacion">
+                        <div class="radio afiliacion" >
+                            <label><input type="radio" name="genero" id="genero" value="M" required>Masculino</label>
+                        </div>
+                        <div class="radio afiliacion" >
+                            <label><input type="radio" name="genero" id="genero" value="F" required>Femenino</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 total">
+                        <button type="submit" class="btn btn-rebueno"  id="suscribirme" disabled="">Suscribirme</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="imagen-afiliacion-contenedor" id="imagen-container"><img width="495" height="100%" src="../img/afiliacion/afiliacion_teclado.jpg"></div>
+    </div>
+</div>
+<div class="registro-actualizacion" id="registro-container">
+    <div class="formulario-actualizacion" id="formulario-registro">
+        <form id="actualizarForm" method="post" action="/index/suscribirme">
+            <div class="form-group">
+                <div class="col-xs-6"> 
+                    <div class="logo-fijo-afiliacion"></div>
+                </div>
+                <label for="logo" class="col-xs-7 control-faltan">Crear Cuenta</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <p class="promocion-parrafo"></br></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nombre" class="col-lg-5 control-label afiliacion"><span class="required">* </span>Nombres:</label>
+                <div class="col-xs-7 validacion">
+                    <input type="text" class="form-control" name="nombre" id="nombre">
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellido" class="col-lg-5 control-label afiliacion"><span class="required">* </span>Apellidos:</label>
+                <div class="col-xs-7 validacion">
+                    <input type="text" class="form-control" name="apellido" id="apellido">
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-lg-5 control-label afiliacion"><span class="required">* </span>Email:</label>
+                <div class="col-xs-7 validacion">
+                    <input type="email" class="form-control" name="email" id="email" readonly="">
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="clave" class="col-lg-5 control-label afiliacion"><span class="required">* </span>Crear Clave:</label>
+                <div class="col-xs-7 validacion">
+                    <input type="password" class="form-control" name="clave" id="clave">
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="claverepeat" class="col-lg-5 control-label afiliacion"><span class="required">* </span>Repetir Clave:</label>
+                <div class="col-xs-7 validacion">
+                    <input type="password" class="form-control" name="claverepeat" id="claverepeat">
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="preferencia[]" class="col-lg-12 control-label afiliacion"><span class="required">* </span>Seleccione al menos 2 rubros del cual le gustaria recibir promociones rebuenas.</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 validacion">
+                    <?php foreach ($categorias as $categoria) { ?>
+                        <div class="radio afiliacion" >
+                            <label><input type="checkbox" name="preferencia[]" value="<?php echo $categoria["id_categoria"]; ?>"><?php echo $categoria["descripcion"]; ?></label>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="registrar">
+                    <button type="submit" class="btn btn-rebueno">Registrarme</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="facebook-actualizacion" id="facebook-contenedor">
+        <div class="facebook-datos" id="facebook-registro">
+            <h3 class="facebook-titulo">Registrarme con Facebook</h3></br>
+            <div class="form-group">
+                <label class="col-lg-10 control-label">Conecta tu cuenta de Facebook para registrarte a Rebueno</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-10">
+                    <a class="btn btn-block btn-lg btn-social btn-facebook btn-facerebueno" href="javascript:loginFacebook();">
+                        <i class="fa fa-facebook"></i> Registrar con<br>Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="promocion-saludo" id="promocion-saludo">
+    <div class="formulario-saludo" id="formulario-saludo">
+        <form id="saludoForm" method="post" action="/">
+            <div class="form-group">
+                <div class="col-xs-5"> 
+                    <div class="logo-fijo-afiliacion"></div>
+                </div>
+                <label for="logo" class="col-xs-7 control-faltan">Faltan pocos días</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <p class="promocion-parrafo"><br/></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <p class="promocion-parrafo">Muchas, gracias por inscribirte. Desde este instante formas parte de la comunidad más dinámica del Ecuador.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <p class="promocion-parrafo">Muy pronto tendrás en tus manos promociones realmente Rebuenas.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="suscribirme" class="col-lg-5 control-label"></label>
+                <div class="col-xs-7">
+                    <button type="submit" class="btn btn-rebueno"  id="volver" >Volver al inicio</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="imagen-afiliacion" id="imagen-saludo"><img width="495" height="100%" src="../img/afiliacion/afiliacion_teclado.jpg"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        jQuery.fn.reset = function () {
+            $(this).each(function () {
+                this.reset();
+            });
+        }
+
+        <?php if( $existepromocion ) { ?>
+        if ($(window).width() <= 727) {
+            $("#promocion-container").animate({'opacity': '1', 'width': '90%', 'height': '60%', 'top': '20%', 'left': '5%', 'background-size': '90% 90%'}, 3000, function () {
+                // Animation complete.
+                $("#promocion-container").delay(4000);
+                $("#promocion-container").animate({'opacity': '0.5'}, 3000, function () {
+                    $("#promocion-container").css('background-image', 'none');
+                    $("#formulario-container").css('display', 'inline-block');
+                    $("#imagen-container").css('display', 'inline-block');
+                    $("#promocion-container").animate({'opacity': '1'}, function () {
+                        $("#promocion-container").attr("class", "promocion-afiliacion-fija");
+                    });
+                });
+            });
+        } else {
+            $("#promocion-container").animate({'opacity': '1', 'width': '60%', 'height': '60%', 'top': '20%', 'left': '20%', 'background-size': '60% 60%'}, 3000, function () {
+                // Animation complete.
+                $("#promocion-container").delay(4000);
+                $("#promocion-container").animate({'opacity': '0.5'}, 3000, function () {
+                    $("#promocion-container").css('background-image', 'none');
+                    $("#formulario-container").css('display', 'inline-block');
+                    $("#imagen-container").css('display', 'inline-block');
+                    $("#promocion-container").animate({'opacity': '1'}, function () {
+                        $("#promocion-container").attr("class", "promocion-afiliacion-fija");
+                    });
+                });
+            });
+        }
+        <?php } else { ?>
+                $("#promocion-container").css('background-image', 'none');
+                $("#imagen-container").css('display', 'inline-block');
+                $("#formulario-container").css('display', 'inline-block');
+                $("#promocion-container").attr("class", "promocion-afiliacion-fija");
+        <?php } ?>
+
+        $('#suscribirmeForm').formValidation({
+            message: 'El valor no es válido.',
+            err: {
+                container: 'tooltip'
+            },
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh',
+            },
+            fields: {
+                email: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre su email.'
+                        },
+                        emailAddress: {
+                            message: 'El email ingresado no es una dirección correcta.'
+                        }
+                    }
+                },
+                ciudad: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'La ciudad es requerida, por favor seleecione una.'
+                        }
+                    }
+                },
+                genero: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar su genero.'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            $.post($form.attr('action'), $form.serialize(),
+                function (data) {
+                    var cliente = $.parseJSON(data);
+                    
+                    if (cliente[0][0]) {
+
+                        if (cliente[0][0].nombres == null) {
+                            $("#promocion-container").css('display', 'none');
+                            $("#registro-container").css('display', 'inline-block');
+                            $("#formulario-registro").css('display', 'inline-block');
+                            $("#actualizarForm :input[name=email]").val($("#suscribirmeForm :input[name=email]").val());
+                    
+                            $("#actualizarForm :input[name=nombre]").val(cliente[0][0].nombres);
+                            $("#actualizarForm :input[name=apellido]").val(cliente[0][0].apellidos);
+                            $.each(cliente[1], function(i, obj) {
+                                $("#actualizarForm :checkbox[name='preferencia[]'][value=" + obj.id_categoria + "]").attr("checked", "checked");
+                            });
+                        } else {
+                            
+                            $("#promocion-container").css('display', 'none');
+                            $("#promocion-saludo").css('display', 'inline-block');
+                            $("#formulario-saludo").css('display', 'inline-block');
+                            $("#imagen-saludo").css('display', 'inline-block');
+                        }
+                    }
+                }
+            );
+        });
+        
+        $('#ciudad').change(function(){
+            var pais   = $('#pais').val();
+            var ciudad = $('#ciudad').val();
+            $.ajax({
+                type: "POST",
+                url: "/index/zonificacion",
+                data: {pais: pais, ciudad: ciudad},
+                success: function (data) {
+                    $('#contenido-zona').html(data);
+                    if(data == '') {
+                        $('#suscribirmeForm').formValidation('removeField', 'zona');
+                    } else {
+                        $('#suscribirmeForm').formValidation('addField', 'zona', {
+                            err: 'popover',
+                            validators: {
+                                notEmpty: {
+                                    message: 'La zona es requerida, por favor seleecione una.'
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        
+        if( $('#zona').length > 0 ) {
+            $('#suscribirmeForm').formValidation('addField', 'zona', {
+                err: 'popover',
+                validators: {
+                    notEmpty: {
+                        message: 'La zona es requerida, por favor seleecione una.'
+                    }
+                }
+            });
+        }
+
+        $('#actualizarForm').formValidation({
+            message: 'El valor no es válido.',
+            err: {
+                container: 'tooltip'
+            },
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh',
+            },
+            fields: {
+                nombre: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre su nombre.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z ]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: 'El nombre debe contener 50 caracteres como máximo.'
+                        }
+                    }
+                },
+                apellido: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre su apellido.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z ]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: 'El apellido debe contener 50 caracteres como máximo.'
+                        }
+                    }
+                },
+                clave: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre su password.'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 50,
+                            message: 'El password debe contener 50 caracteres como máximo.'
+                        }
+                    }
+                },
+                claverepeat: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor repita su password.'
+                        },
+                        identical: {
+                            field: 'clave',
+                            message: 'No coinciden las claves ingresadas.'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 50,
+                            message: 'El password debe contener 50 caracteres como máximo.'
+                        }
+                    }
+                },
+                email: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre su email.'
+                        },
+                        emailAddress: {
+                            message: 'El email ingresado no es una dirección correcta.'
+                        }
+                    }
+                },
+                'preferencia[]': {
+                    err: 'popover',
+                    icon: false,
+                    validators: {
+                        choice: {
+                            min: 2,
+                            message: 'Por favor elija al menos %s de sus preferencias.'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            $.post($form.attr('action'), $form.serialize(),
+                    function (data) {
+                        $("#registro-container").css('display', 'none');
+                        $("#promocion-saludo").css('display', 'inline-block');
+                        $("#formulario-saludo").css('display', 'inline-block');
+                        $("#imagen-saludo").css('display', 'inline-block');
+                        //$("#suscribirmeForm").formValidation('resetForm', true);
+                        //$("#suscribirmeForm").formValidation('updateStatus', 'email', 'NOT_VALIDATED').formValidation('validateField', 'email');
+                        //$("#suscribirmeForm").data('formValidation').updateStatus('email', 'NOT_VALIDATED').validateField('email');
+                        //
+                        //$("#suscribirmeForm").reset();
+                        //$('#suscribirmeForm').data('validator').resetForm();
+                        //$("#actualizarForm").reset();
+
+
+                        //$(form).data('formValidation').resetForm();
+
+                    });
+        });
+
+        $('#saludoForm').formValidation().on('success.form.fv', function (e) {
+            //e.preventDefault();
+            //$("#promocion-saludo").css('display', 'none');
+            //$("#promocion-container").css('display', 'inline-block');
+        });
+
+    });
+
+    $(function () {
+        /*$("img.lazy").lazyload();
+         
+         $('#promocion-container').hover(
+         function(){
+         var $this = $(this);
+         $this.stop().animate({'opacity':'0.5','width':'60%','height':'60%','top':'20%','left':'20%','background-size':'60% 60%'});
+         },
+         function(){
+         var $this = $(this);
+         $this.stop().animate({'opacity':'1','width':'100%','height':'100%','top':'0px','left':'0px','background-size':'100% 100%'});
+         }
+         );*/
+    });
+
+</script>

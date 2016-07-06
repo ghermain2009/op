@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Documento PDF</title>
+        <style type="text/css">
+             body {
+                font-family: Helvetica;
+                font-size: 9px;
+            }
+
+            .centrado {
+                text-align:center;
+                font-size: 11px;
+            }
+
+            .justificado {
+                text-align:justify;
+                padding: 0px;
+                margin: 0px;
+                font-size: 9px;
+            }
+
+            .justificado.borde-top {
+                margin-top: 9px;
+            }
+
+            .justificado.borde-bottom {
+                margin-bottom: 9px;
+            }
+
+            .con-vineta {
+                width: 100%;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .vineta-numerado {
+                display:inline-block !important;
+                width: 5% !important;
+                vertical-align:top !important;
+                padding: 0px !important;
+                margin: 0px !important;
+                position: relative !important;
+                top:0px !important;
+            }
+
+            .vineta-numerado-pos{
+                display:inline-block !important;
+                width: 95% !important;
+                vertical-align:top !important;
+                padding: 0px !important;
+                margin: 0px !important;
+                position: relative !important;
+                top:0px !important;
+            }
+            
+            .firma-contenedor{
+                margin-top: 50px;
+            }
+            
+            .firma {
+                display:inline-block !important;
+                width: 50%;
+                text-align: center;
+            }
+            
+            .table-firma {
+                padding: 0px;
+                margin: 0px;
+                width: 150px;
+            }
+            
+            ul {
+                margin-left: 0px;
+                padding-left: 0px;
+            }
+            
+            .centrar-div {
+                margin: 0 auto;
+            }
+            
+            .centrar-div.corrida {
+                height: 55px;
+                font-family: 'journal';
+                font-size: 2.875em;
+                color: #165595;
+            }
+            .tabla-bordeada {
+                width: 80%;
+                margin: 0 auto;
+                padding: 0;
+                border-spacing:0;
+            }
+            
+            .celda-bordeada {
+                border-left-style: solid;
+                border-top-style: solid;
+                border-left-width: 0.7px;
+                border-top-width: 0.7px;
+            }
+            
+            .celda-bordeada.derecha {
+                border-right-style: solid;
+                border-right-width: 0.7px;
+            }
+            
+            .celda-bordeada.derecha-cierre {
+                border-bottom-style: solid;
+                border-bottom-width: 0.7px;
+            }
+            
+            .titulo {
+                background-color:#e1e1e8;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div><p class="centrado"><b>ANEXO NRO. 1</b></p></div>
+            <div class="centrar-div">
+                <table class="tabla-bordeada">
+                    <tr class="titulo"><td colspan="2" class="celda-bordeada derecha"><b>INFORMACIÓN LEGAL</b></td></tr>
+                    <tr><td style="width:40%" class="celda-bordeada">Nombre Comercial :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['nombre_comercial'];?></td></tr>
+                    <tr><td class="celda-bordeada">Razón Social :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['razon_social'];?></td></tr>
+                    <tr><td class="celda-bordeada">RUC :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['registro_contribuyente'];?></td></tr>
+                    <tr><td class="celda-bordeada">Dirección :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['direccion_facturacion'];?></td></tr>
+                    <tr><td class="celda-bordeada">Sitio Web :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['web_site'];?></td></tr>
+                    <tr><td class="celda-bordeada">Teléfono :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['telefono'];?></td></tr>
+                    <tr><td class="celda-bordeada">Persona de Contacto :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['persona_contacto'];?></td></tr>
+                    <tr><td class="celda-bordeada derecha-cierre">Email :</td><td class="celda-bordeada derecha derecha-cierre"><?php echo $datos_empresa[0]['email_contacto'];?></td></tr>
+                </table>
+                <br/>
+                <br/>
+                <table class="tabla-bordeada">
+                    <tr class="titulo"><td colspan="2" class="celda-bordeada derecha derecha-cierre"><b>DETALLE DE LA CAMPAÑA</b></td></tr>
+                    <?php $cont = 1;
+                          foreach( $opciones_campana as $opciones ) { 
+                    ?>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr><td colspan="2"><b>OPCIÓN <?php echo $cont;?></b></td></tr>
+                    <tr><td style="width:40%" class="celda-bordeada">Titular Sugerido :</td><td class="celda-bordeada derecha"><?php echo strip_tags($opciones['descripcion']);?></td></tr>
+                    <tr><td class="celda-bordeada">Precio Original :</td><td class="celda-bordeada derecha"><?php echo $opciones['precio_regular'];?></td></tr>
+                    <tr><td class="celda-bordeada">Descuento en % :</td><td class="celda-bordeada derecha"><?php echo $opciones['descuento'];?></td></tr>
+                    <tr><td class="celda-bordeada">Precio Rebueno :</td><td class="celda-bordeada derecha"><?php echo $opciones['precio_especial'];?></td></tr>
+                    <tr><td class="celda-bordeada">Comisión Rebueno incluido IVA <?php echo $datos_campana[0]['comision_campana'];?>% :</td><td class="celda-bordeada derecha"><?php echo round($opciones['precio_especial'] * ($datos_campana[0]['comision_campana'] / 100),2);?></td></tr>
+                    <tr><td class="celda-bordeada">Ingreso neto por Cliente :</td><td class="celda-bordeada derecha"><?php echo $opciones['precio_especial'] - round($opciones['precio_especial'] * ($datos_campana[0]['comision_campana'] / 100),2);?></td></tr>
+                    <tr><td class="celda-bordeada">Número máximo de cupones :</td><td class="celda-bordeada derecha"><?php if(empty($opciones['cantidad'])) { echo '100'; } else { echo $opciones['cantidad']; }?></td></tr>
+                    <tr><td class="celda-bordeada derecha-cierre">Vigencia :</td><td class="celda-bordeada derecha derecha-cierre"></td></tr>
+                    <?php $cont++;
+                          } ?>
+                </table>
+                <br/>
+                <br/>
+                <table class="tabla-bordeada">
+                    <tr class="titulo"><td class="celda-bordeada derecha"><b>CONDICIONES DE LA OFERTA</b></td></tr>
+                    <tr><td style="width:100%" class="celda-bordeada derecha derecha-cierre"><div style="width:96%;margin:0 auto;"><p style="text-align:justify"><?php echo strip_tags($datos_campana[0]['sobre_campana']);?></p></div></td></tr>
+                </table>
+                <br/>
+                <br/>
+                <!--table class="tabla-bordeada">
+                    <tr class="titulo"><td colspan="2" class="celda-bordeada derecha"><b>DESCRIPCIÓN DEL ESTABLECIMIENTO DONDE APLICA LA OFERTA</b></td></tr>
+                    <tr><td style="width:40%" class="celda-bordeada">Dirección :</td><td class="celda-bordeada derecha"><?php // echo $datos_empresa[0]['direccion_comercial'];?></td></tr>
+                    <tr><td class="celda-bordeada">Sitio Web /Fanpage / Blog :</td><td class="celda-bordeada derecha"><?php // echo $datos_empresa[0]['web_site'];?></td></tr>
+                    <tr><td class="celda-bordeada">Teléfonos atención al cliente :</td><td class="celda-bordeada derecha"><?php //echo $datos_empresa[0]['telefono'];?></td></tr>
+                    <tr><td class="celda-bordeada">Horarios de atención :</td><td class="celda-bordeada derecha"><?php //echo $datos_empresa[0]['horario'];?></td></tr>
+                    <tr><td class="celda-bordeada derecha-cierre">Email de contacto del establecimiento :</td><td class="celda-bordeada derecha derecha-cierre"></td></tr>
+                </table>
+                <br/>
+                <br/-->
+                <table class="tabla-bordeada">
+                    <tr class="titulo"><td colspan="2" class="celda-bordeada derecha"><b>INFORMACIÓN PARA PAGOS</b></td></tr>
+                    <tr><td style="width:40%" class="celda-bordeada">Titular de la Cuenta :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['titular_cuenta'];?></td></tr>
+                    <tr><td class="celda-bordeada">RUC Titular :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['ruc_titular'];?></td></tr>
+                    <tr><td class="celda-bordeada">Banco :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['banco_cuenta'];?></td></tr>
+                    <tr><td class="celda-bordeada">Tipo de Cuenta :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['tipo_cuenta'];?></td></tr>
+                    <tr><td class="celda-bordeada">Nº de Cuenta :</td><td class="celda-bordeada derecha"><?php echo $datos_empresa[0]['numero_cuenta'];?></td></tr>
+                    <tr><td class="celda-bordeada derecha-cierre">Email de Facturación :</td><td class="celda-bordeada derecha derecha-cierre"><?php echo $datos_empresa[0]['email_facturacion'];?></td></tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div><?php if(empty($this->nombre_firmante)) { ?>
+                <div class="firma-contenedor">
+                    <div class="firma">ECUADORPUNTOCOM C.L.</div>
+                    <div class="firma">ALIADO ESTRATÉGICO</div>
+                </div>
+                <?php } else { ?>
+                <div class="firma-contenedor">
+                    <div class="firma">
+                        <div class="centrar-div corrida">Carolina Granda Barzola</div>
+                        <div class="centrar-div">CAROLINA GRANDA BARZOLA</div>
+                        <div class="centrar-div">ECUADORPUNTOCOM C.L.</div>
+                    </div>
+                    <div class="firma">
+                        <?php if( $this->img_firma == '' ) { ?>
+                        <div class="centrar-div corrida"><?php echo $this->nombre_firmante; ?></div>
+                        <?php } else { ?>
+                        <div class="centrar-div corrida"><img src="<?php echo $this->img_firma; ?>" width="150" height="55"/></div>
+                        <?php } ?>
+                        <div class="centrar-div"><?php echo strtoupper($this->nombre_firmante); ?></div>
+                        <div class="centrar-div">ALIADO ESTRATÉGICO</div>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </body>
+</html>

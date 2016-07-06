@@ -1,0 +1,547 @@
+
+    
+    <div class="container">
+        <div class="row">
+
+            <div><h3><b>Empresa : <?php echo $this->selectEmpresas;?></b></h3>
+                <div class="paneles"> 
+                    
+                    <div class="panel-group collap" id="accordion" role="tablist" aria-multiselectable="true" >
+                        <form class="form-horizontal" role="form" data-toggle="validator">
+                        <div class="panel panel-default ">
+                            <div class="panel-heading rebueno" role="tab" id="headingOne">
+                                <div>
+                                    <m class="panel-title">
+                                        Válidar cupones <?php echo $empresa['nombre'];?>
+                                    </m>
+                                    <a data-toggle="modal" data-target="#codigo">
+                                        <span class="glyphicon glyphicon-question-sign btn-vk" data-toggle="tooltip" data-placement="right" title="" data-original-title="¿Dónde encuentro el código de validación?"></span>
+                                    </a>
+                                    <a id="ocultar_valida" class="pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="glyphicon glyphicon-collapse-up"></span> Ocultar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="tabbable tabs-left" style="padding: 0px">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#a" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por uno</a></li>
+                                            <li><a href="#b" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por varios</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="a">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <input type="text" class="form-control" placeholder="Ingrese Código de Válidación" id="cupon_unico" >
+                                                        <span class="help-block with-errors"></span>
+                                                        <span id="id_mensaje_valida"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-success btn-lg btn-block" id="valida_unico">Válidar</button>
+                                                        <button type="button" class="btn btn-default btn-block" id="consulta_unico">Consultar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="b">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <textarea class="form-control" rows="3" placeholder="Separe múltiples códigos con coma, eje. BU123456, BU123457" id="cupon_multiple"></textarea>
+                                                        <span class="help-block with-errors"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-success btn-lg btn-block" id="valida_multiple">Válidar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal fade" id="codigo" tabindex="100" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">¿Dónde encuentro el código de validación?</h3>
+                                </div>
+                                <form class="form-horizontal">
+                                    <div class="modal-body">
+                                        <div style="position:relative; width:88%; margin: 0 auto;" >
+                                            <img alt="Ejemplo de donde encontrar el codigo" src="/img/rebueno_donde_codigo_cupon.jpg">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div></div>
+                    </div>
+                    <div class="panel-group collap" id="accordionTwo" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Partner Management
+                                    </m>
+                                    <a id="ocultar_partner" class="pull-right" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        <span class="glyphicon glyphicon-collapse-up"></span> Ocultar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <div class="contPartnerProfile">
+                                        <div class="info-pm" style="width: 100%;height: 190px">
+                                            <span>Para contactarte con tu Partner Manager, puedes escribir a <a href="mailto:socios@<?php echo $empresa['dominio'];?>">socios@<?php echo $empresa['dominio'];?></a> o hacer click en </span><a id="contact-pm-opt" href="#contact-pm" data-toggle="modal" class="btn btn-large btn-success">Contactar a PM</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="paneles">   
+                    <div class="panel-group collap" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Últimos Cupo<?php echo $empresa['nombre'];?>s validados
+                                    </m>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-default validados">
+                                    <table class="table-hover total">
+                                        <?php $cantidad = count($cupon_validado);
+                                              if( $cantidad > 0 ) { 
+                                                 for($i=0; $i<$cantidad; $i++ ) { ?>
+                                                    <tr>
+                                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Código <?php echo $empresa['nombre'];?>"><?php echo $cupon_validado[$i]['codigo_cupon'];?></td>
+                                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de validación"><?php echo $cupon_validado[$i]['fecha_validacion'];?></td>
+                                                        <td class="bttooltip">
+                                                            <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="Ver esta Publicación"><?php echo $cupon_validado[$i]['id_campana'];?></a>
+                                                        </td>
+                                                        <td class="bttooltip">
+                                                            <button type="button" class="btn btn-success btn-chiqui" id="valida_multiple"><span class="glyphicon-plus">  Agregar</span></button>
+                                                        </td>
+                                                    </tr>
+                                        <?php    }
+                                              } ?>
+                                    </table>
+                                    <div class="moduleFooter">
+                                        <a href="/dashboard/micampana/detallevalidado/<?php echo base64_encode($id_empresa);?>">Ver listado completo de Cupo<?php echo $empresa['nombre'];?>s validados</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-group collap" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    Los pagos más recientes
+                                    <div class="btn-group rebueno" rol="group">
+                                        <button class="btn active btn-chiqui tab" data-toggle="tab" href="#payments">Liquidaciones</button>
+                                        <button class="btn btn-chiqui tab" data-toggle="tab" href="#bills">Facturas</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="payments" class="tab-pane active" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-default validados">
+                                        <table class="table-hover total">
+                                            <?php $cantidadL = count($liquidaciones);
+                                              if( $cantidadL > 0 ) { 
+                                                 for($i=0; $i<$cantidadL; $i++ ) { ?>
+                                                    <tr>
+                                                        <td class="bttooltip">
+                                                            <a href="/dashboard/micampana/resumenliquidacion/<?php echo base64_encode($id_empresa);?>/<?php echo base64_encode($liquidaciones[$i]['id_liquidacion']);?>" data-toggle="tooltip" data-placement="right" data-original-title="Ver esta Liquidación"><?php echo $liquidaciones[$i]['id_liquidacion'];?></a>
+                                                        </td>
+                                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Fecha de emisión"><?php echo $liquidaciones[$i]['fecha_liquidacion'];?></td>
+                                                        <td class="bttooltip" data-toggle="tooltip" data-placement="top" data-original-title="Total">DOL $ <?php echo $liquidaciones[$i]['total_liquidacion'];?></td>
+                                                        <td class="bttooltip">
+                                                            <button type="button" class="btn btn-chiqui" id="valida_multiple"><span class="glyphicon glyphicon-download"></span> Descargar</button>
+                                                        </td>
+                                                    </tr>
+                                        <?php    }
+                                              } ?>
+                                        </table>
+                                        <div class="moduleFooter">
+                                            <a href="/dashboard/micampana/detalleliquidacion/<?php echo base64_encode($id_empresa);?>">Ver listado completo de Liquidaciones</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="bills" class="tab-pane" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-default validados">
+                                        <p class="no-data">No existen datos de facturas</p><table class="table">
+                                            <colgroup>
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="30%">
+                                                <col width="25%">
+                                            </colgroup>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="paneles">   
+                    <div class="panel-group collap" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Histórico de campañas
+                                    </m>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-default validados-carrusel">
+                                    <div class="historic">
+                                        <div id="myHistoricCarousel" class="carousel slide">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="item active">
+                                                    <span class="data-history data-validated boxGraphic">
+                                                        <span class="number"><?php echo $historialValidados[0]['validados'];?></span>
+                                                        <span class="detailSlide">
+                                                            <img src="../../img/icono_cupon.png">
+                                                            <span>Cupones <?php echo $empresa['nombre'];?> validados</span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="item">
+                                                    <span class="data-history data-payed boxGraphic">
+                                                        <span class="number"><?php echo $historialPagados[0]['cantidad_pagados'];?></span>
+                                                        <span class="detailSlide">
+                                                            <img src="../../img/icono_cupon_paid.png">
+                                                            <span>Cupones <?php echo $empresa['nombre'];?> pagados</span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="item">
+                                                    <span class="data-history data-total boxGraphic">
+                                                        <span class="number">DOL $ <?php echo $historialPagados[0]['total_pagados'];?></span>
+                                                        <span class="detailSlide">
+                                                            <img src="../../img/icono_all_payments.png">
+                                                            <span>Monto total pagado</span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#myHistoricCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myHistoricCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                            <!-- circles -->
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#myHistoricCarousel" data-slide-to="0" class="active"></li>
+                                                <li data-target="#myHistoricCarousel" data-slide-to="1" class=""></li>
+                                                <li data-target="#myHistoricCarousel" data-slide-to="2" class=""></li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-group collap" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Campaña actual
+                                    </m>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-default validados-carrusel">
+                                    <?php $cantidadC = count($datosCampana);?>
+                                    <div class="titulo-campana"><?php echo $cantidadC;?> Campaña Activa</div>
+                                    <table class="table-bordered activa" id="activecampaignTable" style="cursor: pointer;">
+                                        <tr>
+                                            <td class="bttooltipp cabecera">Activa desde</td>
+                                            <td class="bttooltipp cabecera">Activa hasta</td>
+                                            <td class="bttooltipp cabecera">Ubicación</td>
+                                            <td class="bttooltipp cabecera">Cupones motivadores</td>
+                                            <td class="bttooltipp cabecera">Cupones vendidos</td>
+                                        </tr>
+                                        <?php if( $cantidadC > 0 ) { 
+                                                 for($i=0; $i<2; $i++ ) { ?>
+                                        <tr data-toggle="tooltip" data-placement="top" data-original-title="Revisa el detalle de esta campaña">
+                                            <td class="bttooltipp"><?php echo $datosCampana[0]['fecha_inicio'];?></td>
+                                            <td class="bttooltipp"><?php echo $datosCampana[0]['fecha_final'];?></td>
+                                            <td class="bttooltipp">Guayaquil</td>
+                                            <td class="bttooltipp"><?php echo $datosCampana[0]['motivadores'];?></td>
+                                            <td class="bttooltipp"><?php echo $datosCampana[0]['vendidos'];?></td>
+                                        </tr>
+                                                 <?php } 
+                                        } ?>
+                                    </table>
+                                    <div class="moduleFooter">
+                                        <a href="/dashboard/micampana/historiacampanas/<?php echo base64_encode($id_empresa);?>">Ver listado histórico de campañas</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="paneles">   
+                    <div class="panel-group grafico" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    Ventas y validaciones
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                                <pre id="tsv" style="display:none">P</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- /row -->
+    </div>
+
+
+<script type="text/javascript">
+    
+    var id_empresa = <?php echo $id_empresa;?>;
+    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+    
+    $(document).ready(function () {
+        $("#ocultar_valida").click(function () {
+            if ($("#ocultar_valida").html().trim() == '<span class="glyphicon glyphicon-collapse-up"></span> Ocultar') {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-collapse-down"></span> Mostrar')
+            } else {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-collapse-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+
+        $("#ocultar_partner").click(function () {
+            if ($("#ocultar_partner").html().trim() == '<span class="glyphicon glyphicon-collapse-up"></span> Ocultar') {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-collapse-down"></span> Mostrar')
+            } else {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-collapse-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+        
+        $("#id_empresa_sel").change(function () {
+            var url = "/dashboard/micampana/" + $("#id_empresa_sel").val();    
+            $(location).attr('href',url);
+        });
+        
+        Highcharts.data({
+            csv: document.getElementById('tsv').innerHTML,
+            itemDelimiter: '\t',
+            parsed: function (columns) {
+
+                var cuponesVendidos = [],
+                    cuponesValidados = [],
+                    drilldownSeries = [],
+                    datosSeriesVendidos = [],
+                    datosSeriesValidados = [];
+            
+                /*
+
+                cuponesVendidos = [{name:'Abr 2015',y:25,drilldown:'vAbr 2015',color:'#c45f45'},
+                              {name:'May 2015',y:30,drilldown:'vMay 2015',color:'#c45f45'}];
+                          
+                cuponesValidados = [{name:'Abr 2015',y:15,drilldown:'cAbr 2015',color:'#c4ee45'},
+                              {name:'May 2015',y:8,drilldown:'cMay 2015',color:'#c4ee45'}];
+                          
+                drilldownSeries = [{name:'Abr 2015',id:'vAbr 2015',data:[{name:23,y:10},{name:24,y:15}]},
+                                   {name:'May 2015',id:'vMay 2015',data:[{name:23,y:12},{name:24,y:18}]},
+                                   {name:'Abr 2015',id:'cAbr 2015',data:[{name:23,y:7},{name:24,y:8}]},
+                                   {name:'May 2015',id:'cMay 2015',data:[{name:23,y:2},{name:24,y:6}]}];*/
+                
+                <?php 
+                      $totvendidos = 0; 
+                      $totvalidados = 0;
+                      $periodo = '';
+                      for($i=0;$i<count($historialDia);$i++) { 
+                            if( $periodo != '' && $periodo != $historialDia[$i]['periodo'] ) { ?>
+                                drilldownSeries.push({
+                                    name: '<?php echo $periodo;?>',
+                                    id: '<?php echo 'v'.$periodo;?>',
+                                    data: datosSeriesVendidos
+                                });
+                                drilldownSeries.push({
+                                    name: '<?php echo $periodo;?>',
+                                    id: '<?php echo 'c'.$periodo;?>',
+                                    data: datosSeriesValidados
+                                });
+                                cuponesVendidos.push({
+                                    name: '<?php echo $periodo;?>',
+                                    y: <?php echo $totvendidos;?>,
+                                    drilldown: '<?php echo 'v'.$periodo;?>',
+                                    color:'#c45f45'
+                                });
+                                cuponesValidados.push({
+                                    name: '<?php echo $periodo;?>',
+                                    y: <?php echo $totvalidados;?>,
+                                    drilldown: '<?php echo 'c'.$periodo;?>',
+                                    color:'#c4ee45'
+                                });
+                            <?php 
+                            }
+                          
+                            $totvendidos += $historialDia[$i]['vendidos'];
+                            $totvalidados += $historialDia[$i]['validados'];
+                            $periodo = $historialDia[$i]['periodo'];
+                            ?>
+                            datosSeriesVendidos.push({
+                                name: <?php echo $historialDia[$i]['dia'];?>,
+                                y: <?php echo $historialDia[$i]['vendidos'];?>
+                            });
+                            datosSeriesValidados.push({
+                                name: <?php echo $historialDia[$i]['dia'];?>,
+                                y: <?php echo $historialDia[$i]['validados'];?>
+                            });
+                <?php } 
+                      if( $periodo != '' ) { ?>
+                            drilldownSeries.push({
+                                name: '<?php echo $periodo;?>',
+                                id: '<?php echo 'v'.$periodo;?>',
+                                data: datosSeriesVendidos
+                            });
+                            drilldownSeries.push({
+                                name: '<?php echo $periodo;?>',
+                                id: '<?php echo 'c'.$periodo;?>',
+                                data: datosSeriesValidados
+                            });
+                            cuponesVendidos.push({
+                                name: '<?php echo $periodo;?>',
+                                y: <?php echo $totvendidos;?>,
+                                drilldown: '<?php echo 'v'.$periodo;?>',
+                                color:'#c45f45'
+                            });
+                            cuponesValidados.push({
+                                name: '<?php echo $periodo;?>',
+                                y: <?php echo $totvalidados;?>,
+                                drilldown: '<?php echo 'c'.$periodo;?>',
+                                color:'#c4ee45'
+                            });
+                        <?php 
+                        }
+                        ?>
+
+                // Create the chart
+                $('#container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Ventas y validaciones de los últimos 6 meses'
+                    },
+                    subtitle: {
+                        text: 'Click en la columna de mes para ver el detalle de la venta diaria.'
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total Cupones'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> cupones<br/>'
+                    },
+
+                    series: [{
+                        name: 'Ventas por Mes',
+                        colorByPoint: true,
+                        data: cuponesVendidos
+                    }, {
+                        name: 'Validados por Mes',
+                        colorByPoint: true,
+                        data: cuponesValidados
+                    }],
+                    drilldown: {
+                        series: drilldownSeries
+                    }
+                });
+            }
+        });
+    
+    });
+
+    $("#valida_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            } 
+        });
+    });
+
+    $("#consulta_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'C'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            }
+        });
+    });
+
+    $("#valida_multiple").click(function () {
+        var cupon = $('#cupon_multiple').val();
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_multiple').html(data);
+                $('#myModal').modal();
+            }
+        });
+    });
+
+
+
+</script>

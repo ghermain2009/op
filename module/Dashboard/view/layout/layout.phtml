@@ -1,0 +1,314 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Rebueno - Administrador')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/jquery.datetimepicker.css')
+                ->prependStylesheet($this->basePath() . '/css/formValidation.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-multiselect.css')
+                ->prependStylesheet('http://fonts.googleapis.com/css?family=Abel')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap_extend.css')
+                ->prependStylesheet($this->basePath() . '/css/fileinput.min.css')
+                //->prependStylesheet($this->basePath() . '/css/bootstrap-datetimepicker.min.css')
+                ->prependStylesheet($this->basePath() . '/css/style-op.css')
+                ->prependStylesheet($this->basePath() . '/css/style-ma.css')
+                ->prependStylesheet($this->basePath() . '/css/editor.bootstrap.css')
+                ->prependStylesheet($this->basePath() . '/css/dataTables.bootstrap.css')
+                ->prependStylesheet($this->basePath() . '/css/dataTables.tableTools.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ;
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/jquery.datetimepicker.full.js')
+                ->prependFile($this->basePath() . '/js/framework/bootstrap.js')
+                ->prependFile($this->basePath() . '/js/formValidation.js')
+                ->prependFile($this->basePath() . '/js/chart/modules/drilldown.js')
+                ->prependFile($this->basePath() . '/js/chart/modules/data.js')
+                ->prependFile($this->basePath() . '/js/chart/highcharts.js')
+                ->prependFile($this->basePath() . '/js/bootstrap-multiselect.js')
+                ->prependFile($this->basePath() . '/js/webfont.js')
+                ->prependFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js')
+                ->prependFile($this->basePath() . '/js/innovamanager.js')
+                ->prependFile($this->basePath() . '/js/innovaeditor.js')
+                ->prependFile($this->basePath() . '/js/fileinput.min.js')
+                ->prependFile($this->basePath() . '/js/moment.min.js')
+                //->prependFile($this->basePath() . '/js/editor.bootstrap.js')
+                ->prependFile($this->basePath() . '/js/dataTables.bootstrap.js')
+                ->prependFile($this->basePath() . '/js/dataTables.editor.min.js')
+                ->prependFile($this->basePath() . '/js/dataTables.tableTools.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.dataTables.min.js')
+                //->prependFile($this->basePath() . '/js/locales/bootstrap-datetimepicker.es.js')
+                //->prependFile($this->basePath() . '/js/bootstrap-datetimepicker.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ;
+        ?>
+     
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?php echo $this->url('dashboard') ?>"><img src="<?php echo $this->basePath('img/logo_rebueno_admin_2.png') ?>" alt="Rebueno.ec"/></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <?php
+                    echo $this->navigation('navigation')
+                            ->menu()
+                            ->setPartial('layout/menu')
+                            ->render();
+                    ?>
+                </div>
+                <!--/end menu -->
+            </div>
+        </nav>
+        <div class="container">
+        <?php echo $this->content; ?>
+            <div class="modal fade bs-example-modal-lg" id="modalPreview" tabindex="-1" role="dialog" aria-labelledby="modalPreviewLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalPreviewLabel">Preview Campaña</h4>
+                        </div>
+                        <div class="modal-body" id="bodyPreview">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalContrato" tabindex="-1" role="dialog" aria-labelledby="modalContratoLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h3 class="modal-title" id="modalContratoLabel">Generación de Contrato</h3>
+                        </div>
+                        <div class="modal-body" id="bodyContrato">
+                            <div class="container-fluid">
+                                <form name="frmregistro_contrato" id="frmregistro_contrato" role="form">
+                                    <div class="form-group">
+                                        <label for="nombre" class="col-lg-5 control-label afiliacion">Nombre Contacto:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="hidden" class="form-control" name="id_empresa" id="id_empresa" value="" >
+                                            <input type="text" class="form-control" name="nombre" id="nombre" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-lg-5 control-label afiliacion">Email Contacto:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="text" class="form-control" name="email" id="email" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12 total">
+                                            <button type="button" class="btn btn-rebueno" name="generar_contrato" id="generar_contrato" onclick="javascript:generarcontrato();">Generar Contrato</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalAnexoContrato" tabindex="-1" role="dialog" aria-labelledby="modalAnexoContratoLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h3 class="modal-title" id="modalAnexoContratoLabel">Generación de Anexo de Contrato</h3>
+                        </div>
+                        <div class="modal-body" id="bodyAnexoContrato">
+                            <div class="container-fluid">
+                                <form name="frmregistro_anexocontrato" id="frmregistro_anexocontrato" role="form">
+                                    <div class="form-group">
+                                        <label for="nombre" class="col-lg-5 control-label afiliacion">Nombre Contacto:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="hidden" class="form-control" name="id_contrato" id="id_contrato" value="" >
+                                            <input type="hidden" class="form-control" name="id_campana" id="id_campana" value="" >
+                                            <input type="hidden" class="form-control" name="nombre_contrato" id="nombre_contrato" value="" >
+                                            
+                                            <input type="text" class="form-control" name="nombre_contacto" id="nombre_contacto" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email_contacto" class="col-lg-5 control-label afiliacion">Email Contacto:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="text" class="form-control" name="email_contacto" id="email_contacto" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12 total">
+                                            <button type="button" class="btn btn-rebueno" name="generar_anexocontrato" id="generar_anexocontrato" onclick="javascript:generaranexocontrato();">Generar Anexo Contrato</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalPagobancario" tabindex="-1" role="dialog" aria-labelledby="modalPagobancarioLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalPagobancarioLabel">Confirmación de Pago Bancario</h4>
+                        </div>
+                        <div class="modal-body" id="bodyPagobancario">
+                            <div class="container-fluid">
+                                <form name="frmregistro_Pagobancario" id="frmregistro_Pagobancario" role="form">
+                                    <div class="form-group">
+                                        <label for="numero_operacion" class="col-lg-5 control-label afiliacion">Nro. Operación:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="hidden" class="form-control" name="id_cupon" id="id_cupon" value="" >
+                                            <input type="hidden" class="form-control" name="id_campana" id="id_campana" value="" >
+                                            <input type="hidden" class="form-control" name="id_campana_opcion" id="id_campana_opcion" value="" >
+                                            <input type="hidden" class="form-control" name="cantidad" id="cantidad" value="" >
+                                            <input type="text" class="form-control" name="numero_operacion" id="numero_operacion" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fecha_operacion" class="col-lg-5 control-label afiliacion">Fecha Operación :</label>
+                                        <div class="col-xs-7 validacion" >
+                                            <div class="input-group date">
+                                                <input type="text" class="form-control" name="fecha_operacion" id="fecha_operacion" value="" >
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-5 col-xs-7">
+                                                <button type="button" class="btn btn-success" name="generar_Pagobancario" id="generar_Pagobancario" onclick="javascript:generarpagobancario();">Registrar Pago Bancario</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalVoucherbancario" tabindex="-1" role="dialog" aria-labelledby="modalVoucherbancarioLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalVoucherbancarioLabel">Envio de Cupones</h4>
+                        </div>
+                        <div class="modal-body" id="bodyVoucherbancario">
+                            <div class="container-fluid">
+                                <form name="frmregistro_Voucherbancario" id="frmregistro_Voucherbancario" role="form">
+                                    <div class="form-group">
+                                        <label for="email_cupon" class="col-lg-5 control-label afiliacion">Email:</label>
+                                        <div class="col-xs-7 validacion"> 
+                                            <input type="hidden" class="form-control" name="id_cupon" id="id_cupon" value="" >
+                                            <input type="text" class="form-control" name="email_cupon" id="email_cupon" value="" >
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-5 col-xs-7">
+                                                <button type="button" class="btn btn-success" name="enviar_cupones" id="enviar_cupones" onclick="javascript:enviarcuponesmail();">Enviar Cupones</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h1 class="modal-title" id="modalConfirmacionLabel">Grabar Datos</h1>
+                        </div>
+                        <div class="modal-body" id="bodyConfirmacion">
+                            <p>¿Esta seguro de Grabar los datos ingresados?.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button name="modal-confirmacion-si" id="modal-confirmacion-si" class="btn btn-success">Si</button>
+                            <button name="modal-confirmacion-no" id="modal-confirmacion-no" class="btn btn-danger">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalCancelacion" tabindex="-1" role="dialog" aria-labelledby="modalCancelacionLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h1 class="modal-title" id="modalCancelacionLabel">Regresar</h1>
+                        </div>
+                        <div class="modal-body" id="bodyCancelacion">
+                            <p>¿Desea cancelar los cambios?.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button name="modal-cancelacion-si" id="modal-cancelacion-si" class="btn btn-success">Si</button>
+                            <button name="modal-cancelacion-no" id="modal-cancelacion-no" class="btn btn-danger">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <hr>
+                <p>&copy; 2015 - <?php echo date('Y') ?> Ecuador.com - <?php echo $this->translate('Todos los derechos reservados.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+<?php echo $this->inlineScript() ?>
+    </body>
+</html>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+
+        $('#fecha_operacion').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+
+        });
+  });
+  </script>

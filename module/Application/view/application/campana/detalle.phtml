@@ -1,0 +1,653 @@
+<div  class="container">
+<?php
+
+if (! function_exists('array_column')) {
+    function array_column(array $input, $columnKey, $indexKey = null) {
+        $array = array();
+        foreach ($input as $value) {
+            if ( ! isset($value[$columnKey])) {
+                trigger_error("Key \"$columnKey\" does not exist in array");
+                return false;
+            }
+            if (is_null($indexKey)) {
+                $array[] = $value[$columnKey];
+            }
+            else {
+                if ( ! isset($value[$indexKey])) {
+                    trigger_error("Key \"$indexKey\" does not exist in array");
+                    return false;
+                }
+                if ( ! is_scalar($value[$indexKey])) {
+                    trigger_error("Key \"$indexKey\" does not contain scalar value");
+                    return false;
+                }
+                $array[$value[$indexKey]] = $value[$columnKey];
+            }
+        }
+        return $array;
+    }
+}
+
+function crearUrl($str_cadena) {
+    $nueva_cadena = trim($str_cadena);
+    $nueva_cadena = str_replace('-', ' ', $nueva_cadena);
+    $nueva_cadena = str_replace(' ', '-', $nueva_cadena);
+    $nueva_cadena = str_replace(chr(47), '-', $nueva_cadena);
+    $nueva_cadena = str_replace(chr(63), '', $nueva_cadena);
+    return $nueva_cadena;
+}
+
+$maximo_cupones = 0;
+$vendidos = 0;
+foreach ($data_v as $vendidos) {
+    $maximo_cupones = $vendidos['maximo_cupones'];
+    $vendidos = $vendidos['vendidos'];
+}
+
+foreach ($data as $detalle) {
+    $fecha_final = $detalle['fecha_final'];
+    ?>
+
+    <div style="display:inline-block;width:100%">
+        <div class="detalle-titulo"><p><?php echo $detalle['titulo']; ?></p></div>
+        <div id="carousel-detalle-promocion" class="carousel slide carrusel-detalle" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <?php
+                if (file_exists($directorio.$detalle['id_campana'].$sep_path .'small')){
+                    $ficheros = scandir($directorio.$detalle['id_campana'].$sep_path .'small');
+                    $contador = -1;
+                    foreach ($ficheros as $file) {
+                        if ($file == '.' || $file == '..')
+                            continue;
+                        $contador++;
+                        ?>
+                        <li data-target="#carousel-detalle-promocion" data-slide-to="<?php echo $contador; ?>" <?php if ($contador == 0) { ?> class="active" <?php } ?>></li>
+                        <?php
+                    }
+                }
+                ?>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <?php
+                $contador = -1;
+                if(count($ficheros) > 0) {
+                    foreach ($ficheros as $file) {
+                        if ($file == '.' || $file == '..')
+                            continue;
+                        $contador++;
+
+                        $ruta_imagen_pro = $directorio.$detalle['id_campana'].$sep_path .'small'.$sep_path.$file;
+                        if (file_exists($ruta_imagen_pro)){
+                            ob_start();
+                            $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+                            imagejpeg($resource_image);
+                            $imagedata = ob_get_clean();
+                            $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+                        } else {
+                            $image = '';
+                        }
+
+                        ?>
+                        <div class="item<?php if ($contador == 0) { ?>  active<?php } ?>">
+                            <div class="slider-detalle">
+                                <img src="<?php echo $image; ?>">
+                            </div>
+                            <div class="carousel-caption"></div>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-detalle-promocion" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-detalle-promocion" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+
+        <?php
+        $cantidad = 0;
+        $cantidad_opcion = 0;
+        $cantidad_seleccion = 0;
+        $total = count($data_o);
+        $opciones_saber = array();
+        $id_opcion_anterior = -1;
+        foreach ($data_o as $opciones) {
+            $id_opcion = $opciones['id_campana_opcion'];
+            $cantidad++;
+            if($id_opcion != $id_opcion_anterior) {
+                $cantidad_opcion++;
+                $cantidad_seleccion = 0;
+            }
+
+            if ($cantidad == 1) {
+                ?>
+
+                <div class="contenedor-compra-detalle" id="detalle_precio"> 
+                    <div class="box_center_d">
+                        <span class="text">Precio <?php echo $moneda['simbolo'];?></span>
+                        <span class="priceBuy"><?php echo $opciones['precio_especial']; ?></span>
+                    </div>
+
+                    <!-- P1_Comprar -->
+                    <?php
+                        $mostrar_opciones = true;
+                        if( $maximo_cupones > 0 ) { 
+                                    $quedan = $maximo_cupones - $vendidos;
+                                    if( $quedan <= 10 ) { 
+                                        if( $quedan <= 0 ) { 
+                                            $mostrar_opciones = false;
+                                        ?>
+                                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action" disabled="disabled">Opciones</a>
+                                        <?php 
+                                        } else { 
+                                        ?>
+                                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
+                                        <?php
+                                    }
+                        } else {
+                            ?>
+                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
+                            <?php
+                        } 
+                    ?>
+                    <ul class="discount_information">
+                        <li><span>Precio Regular</span>
+                            <div class="value">
+                                <s><?php echo $moneda['simbolo'];?><?php echo $opciones['precio_regular']; ?></s>
+                            </div>
+                        </li>
+                        <li><span>Descuento</span>
+                            <div class="value"><?php echo $opciones['descuento']; ?>%</div>
+                        </li>
+                        <li><span>Ahorro</span>
+                            <div class="value"><?php echo $moneda['simbolo'];?><?php echo $opciones['ahorro']; ?></div>
+                        </li>
+                    </ul>
+                    <p class="sold_campaignsp">Se han vendido <b><?php echo $opciones['vendidos']; ?> </b>ofertas</p>
+
+                    <div class="time_campaigns">
+                        <div class="name">La oferta finaliza en</div>
+                        <div class="result"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;<span id='cntdwn'></span></div>
+                    </div>
+                    <div data-title="<?php echo $detalle['titulo']; ?>" data-email="<?php echo $localhost;?>/campana/detalle/<?php echo crearUrl($detalle['subtitulo']).'--'.base64_encode($detalle['id_campana']); ?>.html">
+                        <ul class="share_buttons" >
+                            <li><span >Comparte:</span></li>
+                            <li><a href="javascript:shareFacebook();" title="Comparte en Facebook" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" title="Comparte en Twitter" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                            <!--li><a href="javascript:;" title="Comparte en Google+" class="btn btn-social-icon btn-google-plus"><i class="fa fa-google-plus"></i>></a></li>
+                            <li><a href="javascript:;" title="Comparte por email" class="mail addthis_button_email"></a></li-->
+                        </ul>
+                    </div>                
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="100" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Elija su promoción</h4>
+                            </div>
+                            <div class="modal-body">
+                               <?php
+                                $opciones_saber[] = $opciones['descripcion'];
+                                }
+                                
+                                $opcion_venta_ant = "<div class='form-group'>";
+                                $opcion_venta_ant.= "<label for='message-text' class='col-lg-9 control-label'>";
+                                $opcion_venta_ant.= "<span class='text-opcion'>OPCIÓN ".$cantidad." :</span>";
+                                $opcion_venta_ant.= " <b>".$opciones['descripcion']."</b>";
+                                $opcion_venta_ant.= "<span class='text-precio'>Precio Regular : ".$moneda['simbolo']." ".$opciones['precio_regular'];
+                                $opcion_venta_ant.= " - Descuento : ".$opciones['descuento'];
+                                $opcion_venta_ant.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";
+                                $opcion_venta_ant.= "<a href='../../campana/formulariopago/".base64_encode($opciones['id_campana'])."/".base64_encode($opciones['id_campana_opcion'])."' ";
+                                $opcion_venta_ant.= "title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
+                                $opcion_venta_ant.= $moneda['simbolo']." ".$opciones['precio_especial']."</a>";
+                                $opcion_venta_ant.= "</div>";
+                                
+                                if($id_opcion_anterior != $id_opcion && $id_opcion_anterior != -1 ) {
+                                    $venta_opciones[] = array('id'   => $id_opcion_anterior,
+                                                              'form' => $opcion_venta.$opcion_seleccion);
+                                    
+                                    ?>
+                                    <div class="modal-content">
+                                        <form class="form-horizontal" role="form">
+                                            <?php echo $opcion_venta_ant;?>
+                                        </form>
+                                    </div>
+                                    <?php
+                                    $opcion_seleccion = "";
+                                }
+                                
+                                
+                                
+                                $opcion_venta = "<div class='form-group'>";
+                                $opcion_venta.= "<div style='width:80%;display:inline;'>";
+                                //$opcion_venta.= "<div boton-seleccion='".$opciones['id_campana_opcion']."' class='btn btn_buy_action_opcion btn-sm'>comprar</div>";
+                                $opcion_venta.= "<input type='hidden' id='total-opcion".$opciones['id_campana_opcion']."' name='total-opcion".$opciones['id_campana_opcion']."' value='0'>";
+                                $opcion_venta.= "<label for='message-text' class='col-lg-9 control-label'>";
+                                $opcion_venta.= "<span class='text-opcion'>OPCIÓN ".$cantidad_opcion." :</span>";
+                                $opcion_venta.= " <b>".$opciones['descripcion']."</b>";
+                                $opcion_venta.= "<span class='text-precio'>Precio Regular : ".$moneda['simbolo']." ".$opciones['precio_regular'];
+                                $opcion_venta.= " - Descuento : ".$opciones['descuento'];
+                                $opcion_venta.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";
+                                $opcion_venta.= "</div>";
+                                $opcion_venta.= "<div style='width:20%;display:inline;'>";
+                                $opcion_venta.= "<a id='btntotal-opcion".$opciones['id_campana_opcion']."' boton-compra='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                if( !empty($opciones['id_opcion_seleccion']) ) {
+                                    $opcion_venta.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
+                                    if($cantidad_seleccion > 0) {
+                                        $opcion_venta.= $moneda['simbolo']." 0.00<div style='font-size:13px'>Comprar</div></a>";
+                                    } else {
+                                        $opcion_venta.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a>";
+                                    }
+                                } else {
+                                    $opcion_venta.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
+                                    $opcion_venta.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a>";
+                                }
+                                $opcion_venta.= "</div>";
+                                $opcion_venta.= "</div>";
+                                
+                                $tipo_seleccion      = $opciones['tipo_seleccion']; 
+                                $dias_bloqueo        = $opciones['dias_bloqueo']; 
+                                $valori              = $opciones['valor_inicial']; 
+                                $valorf              = $opciones['valor_final'];
+                                $incremento          = $opciones['incremento'];
+                                $utiliza_descripcion = $opciones['utiliza_descripcion_precio'];
+                                $importe             = $opciones['importe_seleccion'];
+                                $descripcion         = $opciones['descripcion_interna'];
+                                
+                                if( !empty($opciones['id_opcion_seleccion']) ) {
+                                
+                                    $opcion_seleccion.= "<div class='form-group opcion-seleccion'>";
+                                    $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
+                                    $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
+                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='keyseleccion-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<div class='col-lg-5'>";
+
+
+                                    switch ($tipo_seleccion) {
+                                        case '1':
+                                            $cantidad_seleccion++;
+                                            $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' name='opcion-seleccion[]' class='form-control input-sm'>";
+                                            $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
+                                            $contar_i=0;
+                                            for($i=$key;$i<count($data_s);$i++) { 
+                                                if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
+                                                    if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 1) {
+                                                        $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
+                                                    }
+                                                    if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
+                                                        $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
+                                                    } else {
+                                                        $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' value='".$data_s[$i]['importe_seleccion']."'>".$data_s[$i]['cantidad_seleccion']." ";
+                                                        if($utiliza_descripcion == '1') {
+                                                            $opcion_seleccion.= "x ".$data_s[$i]['importe_seleccion'];
+                                                        } else {
+                                                            $opcion_seleccion.= $descripcion;
+                                                        }
+                                                        $opcion_seleccion.= "</option>";
+                                                    }
+                                                } else {
+                                                    continue;
+                                                }
+                                                $contar_i++;
+                                            }
+                                            $opcion_seleccion.= "</select>";
+
+                                            break;
+                                        case '2':
+                                            $opcion_seleccion.= "<div class='input-group date'>";
+                                            $opcion_seleccion.= "<input campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' fecha-bloqueo='".$opciones['fecha_bloqueo']."' name='opcion-seleccion[]' class='form-control input-sm' value=''>";
+                                            $opcion_seleccion.= "<span class='input-group-addon' id='hora_inicio_addon'><span class='glyphicon glyphicon-calendar'></span></span>";
+                                            $opcion_seleccion.= "</div>";
+                                            break;
+                                    }
+
+                                    $opcion_seleccion.= "</div></div>";
+                                }
+                                
+                                $id_opcion_anterior = $opciones['id_campana_opcion'];   
+                         
+                        }
+                        
+                        $venta_opciones[] = array('id'   => $id_opcion_anterior,
+                                                  'form' => $opcion_venta.$opcion_seleccion);
+                        
+                        ?>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Nav tabs -->
+    <div class="contenedor-tabs" id="contenedor-tabs-detalle">
+        <div>
+            <ul>
+                <li><a href="javascript:;" class="reftab" data-tab="taboferta"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-thumbs-up"></i></ta>  Todo sobre la oferta</a></li>
+                <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
+                <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="contenedor-tabs-panel" id="taboferta" >
+            <nosale>
+            <?php echo $detalle['sobre_campana']; ?>
+            </nosale>
+        </div>
+        <div class="contenedor-tabs-panel" id="tabsaber">
+            <ul>
+                <li><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
+            </ul>
+            <nosale>
+            <?php echo $detalle['observaciones']; ?>
+            </nosale>
+        </div>
+        <div class="contenedor-tabs-panel cierre" id="tabempresa">
+            <ul>
+                <li><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>
+            </ul>
+        <?php foreach ($data_e as $empresa) { ?>
+            <h2><?php echo $empresa["nombre_comercial"]; ?></h2>
+            <div class="contenedor-tabs-panel-descripcion"><p><?php echo $empresa["descripcion"]; ?></p></div>
+            <div class="contenedor-tabs-panel-datos">
+                <div><b>Dirección:</b></div>
+                <div><?php echo $empresa["direccion_comercial"]; ?></div>
+                <div><b>Sitio Web:</b></div>                               
+                <div><a href="<?php echo $empresa["web_site"]; ?>" title="<?php echo $empresa["nombre_comercial"]; ?>" target="_blank"><?php echo $empresa["web_site"]; ?></a></div>
+                <div><b>Horario:</b></div>           
+                <div><?php echo $empresa["horario"]; ?></div>
+            </div>
+            <div class="contenedor-tabs-panel-mapa">   
+                <?php if(!empty($empresa["ubicacion_gps"])) { ?>
+                <img src="<?php echo $empresa["ubicacion_gps"]; ?>">
+                <?php } ?>
+            </div>    
+            <?php } ?>
+        </div>
+    </div>
+    <?php
+}
+?>
+<br>
+<?php
+//Agergamos la opcines de venta
+if( $mostrar_opciones ) {
+foreach($venta_opciones as $venta_opcion) {
+?>
+<div class="modal-content">
+<form class="form-horizontal" role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
+    <?php echo $venta_opcion['form'];?>
+</form>
+</div>
+<?php
+}
+}
+$anterior = '';
+$ultimo   = 'uno';
+$contador = 0;
+foreach ($data_p as $dato) {
+    if ($dato['mostrar'] == 0 ) continue;
+    $contador++;
+    if($contador > 3) {
+        $contador = 1;
+         ?>
+        </div>
+        <div class="campana-en-linea">
+        <?php
+    }
+    switch($contador) {
+        case 1: $position = ' left';
+            break;
+        case 2: $position = ' center';
+            break;
+        case 3: $position = ' right';
+            break;
+    }
+    
+    $ruta_imagen_pro = $directorio.$dato['id_campana'].$sep_path.'small2'.$sep_path.'image1.jpg';
+    if (file_exists($ruta_imagen_pro)){
+        ob_start();
+        $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+        imagejpeg($resource_image);
+        $imagedata = ob_get_clean();
+        $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+    } else {
+        $image = '';
+    }
+                
+    if ($dato['categoria'] != $anterior) {
+        ?>
+        <section id="<?php echo $dato['categoria']; ?>">
+            <h2 class="box_center">Otras buenas ofertas del día</h2>
+            <div class="box_center"><div>
+                    <div class="campana-en-linea">
+                    <?php
+                }
+                ?>
+                <div class="campana-stilo-<?php echo $ultimo.$position;?>" data-id="<?php echo $dato['id_campana']; ?>">
+                    <a href="../../campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html">
+                        <span class=""></span>
+                    </a>
+                    <div class="img_container">
+                        <a href="../../campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html">
+                            <span class=""></span>
+                            <img  class="lazy campana-imgreferencia-<?php echo $ultimo;?>" data-original="<?php echo $image;?>" src="../../img/buenisimo_placeholder.png" alt="<?php echo $dato['subtitulo']; ?>" />
+                            <span class="campana-texto-descuento-<?php echo $ultimo;?>">-<?php echo $dato['descuento']; ?>%</span>
+                            <?php if( $dato['maximo_cupones'] > 0 ) { 
+                                    $quedan = $dato['maximo_cupones'] - $dato['vendidos'];
+                                    if( $quedan <= 10 ) { 
+                                        if( $quedan <= 0 ) { ?>
+                                    <span class="campana-quedan-agotado-<?php echo $ultimo;?>">¡Agotado!</span>
+                                        <?php } else { ?>
+                                    <span class="campana-quedan-<?php echo $ultimo;?>">Sólo quedan<br><?php echo $quedan;?> ofertas</span>
+                                        <?php }
+                                    }
+                                } ?>
+                        </a>
+                    </div>
+                    <div class="campana-texto-detalle-<?php echo $ultimo;?>">
+                        <a href="../../campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html" target="_self" title="<?php echo $dato['subtitulo']; ?>" class="description"><?php echo $dato['subtitulo']; ?></a>
+                    </div>
+                    <div class="campana-tarifario-<?php echo $ultimo;?>">
+                        <div class="campana-precio-regular"><div class="campana-precio-center"><?php echo $moneda['simbolo'];?> <?php echo $dato['precio_regular']; ?></div></div>
+                        <div class="campana-precio-oferta-<?php echo $ultimo;?>"><?php echo $moneda['simbolo'];?>&nbsp;<?php echo $dato['precio_especial']; ?></div>
+                        <div class="campana-precio-boton"><a class="btn btn-ver-oferta-<?php echo $ultimo;?>" href="../../campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html" title="Ver oferta">Ver oferta »</a></div>
+                    </div>
+                    <p class="campana-vendidos-<?php echo $ultimo;?>">Vendidos: <?php echo $dato['vendidos']; ?> ofertas</p>
+                </div>
+                <?php
+                $anterior = $dato['categoria'];
+            }
+            if ($anterior != '') {
+                ?>
+            </div> 
+        </div>
+    </section>
+    <?php
+}
+?>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("img.lazy").lazyload();
+    });
+
+    function verifyUser(email, name) {
+
+        $.ajax({
+            type: "POST",
+            url: "/campana/cliente",
+            data: {email: email, name: name, facebook: '1'},
+            success: function (data) {
+                var cliente = $.parseJSON(data);
+                if (cliente[0]) {
+                    if (cliente[0].validar == '1') {
+                        postfunction('/campana', 'detalle', '<?php echo base64_encode($id); ?>');
+                    }
+                }
+            }
+        });
+
+    }
+    
+    function aceptarArteCampana(contrato, campana) {
+
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/aceptar-arte",
+            data: {contrato: contrato, campana: campana},
+            success: function (data) {
+                var actualizar = $.parseJSON(data);
+                if (actualizar[0]) {
+                    if (actualizar[0].respuesta == '1') {
+                        alert('Felicidades su promocion se encuentra en el area de programación lista para ser publicada en los próximos dias.');
+                    }
+                }
+            }
+        });
+
+    }
+
+    //$('#tabcontainer').equalHeights();
+
+</script>
+<script language="JavaScript">
+    TargetDate = "<?php echo $fecha_final;?>";
+    BackColor = "white";
+    ForeColor = "black";
+    CountActive = true;
+    CountStepper = -1;
+    LeadingZero = true;
+    DisplayFormat = "%%D%%d, %%H%%h, %%M%%m, %%S%%s.";
+    FinishMessage = "Se acabo la oferta.";
+</script>
+<script language="JavaScript" src="../../js/countdown.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var posicion_precio = $("#detalle_precio").offset().top;
+        var altura_maximo = $("#contenedor-tabs-detalle").offset().top + $("#contenedor-tabs-detalle").height() - $("#detalle_precio").height() ;
+
+        $(window).scroll(function () {
+             var altura_pantalla = $(window).scrollTop();
+             if (altura_pantalla >= posicion_precio - 200) {
+                if ($(window).scrollTop() <= altura_maximo - 200) {
+                    $("#detalle_precio").css("top", (altura_pantalla) + "px");
+                } else {
+                    $("#detalle_precio").css("top", (altura_maximo - 200) + "px");
+                }
+            } else {
+                $("#detalle_precio").css("top","0px");
+            }
+        });
+
+        $(".reftab").click(function () {
+            var id = $(this).attr('data-tab');
+            var scroll;
+            scroll = $('#' + id ).offset().top - 200;
+            $(window).scrollTop(scroll);
+        });
+        
+        $("[tipo-seleccion]").change(function () {
+            var tipo_selecion = $(this).attr('tipo-seleccion');
+            var id_selecion = $(this).attr('id');
+            var id_opcion = $(this).attr('campana-opcion');
+            var name_selecion_each;
+            var total, habilitar;
+            habilitar = true;
+            switch(tipo_selecion){
+                case '1':
+                    total = 0;
+                    
+                    $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
+                        name_selecion_each = $(this).attr('id');
+                        if( $(this).attr('tipo-seleccion') == '1' ) {
+                            if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) >= 0) {
+                                total += parseFloat($("#" + name_selecion_each + " option:selected" ).val());
+                            } else {
+                                habilitar = false;
+                            }
+                        } else {
+                            if($("#" + name_selecion_each).val() == ''){
+                                habilitar = false;
+                            }
+                        }
+                        
+                    });
+                    $("#cantidad-" + id_selecion ).val($("#" + id_selecion + " option:selected" ).attr('cantidad'));
+                    $("#keyseleccion-" + id_selecion ).val($("#" + id_selecion + " option:selected" ).attr('keyseleccion'));
+                    $('#total-opcion' + id_opcion).val(total);
+                    $('#btntotal-opcion' + id_opcion).html( '$ ' + total.toFixed(2) + '<div style=\'font-size:13px\'>Comprar</div>');
+                    break;
+                case '2':
+                    $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
+                        name_selecion_each = $(this).attr('id');
+                        if( $(this).attr('tipo-seleccion') == '1' ) {
+                            if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
+                                habilitar = false;
+                            }
+                        } else {
+                            if($("#" + name_selecion_each).val() == ''){
+                                habilitar = false;
+                            }
+                        }
+                    });
+                    if($("#" + id_selecion).val() == ''){
+                        habilitar = false;
+                    }
+                    break;
+            }
+            if(habilitar) {
+               $('#btntotal-opcion' + id_opcion).removeAttr('disabled');
+            } else {
+               $('#btntotal-opcion' + id_opcion).attr('disabled','disabled');
+            }
+        });
+        
+        $("[boton-compra]").click(function () {
+            var formulario_seleccion = $(this).attr('boton-compra');
+            var disabled_seleccion = $(this).attr('disabled');
+            
+            if(!disabled_seleccion) {
+                $('#'+formulario_seleccion).attr('method','post')
+                $('#'+formulario_seleccion).attr('action','/campana/formulariopago')
+
+                $("<input type='hidden'/>").attr("name", "op").attr("value", $(this).attr('campana-opcion')).prependTo('#'+formulario_seleccion);
+                $("<input type='hidden'/>").attr("name", "id").attr("value", $(this).attr('campana')).prependTo('#'+formulario_seleccion);
+
+                $('#'+formulario_seleccion).submit();
+            }
+        });
+        
+        $('[tipo-seleccion=2]').each(function (index, value) { 
+            $(this).datetimepicker({
+                yearOffset:0,
+                lang:'es',
+                timepicker:false,
+                format:'Y-m-d',
+                formatDate:'Y/m/d',
+                startDate:$(this).attr('fecha-bloqueo'),
+                minDate:$(this).attr('fecha-bloqueo')
+            });
+        });
+        
+       
+        
+    });
+</script>

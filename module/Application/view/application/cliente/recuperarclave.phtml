@@ -1,0 +1,62 @@
+<div class="container">
+        <h2>Registrar Contraseña</h2>
+        <hr>
+        <span id="mensajeerror"></span>
+        <?php if ($email == '') { ?>
+            <form method="POST" id="frmRecoverPassword" name="frmRecoverPassword" data-parsley-validate="" autocomplete="off" action="/recuperar/procesar">
+                <p class="mb20">Error al recibir clave de acceso.</p>
+            </form>
+        <?php } else { ?>
+        <form id="frmcambiarclave" role="form" validate>
+            <p class="mb20">Por favor registre una nueva contraseña.</p>
+            <div class="form_control col-lg-8">
+                <div class="form-group">
+                    <label for="clave" class="col-xs-4 control-label">Nueva Contraseña:</label>
+                    <div class="col-lg-6">
+                        <input type="password" class="form-control" name="clave" id="clave" value="" maxlength="50" required>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="clave2" class="col-xs-4 control-label">Confirmar Contraseña:</label>
+                    <div class="col-lg-6">
+                        <input type="password" class="form-control" data-match="#clave" name="clave2" id="clave2" value="" maxlength="50" required >
+                        <span class="help-block with-errors"></span>
+                        <!--div name="enviar" id="enviar" class="btn btn-danger" onclick="javascript:recuperaPass();" >Enviar Contraseña</div-->
+                         <button type="submit" class="btn btn-danger">Registrar Contraseña</button>
+                         <input type="hidden" id="email" name="email" value="<?php echo $email;?>">
+                    </div>
+                </div>
+ 
+            </div>
+        </form>
+        <?php } ?>
+</div>
+<script type="text/javascript">
+    $("#frmcambiarclave").submit(function (e) {
+        e.preventDefault();
+        var email = $('#email').val();
+        var clave = $('#clave').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/cliente/cambiarpassword",
+            data: {email: email, clave:clave},
+            success: function (data) {
+                var cliente = $.parseJSON(data);
+                 if (cliente[0].validar == '1') {
+                    var shtm = "<div class='alert alert-warning alert-dismissible' role='alert' style='display:'>";
+                    shtm = shtm + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+                    shtm = shtm + "<strong>Cambiado!</strong> Se cambio la contraseña en forma satisfactoria.</div>";
+                    $('#mensajeerror').html(shtm);
+                    setInterval( enviarHome, 5000);
+                 }
+            }
+        });
+
+    });
+    
+    function enviarHome() {
+        postfunction('', '');
+    }
+</script>

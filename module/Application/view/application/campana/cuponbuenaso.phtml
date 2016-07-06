@@ -1,0 +1,55 @@
+<?php
+    $ruta_imagen_pro = $directorio.$datos['id_campana'].$sep_path .'small2'.$sep_path.'image1.jpg';
+    if (file_exists($ruta_imagen_pro)){
+        ob_start();
+        $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+        imagejpeg($resource_image);
+        $imagedata = ob_get_clean();
+        $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+    }  else {
+        $image = '';
+    }
+?>
+
+<div class="container">
+    <div class="borde-cupon-externo">
+        <div class="separacion-cupon">
+            <div class="en-linea logo-oferta"><div class="logo-fijo-cupon"></div></div>
+            <div class="en-linea texto"><p class="letra-cupon">Número de Cupón: <?php echo $datos["codigo_cupon"];?><?php if($datos["cantidad"] > 1) { echo ' - ...'; }?><br>Válido por <?php echo $datos["cantidad"];?> <?php if($datos["cantidad"] > 1) { echo 'cupones'; } else { echo 'cupón'; }?></p></div>
+        </div>
+        <div class="separacion-cupon">
+            <div class="en-linea logo-oferta"><img src="<?php echo $image; ?>"></div>
+            <div class="en-linea texto"><p class="letra-cupon">Tu compra en Rebueno:<br><?php echo $datos["campana_descripcion"];?></p>
+                    <p class="letra-cupon-min">Fecha Compra : <?php echo $datos["fecha_compra"];?></p>
+                    <?php if( !empty($datos["fecha_validez"]) ) { ?>
+                    <p class="letra-cupon-min">Fecha Válidez : <?php echo $datos["fecha_validez"];?></p>
+                    <?php } ?>
+            </div>
+        </div>
+        <div class="separacion-cupon">
+            <div><p><b>La oferta incluye:</b><br><?php echo $datos["sobre_campana"];?></p></div>
+        </div>
+        <div class="separacion-empresa">
+            <div><p><b>Nuestro Proveedor:</b></div>
+            <div><?php echo $datos["razon_social"]; ?></div>
+            <div>
+                <div class="en-linea empresa">
+                    <div><?php echo $datos["descripcion_empresa"]; ?></div>
+                    <div><b>Sitio Web:</b></div>
+                    <div><?php echo $datos["web_site"]; ?></div>
+                    <div><b>Dirección:</b></div>
+                    <div><?php echo $datos["direccion"]; ?></div>
+                    <div><b>Horario:</b></div>
+                    <div><?php echo $datos["horario"]; ?></div>
+                </div>
+                <div class="en-linea mapa"><img id="companyMap" src="<?php echo $datos["ubicacion_gps"]; ?>"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".carrusel-principal").css("display","none");
+    });
+</script>

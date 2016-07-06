@@ -1,0 +1,192 @@
+<form class="form-horizontal" role="form">
+    <div class="container">
+        <div class="row">
+
+            <div><h3>Inicio</h3>
+
+                <!-- tabs left -->
+
+                <!-- /tabs -->
+                <div style="display: inline-block" >   
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="display: inline-block; width: 570px; height:250px; padding-right: 20px;  vertical-align: top">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <div>
+                                    <m class="panel-title">
+                                        Válidar cupones Buenisimo
+                                    </m>
+                                    <a href="#" data-toggle="tooltip" data-placement="right" title="¿Dónde encuento el código de válidación?">
+                                        <span class="glyphicon glyphicon-question-sign btn-vk"></span>
+                                    </a>
+                                    <a id="ocultar_valida" class="pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="glyphicon glyphicon-arrow-up"></span> Ocultar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="tabbable tabs-left" style="padding: 0px">
+                                        <ul class="nav nav-tabs">
+                                            <li><a href="#a" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por uno</a></li>
+                                            <li class="active"><a href="#b" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por varios</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="a">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <input type="text" class="form-control" placeholder="Ingrese Código de Válidación" id="cupon_unico" >
+                                                        <span class="help-block with-errors"></span>
+                                                        <span id="id_mensaje_valida"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-warning btn-lg btn-block" id="valida_unico">Válidar</button>
+                                                        <button type="button" class="btn btn-primary btn-lg btn-block" id="consulta_unico">Consultar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="b">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <textarea class="form-control" rows="3" placeholder="Separe múltiples códigos con coma, eje. BU123456, BU123457" id="cupon_multiple"></textarea>
+                                                        <span class="help-block with-errors"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-warning btn-lg btn-block" id="valida_multiple">Válidar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="panel-group" id="accordionTwo" role="tablist" aria-multiselectable="true" style="display: inline-block; width: 570px; height:250px; vertical-align: top">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Partner Management
+                                    </m>
+                                    <a id="ocultar_partner" class="pull-right" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        <span class="glyphicon glyphicon-arrow-up"></span> Ocultar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <div class="contPartnerProfile">
+                                        <div class="info-pm" style="width: 480px;height: 180px">
+                                            <span>Para contactarte con tu Partner Manager, puedes escribir a <a href="mailto:socios.pe@groupon.com">socios.pe@groupon.com</a> o hacer click en <a id="contact-pm-opt" href="#contact-pm" data-toggle="modal" class="btn btn-large btn-success">Contactar a PM</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                 <div style="display: inline-block" >   
+                    <div class="panel-group" id="accordionTree" role="tablist" aria-multiselectable="true" style="display: inline-block; width: 570px; height:250px; padding-right: 20px;  padding-top: 20px; vertical-align: top">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Partner Management
+                                    </m>
+                                    <a id="ocultar_partner" class="pull-right" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        <span class="glyphicon glyphicon-arrow-up"></span> Ocultar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <div class="contPartnerProfile">
+                                        <div class="info-pm" style="width: 480px;height: 180px">
+                                            <span>Para contactarte con tu Partner Manager, puedes escribir a <a href="mailto:socios.pe@groupon.com">socios.pe@groupon.com</a> o hacer click en <a id="contact-pm-opt" href="#contact-pm" data-toggle="modal" class="btn btn-large btn-success">Contactar a PM</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div><!-- /row -->
+    </div>
+    <div id="id_mensaje_multiple"></div>
+    
+</form>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+
+
+    });
+
+    $(document).ready(function () {
+        $("#ocultar_valida").click(function () {
+            if ($("#ocultar_valida").html().trim() == '<span class="glyphicon glyphicon-arrow-up"></span> Ocultar') {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-arrow-down"></span> Mostrar')
+            } else {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-arrow-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+
+        $("#ocultar_partner").click(function () {
+            if ($("#ocultar_partner").html().trim() == '<span class="glyphicon glyphicon-arrow-up"></span> Ocultar') {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-arrow-down"></span> Mostrar')
+            } else {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-arrow-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+    });
+
+    $("#valida_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        alert(cupon);
+        $.ajax({
+            type: "POST",
+            url: "../campana/cupon",
+            data: {cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            }
+        });
+    });
+    
+    $("#consulta_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        alert(cupon);
+        $.ajax({
+            type: "POST",
+            url: "../campana/cupon",
+            data: {cupon: cupon, tipo: 'C'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            }
+        });
+    });
+    
+    $("#valida_multiple").click(function () {
+        var cupon = $('#cupon_multiple').val();
+        alert(cupon);
+        $.ajax({
+            type: "POST",
+            url: "../campana/cupon",
+            data: {cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_multiple').html(data);
+                $('#myModal').modal();
+            }
+        });
+    });
+    
+    
+    
+</script>

@@ -1,0 +1,65 @@
+<?php
+    //echo var_dump($datos);
+?>
+<div>
+    <table class="borde-cupon-externo">
+        <tr>
+            <td align="center">
+                <table class="borde-cupon-interno">
+                    <tr>
+                        <td><div class="logo-fijo"></div></td>
+                        <td><div class="letra-cupon"><p>Número de Cupón: <?php echo $codigo_cupon;?><br>Válido por <?php echo $cantidad;?> cupone(s)</p></div></td>
+                    </tr>
+                    <tr class="linea-cupon">
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><img src="../../../img/<?php echo $id_campana; ?>/small2/image1.jpg"></td>
+                        <td><div><p class="letra-cupon">Tu compra en Rebueno:<br><?php echo $campana_descripcion;?></p>
+                                <p class="letra-cupon-min">Fecha Compra : <?php echo $fecha_compra;?></p>
+                                <?php if( !empty($fecha_validez) ) { ?>
+                                <p class="letra-cupon-min">Fecha Válidez : <?php echo $fecha_validez;?></p>
+                                <?php } ?>
+                            </div></td>
+                    </tr>
+                    <tr class="linea-cupon">
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><p><b>La oferta incluye:</b><br><?php echo $sobre_campana;?></p></td>
+                    </tr>
+                    <tr class="linea-cupon">
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><p><b>Nuestro Proveedor:</b></p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table>
+                                <tr><td colspan="2"><?php echo $razon_social; ?></td></tr>
+                                <tr><td><?php echo $descripcion_empresa; ?></td><td rowspan="5"><img id="companyMap" src="<?php echo $ubicacion_gps; ?>"></td></tr>
+                                <tr><td><b>Sitio Web:</b></td></tr>
+                                <tr><td><?php echo $web_site; ?></td></tr>
+                                <tr><td><b>Dirección:</b></td></tr>
+                                <tr><td><?php echo $direccion; ?></td></tr>
+                                <tr><td><b>Horario:</b></td></tr>
+                                <tr><td><?php echo $horario; ?></td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+</div>

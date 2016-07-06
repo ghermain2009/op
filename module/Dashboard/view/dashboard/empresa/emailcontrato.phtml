@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td>Estimado : <?php echo $nombre;?></td>
+    </tr>
+    <tr>
+        <td><p>Remitimos un enlace seguro para que puedas visualizar el contrato pactado con Rebueno y si estas conforme con los t&eacute;rminos descritos en el mismo lo puedes firmar digitalmente.</p>
+            <p>Para hacerlo por favor haz click en el siguiente enlace:</p></td>
+    </tr>
+    <tr><td>
+            <a href="<?php echo $localhost;?>/empresa/firma-contrato?token=<?php echo $token;?>">Ver Contrato</a>
+        </td>
+    </tr>
+    <tr>
+        <td><p>Si tienes alguna consulta no dudes en escribirnos a clientes@rebueno.ec o llamarnos al <?php echo $telefono;?>.</p></td>
+    </tr>
+    <tr>
+        <td><p>El equipo Rebueno.</p></td>
+    </tr>
+</table>

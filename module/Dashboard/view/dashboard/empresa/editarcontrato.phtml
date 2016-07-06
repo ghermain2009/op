@@ -1,0 +1,76 @@
+<form class="form-horizontal" role="form" >
+    <?php foreach($contrato as $contra) {?>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div>Contrato Nro. <?php echo $contra['nombre_documento'];?><div style="float:right;margin: 0px;padding: 0px; position: relative; top:-5px "><?php if($contra['id_estado'] != '2') { ?><a class="btn btn-danger btn-sm" id="refresca_documento"><span class="glyphicon glyphicon-refresh"></span> Actualizar Contrato</a>&nbsp;&nbsp;&nbsp;<?php } ?><a class="btn btn-primary btn-sm" id="descarga_documento"><span class="glyphicon glyphicon-download"></span> Descargar</a></div></div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="nombre_contacto" class="col-lg-2 control-label">Nombre Contacto :</label>
+                <div class="col-lg-8">
+                    <input class="form-control input-sm" type="text" name="nombre_contacto" id="nombre_contacto" value="<?php echo $contra['nombre_contacto'];?>" <?php if($contra['id_estado'] == '2') { ?>readonly<?php } ?>>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email_contacto" class="col-lg-2 control-label">Email Contacto :</label>
+                <div class="col-lg-8">
+                    <input class="form-control input-sm" type="text" name="email_contacto" id="email_contacto" value="<?php echo $contra['email_contacto'];?>" <?php if($contra['id_estado'] == '2') { ?>readonly<?php } ?>>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fecha_registro" class="col-lg-2 control-label">Fecha Registro :</label>
+                <div class="col-lg-8">
+                    <input class="form-control input-sm" type="text" name="fecha_registro" id="fecha_registro" value="<?php echo $contra['fecha_registro'];?>" <?php if($contra['id_estado'] == '2') { ?>readonly<?php } ?>>
+                </div>
+            </div>
+            <?php if($contra['id_estado'] != '2') { ?>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-7">
+                    <a class="btn btn-success btn-sm" id="enviar_contrato"><span class="glyphicon glyphicon-envelope"></span> Enviar Contrato para Firma</a>
+                </div>
+            </div>
+            <?php } else { ?>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-7">
+                    Contrato firmado por : <b><?php echo strtoupper($contra['firma_documento']);?></b> el <b><?php echo $contra['fecha_firma'];?></b>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
+</form>
+<script>
+    
+    $('#descarga_documento').click(function() {
+        var params = 'nombre_documento=<?php echo $contra['nombre_documento'];?>';
+
+        window.open('/dashboard/empresa/obtener-pdf-contrato?' + params, '_blank');
+    });
+    
+    $('#refresca_documento').click(function() {
+        var params = 'id_contrato=<?php echo $contra['id_contrato'];?>';
+        
+        window.open('/dashboard/empresa/actualiza-contrato?' + params, '_blank');
+    });
+    
+    $('#enviar_contrato').click(function() {
+        var email_contacto;
+        var nombre_contacto;
+        var id_contrato = '<?php echo $contra['id_contrato'];?>';
+        
+        email_contacto  = $('#email_contacto').val();
+        nombre_contacto = $('#nombre_contacto').val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/empresa/enviar-contrato",
+            data: {email_contacto: email_contacto, nombre_contacto: nombre_contacto, id_contrato: id_contrato},
+            success: function (data) {
+                alert('Se envio el contrato correctamente.');
+            }
+        });
+    });
+                                    
+</script>
+    

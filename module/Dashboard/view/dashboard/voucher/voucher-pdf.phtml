@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Documento PDF</title>
+        <style type="text/css">
+            body {
+                font-family: Helvetica;
+                font-size: 10px;
+            }
+            
+            .letra-cupon{
+                font-size: 16px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .letra-cupon-cabecera{
+                font-size: 16px;
+                font-weight: bold;
+                text-align: right;
+             }
+            
+            .letra-cupon-min {
+                font-size: 13px;
+                font-weight: bold;
+                text-align: right;
+
+            }
+
+            .borde-cupon-externo{
+                border-style:solid;
+                border-width: 1px;
+                width: 100%;
+                background-color: #ffffff;
+                padding: 10px;;
+            }
+
+            .separacion-voucher{
+                display: block;
+                width: 100%;
+                padding: 10px;
+            }
+            
+            .logo-fijo {
+                width: 100px; 
+                height: 35px;
+                background-image: url('<?php echo $localhost; ?>/img/logo_rebueno_cupon.png');
+            }
+            
+            .tabla-borde {
+                width:100% !important;
+                border-style:solid;
+                border-width:1.5px;
+                border-color:#000;
+            }
+            
+            .tabla-sinborde {
+                width:100%;
+            }
+            
+            .tabla-borde-redondo {
+                width:100%;
+                min-height:50px;
+                border-style:solid;
+                border-width:1.5px;
+                border-color:#000;
+                border-radius:10px 10px 10px 10px;
+                padding:5px;
+            }
+            
+            .tabla-arriba {
+                margin:5px;
+            }
+            
+            .justificado {
+                 text-align:justify;
+            }
+            
+            .titulo-voucher {
+                font-size:16px;
+                font-weight:bold;
+            }
+            
+        </style>
+    </head>
+    <body>
+    <div>
+    <div class="borde-cupon-externo">
+        <div class="separacion-voucher">
+            <div class="en-linea">
+                <table class="tabla-sinborde">
+                    <tr>
+                        <td width="30%">
+                            <div class="logo-fijo"></div>
+                        </td>
+                        <td  width="40%" class="titulo-voucher"><p style="text-align:center">VOUCHER</p></td>
+                        <td  width="30%">
+                            <table class="tabla-borde">
+                                <tr>
+                                    <td align="center">VOUCHER N° RE-<?php echo $datos_voucher['nombre_voucher'];?></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+        <div class="separacion-voucher">
+            <table class="tabla-sinborde">
+                <tr>
+                    <td colspan="4">Se&ntilde;ores : <?php echo $datos_voucher['descripcion_hospedaje'];?></td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>    
+                <tr>
+                    <td width="15%">Nombre Pasajero :</td>
+                    <td width="55%"><?php echo $datos_voucher['nombre_pasajero'];?></td>
+                    <td width="15%">Fecha Emisi&oacute;n :</td>
+                    <td width="15%"><?php echo $datos_voucher['fecha_registro'];?></td>
+                </tr>    
+                <tr>
+                    <td>Total Habitaciones :</td>
+                    <td><?php echo $datos_voucher['total_habitaciones'];?></td>
+                    <td colspan="2">
+                        <table width="100%">
+                            <tr>
+                                <td width="23%">Pax :</td>
+                                <td width="10%"><?php echo $datos_voucher['cantidad_adultos'];?></td>
+                                <td width="23%">Niños :</td>
+                                <td width="10%"><?php echo $datos_voucher['cantidad_ninos'];?></td>
+                                <td width="23%">Infantes :</td>
+                                <td width="11%"><?php echo $datos_voucher['cantidad_infantes'];?></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>    
+            </table>
+        </div>
+        <div class="separacion-voucher">
+            <table class="tabla-borde">
+                <tr align="center">
+                    <td width="30%">FECHA</td>
+                    <td>SERVICIOS</td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <div class="tabla-arriba">
+                            <table>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Check In : </td>
+                                    <td><?php echo $datos_voucher['fecha_ingreso'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Check Out : </td>
+                                    <td><?php echo $datos_voucher['fecha_salida'];?></td>
+                                </tr>
+                            </table>
+                        <div>
+                    </td>
+                    <td valign="top">
+                        <div class="tabla-arriba">
+                            <table>
+                                <tr>
+                                    <td>Descripci&oacute;n Habitaci&oacute;n</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo de Habitaci&oacute;n : </td>
+                                    <td><?php echo $datos_voucher['descripcion_categoria'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>N&uacute;mero de noches : </td>
+                                    <td><?php echo $datos_voucher['numero_dias'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Inclusiones por habitaci&oacute;n : </td>
+                                    <td><?php echo $adicionales;?></td>
+                                </tr>
+                                <tr>
+                                    <td>Direcci&oacute;n : </td>
+                                    <td><?php echo $datos_voucher['direccion_hospedaje'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Tel&eacute;fono : </td>
+                                    <td><?php echo $datos_voucher['telefono_hospedaje'];?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="separacion-voucher">
+                <table class="tabla-sinborde">
+                    <tr>
+                        <td valign="top" width='50%' style="padding-right: 5px">
+                            <div class="tabla-borde-redondo">
+                                <table>
+                                    <tr>
+                                        <td>Estado :</td>
+                                        <td>Confirmado</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Còdigo Reserva : </td>
+                                        <td><?php echo $datos_voucher['codigo_reserva'];?></td>
+                                    </tr>
+                                </table>
+                            <div>
+                        </td>
+                        <td valign="top"  width='50%' style="padding-left: 5px">
+                            <div class="tabla-borde-redondo">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p style="margin-top:0px; margin-bottom:0px"><?php echo $datos_voucher['observacion_check'];?></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="separacion-voucher">
+                <table class="tabla-sinborde">
+                    <tr>
+                        <td style="padding-right: 5px">Importante!</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right: 5px">
+                            <p class="justificado">Rebueno actúa sólo como intermediario entre el hotel y el cliente colaborando con la gestión de reserva, sin embargo la operación propia del hotel es responsabilidad a integridad del proveedor del servico.</p>
+                            <p class="justificado">Los cambios o modificaciones pueden realizarse con 72 horas de anticipación y están sujetas a una nueva disponibilidad del hotel o cambios tarifarios propias de la temporada o nueva acomodación.</p>
+                            <p class="justificado">Las compras realizadas bajo la modalidad de cuponeras de descuento u otro canal promocional no tradicional está sujeto a una penalidad de 100% por no presentación en el hotel.</p>
+                            <p class="justificado"><?php echo $datos_voucher['observacion'];?></p>
+                        </td>    
+                    </tr>
+                </table>
+            </div>
+    </div>
+    
+</div>
+    </body>
+</html>

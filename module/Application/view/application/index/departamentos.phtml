@@ -1,0 +1,11 @@
+<?php if( count($departamentos) > 0 ) { ?>
+<label for="id_departamento" class="col-lg-3 control-label">Ciudad :</label>
+<div class="col-lg-7"> 
+    <select class="form-control input-sm" name="id_departamento" id="id_departamento">
+        <option value="0">Seleccione un Departamento</option>
+        <?php foreach ($departamentos as $departamento) { ?>
+            <option value="<?php echo $departamento['id_departamento']; ?>"><?php echo $departamento['descripcion']; ?></option>
+        <?php } ?>
+    </select>
+</div>
+<?php } ?>

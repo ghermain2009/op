@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Documento PDF</title>
+        <style type="text/css">
+             body {
+                font-family: Helvetica;
+                font-size: 9px;
+            }
+
+            .centrado {
+                text-align:center;
+                font-size: 11px;
+            }
+
+            .justificado {
+                text-align:justify;
+                padding: 0px;
+                margin: 0px;
+                font-size: 9px;
+            }
+
+            .justificado.borde-top {
+                margin-top: 9px;
+            }
+
+            .justificado.borde-bottom {
+                margin-bottom: 9px;
+            }
+
+            .con-vineta {
+                width: 100%;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .vineta-numerado {
+                display:inline-block !important;
+                width: 5% !important;
+                vertical-align:top !important;
+                padding: 0px !important;
+                margin: 0px !important;
+                position: relative !important;
+                top:0px !important;
+            }
+
+            .vineta-numerado-pos{
+                display:inline-block !important;
+                width: 95% !important;
+                vertical-align:top !important;
+                padding: 0px !important;
+                margin: 0px !important;
+                position: relative !important;
+                top:0px !important;
+            }
+            
+            .firma-contenedor{
+                margin-top: 50px;
+            }
+            
+            .firma {
+                display:inline-block !important;
+                width: 50%;
+                text-align: center;
+            }
+            
+            .table-firma {
+                padding: 0px;
+                margin: 0px;
+                width: 150px;
+            }
+            
+            ul {
+                margin-left: 0px;
+                padding-left: 0px;
+            }
+            
+            .centrar-div {
+                margin: 0 auto;
+            }
+            
+            .centrar-div.corrida {
+                height: 55px;
+                font-family: 'journal';
+                font-size: 2.875em;
+                color: #165595;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div>
+            <div><p class='centrado'><b>ACUERDO DE ALIANZA ESTRATEGICA</b></p>
+                <p class='justificado borde-bottom'>Conste por el presente documento, el <b>ACUERDO DE ALIANZA ESTRATEGICA</b>, que celebran de una parte <b>ECUADORPUNTOCOM C.L.</b>, con RUC N° 0992917202001, con domicilio en Los Sauces II Numero SOLAR 108 Manzana 111F, debidamente representada para estos efectos por la señora <b>CAROLINA GRANDA BARZOLA</b>, con Cédula Nº 0920626959, a quien en adelante se le denominará <b><b>LA EMPRESA</b></b>; y de la otra parte <b><?php echo $razon; ?></b>, con RUC N° <?php echo $ruc; ?>, con domicilio en <?php echo $direccion; ?>, debidamente representado para estos efectos por el señor (a) <?php if(!empty($nombre_representante)) { echo '<b>'.$nombre_representante.'</b>'; } else { echo '__________________________________'; } ?>, identificado con <?php if(!empty($tipdoc_representante)) { echo $tipdoc_representante; } else { echo 'Cédula'; } ?> Nº <?php if(!empty($numero_representante)) { echo $numero_representante; } else { echo '_________________'; } ?>; a quien en adelante se le denominará el <b>ALIADO ESTRATÉGICO</b>; en los términos y condiciones siguientes:</p>
+                <p><b>PRIMERA: ANTECEDENTES</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">1.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b>, es una sociedad ecuatoriana, dedicada a la prestación de servicios que ofrece ciertas ventajas y descuentos para usuarios de su marca REBUENO, respecto de los productos y servicios (los "Beneficios") ofrecidos por una amplia gama de comercios participantes y proveedores.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">1.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b>: es una sociedad ecuatoriana, dedicada a la <?php if(!empty($rubro)) { echo '<b>'.$rubro.'</b>'; } else { echo '__________________________ ___________________________________'; } ?> , está interesado en participar en las oportunidades de promoción que ofrece REBUENO para aumentar su notoriedad e incrementar su volumen de ventas, motivo por el cual emitirá cupones para el consumo de sus productos y/o servicios, con descuentos en el precio, a favor de clientes finales.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">1.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> emite documentos denominados “cupones”, concediendo un “derecho de opción” para que los adquirentes de tales cupones (“Optantes”), celebren contratos definitivos con el ALIADO ESTRATÉGICO para la venta de bienes y/o la prestación de servicios por parte del ALIADO ESTRATÉGICO a su favor, respecto de las prestaciones descritas en cada cupón. Cada cupón indica su correspondiente período de vigencia y eficacia.</p></div>
+                </div>
+                <p><b>SEGUNDA: OBJETO</b></p>
+                <p class='justificado'>El objeto de la presente alianza es ofrecer descuentos y/o promociones de los productos y/o servicios del <b>ALIADO ESTRATÉGICO</b>, a favor de los usuarios de la marca de <b>REBUENO</b>, que pertenece a <b>LA EMPRESA</b>.</p>
+                <p class='justificado'>Cada una de las partes reconoce que el éxito de la alianza requerirá de una relación cooperativa basada en la buena comunicación.</p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> divulgará, a través de las páginas web que gestiona, los “cupones” indicados en la cláusula 1.3., con la finalidad de colocarlos en poder de los usuarios de la marca REBUENO, los cuales adquirirán la condición de “optantes”. De tal forma, <b>LA EMPRESA</b> proporciona al ALIADO ESTRATÉGICO con clientes en el marco de este acuerdo de Cooperación.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>A estos fines, <b>LA EMPRESA</b>  podrá, a su discreción, ofertar los “cupones” emitidos por el <b>ALIADO ESTRATÉGICO</b> entre las ofertas publicitarias de la ciudad correspondiente, accesibles mediante el portal web www.rebueno.ec entre las diversas ofertas online (sea cual fuese su denominación) publicadas simultáneamente, de conformidad con lo establecido en la cláusula 4.1. La publicidad de los Cupones se hará durante, al menos, un día (mínimo 24 horas), no habiendo un plazo máximo para su publicidad. Para lo cual, las partes acuerdan que  <b>LA EMPRESA</b>  sea quien determine el plazo máximo en el cual se efectuará la publicidad de los Cupones.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Para tal efecto, el ALIADO ESTRATÉGICO deberá solicitar a <b>LA EMPRESA</b>, la realización de las actividades de difusión y promoción de los cupones indicados, de manera escrita. En atención a los trabajos preparatorios de la ejecución de la Campaña y la coordinación de las ofertas de otros aliados estratégicos, la petición de promoción por parte del ALIADO ESTRATÉGICO deberá remitirse con un plazo de antelación de al menos diez (10) días útiles a la fecha más cercana prevista por parte del ALIADO ESTRATÉGICO para la promoción. En dicha comunicación, el ALIADO ESTRATÉGICO deberá proporcionar todo el material gráfico y comercial requerido por <b>LA EMPRESA</b> para la publicación del aviso de los “cupones”.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.4.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> autorizara a <b>LA EMPRESA</b> a otorgar los “cupones” a favor de los “optantes”, para que éstos celebren contratos definitivos con el ALIADO ESTRATÉGICO según los alcances indicados en cada cupón.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.5.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> se encargará de cobrar, por cuenta del ALIADO ESTRATÉGICO, la contraprestación que pagarán los optantes por la celebración de los contratos definitivos a los cuales otorga derecho la opción.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">2.6.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> deberá entregar el importe recaudado al ALIADO ESTRATÉGICO, previa deducción del importe de su contraprestación.</p></div>
+                </div>
+                <p><b>TERCERA: VIGENCIA</b></p>
+                <p class='justificado'>La alianza estratégica entrará en vigencia de acuerdo a lo indicado en el anexo 1. La alianza estratégica podrá ser renovada por mutuo acuerdo, la misma obligatoriamente debe constar por escrito, mediante una adenda suscrita por las partes contratantes, para que surja efecto.</p>
+                <p><b>CUARTA: OBLIGACIONES RECÍPROCAS</b></p>
+                <p class='justificado'>Las partes pacta las siguientes obligaciones reciprocas:</p>
+                <div class="con-vineta" style="page-break-after: always;">
+                    <div class="vineta-numerado">4.1.</div>
+                    <div class="vineta-numerado-pos">
+                        <p class='justificado'>Del ALIADO ESTRATÉGICO:</p>
+                        <ul>
+                            <li><p class='justificado'>Permitirá a cualquier usuario de REBUENO disfrutar de los servicios y/o productos siempre y cuando el usuario presente el código exclusivo otorgado por <b>LA EMPRESA</b>.</p></li>
+                            <li><p class='justificado'>Dar un uso correcto, a las marcas y/o nombres, frase o slogans comerciales registrados como derechos de autor y de propiedad intelectual de <b>LA EMPRESA</b>, que sólo cede en uso estrictamente para el desarrollo y vigencia del presente acuerdo.</p></li>
+                            <li><p class='justificado'>Autorizar a <b>LA EMPRESA</b> de hacer uso del logo del ALIADO ESTRATÉGICO en todo su material de marketing.</p></li>
+                            <li><p class='justificado'>Deberá emitir y entregar al Optante, en su calidad de cliente final, la respectiva factura por el total del producto o servicio contratado.</p></li>
+                            <li><p class='justificado'>Las prestaciones que se obliga a ejecutar a favor de los Optantes (adquirentes de los cupones) están descritas en el anverso de este Acuerdo de Cooperación.</p></li>
+                            <li><p class='justificado'>Mientras no se sobrepase el stock máximo acordado con el ALIADO ESTRATÉGICO, REBUENO podrá seguir vendiendo cupones hasta treinta (30) días calendarios antes de la expiración de los mismos. Si el ALIADO ESTRATÉGICO no quisiera que sus cupones se vendan después de la publicación de la campaña, deberá así representarlo por escrito a <b>LA EMPRESA</b> antes de aceptar el presente contrato. Los cupones que <b>LA EMPRESA</b> venda en ejercicio de esta cláusula no excederán el equivalente a un 20% de la cantidad de cupones vendidos durante la campaña, en los casos de publicaciones en que no se hubiese definido una capacidad de cupones. En los casos en que si hubiese una capacidad definida, <b>LA EMPRESA</b> podrá seguir vendiendo los cupones hasta agotar el stock.</p></li>
+                            <li><p class='justificado'>Garantiza a <b>LA EMPRESA</b> y a los Optantes que las Opciones adquiridas por estos últimos, mediante la adquisición de los cupones, podrán ser ejercidas en cualquier momento, previa reserva y/o cita con el ALIADO ESTRATÉGICO, dentro del período de vigencia de dichos cupones.</p></li>
+                            <li><p class='justificado'>Asumirá la responsabilidad exclusiva de la ejecución exacta y oportuna de las prestaciones ofrecidas a los Optantes, quienes por la sola adquisición de los cupones gozarán del derecho de ejercer la Opción frente al ALIADO ESTRATÉGICO, para procurarse los bienes o servicios descritos en los cupones.</p></li>
+                            <li><p class='justificado'>Libera a <b>LA EMPRESA</b> de todo reclamo de cualquier naturaleza (civil, penal, administrativa, en materia de protección al consumidor), presentado por los adquirentes de los cupones, referido a la ejecución o cumplimiento parcial, tardío o defectuoso de las prestaciones allí descritas, en tanto obligado y responsable exclusivo de éstas.</p></li>
+                            <li><p class='justificado'>Autorizar a <b>LA EMPRESA</b> de hacer uso del logo del ALIADO ESTRATÉGICO en todo su material de marketing.</p></li>
+                            <li><p class='justificado'>Todo desembolso que tuviera que efectuar <b>LA EMPRESA</b> por la infracción de las obligaciones asumidas en este numeral deberá ser reembolsada íntegramente por el ALIADO ESTRATÉGICO.</p><br></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">&nbsp;</div>
+                    <div class="vineta-numerado-pos">
+                        <p class='justificado'>&nbsp;</p>
+                        <ul>
+                            <li><p class='justificado'>Deberá brindar a su exclusiva cuenta y costo toda la infraestructura y personal necesario para responder a las dudas y reclamos de los adquirentes de los cupones, mediante su propio servicio de atención al cliente y con arreglo a las normas del Código de Protección al consumidor aprobado mediante Ley 2000-21 (R.O. S 116: IO-jul-2000).</p></li>
+                            <li><p class='justificado'>Ello en tanto que el ALIADO ESTRATÉGICO califica como “proveedor” de las prestaciones ofrecidas a los Optantes (servicios y/o productos) según lo definido y previsto en el Código de Consumo, asistiéndole exclusivamente frente al Adquirente de los cupones (cliente-consumidor) los Deberes de Idoneidad, Información, Seguridad y demás obligaciones previstas en el referido Código.</p></li>
+                            <li><p class='justificado'>En esa línea, si el adquirente del cupón tuviera alguna queja, reclamo por la idoneidad/seguridad del producto o servicio ofrecido por el ALIADO ESTRATÉGICO, ésta deberá ser dirigida exclusivamente a éste, pues en su condición de Proveedor del producto o servicio materia de venta a través de los cupones le asiste dichas obligaciones según lo previsto en el Código Consumo. Con lo cual, el ALIADO ESTRATÉGICO deberá cumplir con atender el reclamo del Adquirente del cupón según los plazos previstos en el Código de Consumo. Asimismo, si es que el Adquirente del cupón de manera errónea dirigiese su reclamo a <b>LA EMPRESA</b>, Rebueno  le informará que el mismo deberá ser dirigido al ALIADO ESTRATÉGICO a fin que pueda recibir la debida atención, debiendo el ALIADO ESTRATÉGICO dar la atención debida del reclamo según lo previsto en el Código de Consumo.</p></li>
+                            <li><p class='justificado'>Reconoce que <b>LA EMPRESA</b> únicamente publicita y ofrece los cupones de descuento más no es responsable/garante por los servicios y/o mercancías vendidas, que son de exclusiva responsabilidad del ALIADO ESTRATÉGICO.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">4.2.</div>
+                    <div class="vineta-numerado-pos">
+                        <p class='justificado'>De <b>LA EMPRESA</b>:</p>
+                        <ul>
+                            <li><p class='justificado'>Autorizar al ALIADO ESTRATÉGICO, el uso de marcas, nombres o lemas comerciales registrados de derecho de autor y propiedad intelectual de <b>LA EMPRESA</b> para el desarrollo de las acciones señaladas en el presente acuerdo.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <p><b>QUINTA: CONTRAPRESTACIÓN</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> recibirá una retribución por la organización del sistema de promoción y difusión para la colación de los “cupones”, la cual será determinada según lo dispuesto en la cláusula 5.2.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>La retribución de <b>LA EMPRESA</b> asciende al porcentaje indicado en el anexo 1 del presente contrato. Dicho porcentaje incluye el IVA.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El derecho de <b>LA EMPRESA</b> a percibir la retribución se genera con ocasión del canje y la validación de los cupones.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.4.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Se entiende que un cupón ha sido “canjeado”, cuando el optante ejerció el derecho de opción contenido en el cupón, accediendo a los bienes y/o servicios descritos en el “cupón”.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.5.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Se entiende que un cupón ha sido “validado” cuando el ALIADO ESTRATÉGICO verifica la conformidad del cupón, a través del sistema de validación de cupones provisto por <b>LA EMPRESA</b>.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.6.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Los importes recaudados por <b>LA EMPRESA</b>, según lo dispuesto en la cláusula 2.5, a nombre y cuenta del ALIADO ESTRATÉGICO serán entregados por <b>LA EMPRESA</b> al ALIADO ESTRATÉGICO hasta los quince (15) días después de cierre semanal. Este proceso se realiza cada 7 días.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.7.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> generara el cobro de su retribución al ALIADO ESTRATÉGICO con cargo a los importes recaudados por <b>LA EMPRESA</b>, según lo indicado en la cláusula 5.6.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">5.8.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Los importes recaudados por <b>LA EMPRESA</b> por cupones no canjeados ni validos no serán devueltos al ALIADO ESTRATÉGICO. En tales casos, <b>LA EMPRESA</b> emitirá el comprobante de pago directamente al optante por los importes pagados por este.</p></div>
+                </div>
+                <p><b>SEXTA: INEXISTENCIA DE RELACIÓN LABORAL</b></p>
+                <p class='justificado'>Queda expresamente establecido que el presente contrato es uno de naturaleza civil y por lo tanto, ni <b>LA EMPRESA</b> ni su personal mantienen relación laboral alguna con el ALIADO ESTRÁTEGICO y viceversa.</p>
+                <p><b>SEPTIMA: RESOLUCION</b></p>
+                <p class='justificado'>La presente alianza quedará resuelto por las siguientes causas:</p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">7.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Por incumplimiento de las obligaciones estipuladas en la cláusula cuarta, de acuerdo a lo establecido por el Código Civil Ecuatoriano.Si la prestación no se cumple dentro del plazo señalado, el contrato se resuelve de pleno derecho, quedando a cargo del deudor la indemnización de daños y perjuicios, de conformidad con Código Civil Ecuatoriano.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">7.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Si el ALIADO ESTRATEGICO incurre en falsedad en los documentos y/o información presentada a <b>LA EMPRESA</b> para la realización de la alianza. Para esto, se deberá cursar carta notarial a la otra parte señalando que hará valer esta cláusula, con una anticipación de 30 días calendario.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">7.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>La resolución de la presente alianza no afectará la validez de los cupones que ya hubieren sido emitidos ni la retribución pactada en ellos.</p></div>
+                </div>
+                <p><b>OCTAVA: CONFIDENCIALIDAD</b></p>
+                <p class='justificado'>Las partes convienen en que toda información que se genere y/o cruce entre ellas, respecto de las actividades de publicidad conjunta a desarrollarse para promoverse recíprocamente, será considerada como estrictamente confidencial, por lo que se obligan a no revelarla a terceras personas.</p>
+                <p><b>NOVENA: PROTECCIÓN DE DATOS PERSONALES</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">9.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> declara expresamente conocer que en caso, en el marco de la relación contractual que origina esta alianza, tuviera acceso a datos: (i) de <b>LA EMPRESA</b>; (ii) del personal de <b>LA EMPRESA</b>; y/o, (iii) de los clientes de <b>LA EMPRESA</b>, se obliga a protegerlos aplicando las exigencias y requerimientos previstos en este Contrato.</p></div>
+                </div>
+                <div class="con-vineta"  style="page-break-after: always;">
+                    <div class="vineta-numerado">9.2.</div>
+                    <div class="vineta-numerado-pos">
+                        <p class='justificado'>En el supuesto del párrafo anterior, el ALIADO ESTRATÉGICO se obliga a adoptar las medidas de seguridad de protección de datos de los clientes, de acuerdo a la normatividad Ecuatoriana vigente, sin perjuicio de ello a <b>LA EMPRESA</b>. Así mismo el ALIADO ESTRATÉGICO se obliga a:</p>
+                        <ul>
+                            <li><p class='justificado'>Implementar las condiciones de seguridad.</p></li>
+                            <li><p class='justificado'>No almacenar, transferir, procesar, tratar o usar los datos de <b>LA EMPRESA</b>, sus trabajadores o clientes de modo distinto del expresamente permitido por <b>LA EMPRESA</b> o del modo que resulte necesario para ejecutar este Contrato.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">&nbsp;</div>
+                    <div class="vineta-numerado-pos">
+                        <p class='justificado'>&nbsp;</p>
+                        <ul>
+                            <li><p class='justificado'>Cooperar con <b>LA EMPRESA</b> para satisfacer los requerimientos de la Autoridad Nacional de Protección de Datos Personales.</p></li>
+                            <li><p class='justificado'>En cualquier caso o supuesto de término o resolución de este Contrato, devolver a <b>LA EMPRESA</b> toda la información y datos que éste le haya proporcionado en un plazo máximo de diez (10) días hábiles, así como cualquier copia de la misma que pueda estar en su poder o de su personal, sus asesores o subcontratistas, o preparada por el ALIADO ESTRATÉGICO o su personal, sus asesores o subcontratistas en base a la información.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <p><b>DÉCIMA: EXCLUSIVIDAD</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">10.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> gozará de exclusividad para las prestaciones descritas en la Cláusula 1. Por su parte, <b>LA EMPRESA</b> se abstendrá de incluir entre las ofertas publicitarias accesibles a través de su portal web alguna oferta similar para la misma ciudad y sector en el día o días en los que se oferte la campaña del ALIADO ESTRATÉGICO.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">10.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'><b>LA EMPRESA</b> gozará de exclusividad frente al ALIADO ESTRATÉGICO en la medida en que, durante la vigencia de la presente alianza estratégica, este último se obliga a no colaborar con otros proveedores distintos de <b>LA EMPRESA</b>–de forma directa o indirecta– para la promoción online de la prestación de sus servicios, basada en cupones (como “bonos” “vales” o cualquier otro título habilitante similar) o la distribución offline de cupones (como “bonos”, “vales” u otros títulos habilitantes similares) a revendedores comerciales con el propósito de la distribución online.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">10.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Adicionalmente, el ALIADO ESTRATÉGICO se compromete a no otorgar ningún descuento de similares características al ofrecido mediante la plataforma de <b>LA EMPRESA</b> mientras éste se encuentre publicado en el sitio, y hasta el término de la vigencia del cupón. Esta obligación comprende el compromiso de no ofrecer a ningún cliente final mejores o iguales condiciones que las ofrecidas a través de <b>LA EMPRESA</b> durante el referido periodo de tiempo, por ningún canal, incluyendo los propios. El <b>ALIADO ESTRATÉGICO</b> queda autorizado para adoptar cualquier otra medida para la promoción de su negocio y/o de sus servicios.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">10.4.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> se obliga no ofrecer ningún descuento de características similares en otros canales incluyendo los propios canales del ALIADO ESTRATÉGICO.</p></div>
+                </div>
+                <p><b>DÉCIMA PRIMERA: PROPIEDAD INTELECTUAL Y USO DE MARCA</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">11.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Se deja expresa constancia que la propiedad intelectual, comercial e industrial de los sistemas, incluidos hardware y software, sobre los que versa este Alianza son de exclusiva titularidad y propiedad de <b>LA EMPRESA</b>. El Alianza no otorga al ALIADO ESTRATÉGICO licencia alguna, excepto el derecho de uso de los programas para el normal desarrollo de los servicios contratados.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">11.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Ninguna marca comercial, nombre, logo o producto asociado con <b>LA EMPRESA</b>, sus proveedores o terceras partes podrá ser usado sin la autorización previa por escrito de <b>LA EMPRESA</b>.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">11.3.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> otorga a <b>LA EMPRESA</b> una licencia para utilizar sus marcas o derechos de propiedad industrial o comercial, atendiendo a que ello es necesario para la promoción de sus cupones durante la vigencia de la Alianza Estratégica.</p></div>
+                </div>
+                <p><b>DÉCIMA SEGUNDA: CONDICIONES GENERALES DE CONTRATACIÓN (CGC) DIVERGENTES</b></p>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">12.1.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>El <b>ALIADO ESTRATÉGICO</b> reconoce que toda la información otorgada por <b>LA EMPRESA</b>, es exclusivamente para permitir que el ALIADO ESTRATÉGICO pueda proveer los bienes o servicios a que se refieren de los Cupones a los Compradores de Cupones. Tanto el ALIADO ESTRATÉGICO como <b>LA EMPRESA</b> deberán cumplir con todas y cada una de las disposiciones aplicables en la Ley de Protección de Datos Personales.</p></div>
+                </div>
+                <div class="con-vineta">
+                    <div class="vineta-numerado">12.2.</div>
+                    <div class="vineta-numerado-pos"><p class='justificado'>Toda la información respecto a los Compradores de Cupones, incluyendo de manera enunciativa, más no limitativa dirección de correo electrónico, nombres, fechas de nacimiento y dirección proporcionada para la entrega del producto, será propiedad de <b>LA EMPRESA</b> y únicamente podrá ser utilizada por el ALIADO ESTRATÉGICO para proveer los bienes o servicios a que se refieren de los Cupones respecto de los cuales se proporciona dicha información.</p></div>
+                </div>
+                <p><b>DÉCIMA TERCERA: DERECHO APLICABLE Y JURISDICCIÓN</b></p>
+                <p class='justificado'>Este Acuerdo está sujeto a las Leyes de la República del Ecuador. Todo litigio, controversia, desavenencia o reclamo resultante, relacionada o derivada del presente acuerdo o que guarde relación con él, incluidas las relativas a su validez, eficacia o terminación, serán resueltas ante los jueces de la ciudad de Guayaquil, renunciando a cualquier otra jurisdicción.</p>
+                <p class='justificado borde-top'>Las partes suscriben el presente documento en señal de conformidad con lo expresado en el presente acuerdo de alianza estratégica, en la ciudad de Guayaquil a los <?php echo date('d');?> días del mes de <?php echo $nombre_mes;?> del año <?php echo date('Y');?>.</p>
+                
+                <?php if(empty($this->nombre_firmante)) { ?>
+                <div class="firma-contenedor">
+                    <div class="firma">ECUADORPUNTOCOM C.L.</div>
+                    <div class="firma">ALIADO ESTRATÉGICO</div>
+                </div>
+                <?php } else { ?>
+                <div class="firma-contenedor">
+                    <div class="firma">
+                        <div class="centrar-div corrida">Carolina Granda Barzola</div>
+                        <div class="centrar-div">CAROLINA GRANDA BARZOLA</div>
+                        <div class="centrar-div">ECUADORPUNTOCOM C.L.</div>
+                    </div>
+                    <div class="firma">
+                        <?php if( $this->img_firma == '' ) { ?>
+                        <div class="centrar-div corrida"><?php echo $this->nombre_firmante; ?></div>
+                        <?php } else { ?>
+                        <div class="centrar-div corrida"><img src="<?php echo $this->img_firma; ?>" width="150" height="55"/></div>
+                        <?php } ?>
+                        <div class="centrar-div"><?php echo strtoupper($this->nombre_firmante); ?></div>
+                        <div class="centrar-div">ALIADO ESTRATÉGICO</div>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </body>
+</html>

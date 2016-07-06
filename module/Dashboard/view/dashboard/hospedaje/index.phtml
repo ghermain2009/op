@@ -1,0 +1,166 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Registro de Hospedaje</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="descripcion_hospedaje" class="col-lg-3 control-label">Nombre de Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('descripcion_hospedaje')); ?>
+                <?php echo $this->formRow($this->form->get('id_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_tipo" class="col-lg-3 control-label">Tipo Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('id_tipo')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_pais" class="col-lg-3 control-label">Pais :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('id_pais')); ?>
+            </div>
+        </div>
+        <div class="form-group" id="contenido-departamento">
+            <label for="id_departamento" class="col-lg-3 control-label">Ciudad :</label>
+            <div class="col-lg-7"> 
+                <?php echo $this->formRow($this->form->get('id_departamento')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="categoria_hospedaje" class="col-lg-3 control-label">Categoría de Hospedaje :</label>
+            <div class="col-lg-1">
+                <?php echo $this->formRow($this->form->get('categoria_hospedaje')); ?>
+            </div>
+            <label class="col-lg-3 control-label">Estrellas</label>
+        </div>
+        
+        <div class="form-group">
+            <label for="direccion_hospedaje" class="col-lg-3 control-label">Dirección Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('direccion_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="telefono_hospedaje" class="col-lg-3 control-label">Teléfono Hospedaje :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('telefono_hospedaje')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="observacion" class="col-lg-3 control-label">Información Check In/Out :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('observacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email_confirmacion" class="col-lg-3 control-label">Email Confirmación :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('email_confirmacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-7">
+                <?php echo $this->formRow($this->form->get('submit')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php echo $this->formRow($this->form->get('btn-regresar')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Delete button popover confirmation
+        $('#hospedajeForm').formValidation({
+            message: 'El valor no es válido.',
+            err: {
+                container: 'tooltip'
+            },
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh',
+            },
+            fields: {
+                descripcion_hospedaje: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre el Nombre del Hospedaje.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9ñáéíóúÑÁÉÍÓÚ& ,.-]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 150,
+                            message: 'Este campo debe contener 150 caracteres como máximo.'
+                        }
+                    }
+                },
+                id_tipo: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        greaterThan: {
+                            value: 1,
+                            message: 'Por favor seleciione el Tipo de Hospedaje.'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            $("#modalConfirmacion").modal('show');
+        });
+        
+        $('#id_pais').change(function(){
+            var pais   = $('#id_pais').val();
+            $.ajax({
+                type: "POST",
+                url: "/index/departamentos",
+                data: {pais: pais},
+                success: function (data) {
+                    $('#contenido-departamento').html(data);
+                }
+            });
+        });
+
+        $("#modal-confirmacion-si").click(
+            function (e) {
+                $('button').removeClass('fv-hidden-submit disabled').addClass('fv-hidden-submit');
+                $('.fv-hidden-submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+                $('.fv-hidden-submit').click();
+            }
+        );
+
+        $("#modal-confirmacion-no").click(
+            function (e) {
+                $('#submit').removeClass('btn btn-primary disabled').addClass('btn btn-primary');
+                $('#submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+            }
+        );
+
+        $("#btn-regresar").click(
+            function (e) {
+                $("#modalCancelacion").modal('show');
+            }
+        );
+
+        $("#modal-cancelacion-si").click(
+            function (e) {
+                $(location).attr('href','/dashboard/hospedaje/list');
+            }
+        );
+
+        $("#modal-cancelacion-no").click(
+            function (e) {
+                $("#modalCancelacion").modal('hide');
+            }
+        );
+    });
+</script>

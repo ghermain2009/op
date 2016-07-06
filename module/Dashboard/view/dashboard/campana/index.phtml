@@ -1,0 +1,236 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Registro de Campaña</h4>
+    </div>
+    <div class="panel-body">
+        
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Título Portada :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('subtitulo')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="titulo" class="col-lg-2 control-label">Título Detalle:</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('titulo')); ?>
+            </div>
+        </div>
+        <!--div class="form-group">
+            <label for="descripcion" class="col-lg-2 control-label">Descripción :</label>
+            <div class="col-lg-7">
+                <?php// echo $this->formRow($this->form->get('descripcion')); ?>
+            </div>
+        </div-->
+        <div class="form-group">
+            <label for="sobre_campana" class="col-lg-2 control-label">Sobre Campaña :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('sobre_campana')); ?>
+                <div class="edit-texto" id="div_sobre_campana" data-toggle="sobre_campana" data-description="Sobre Campaña"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="observaciones" class="col-lg-2 control-label">Lo que debes saber :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('observaciones')); ?>
+                <div class="edit-texto" id="div_observaciones" data-toggle="observaciones" data-description="Lo que debes saber"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_empresa" class="col-lg-2 control-label">Empresa :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('id_empresa')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_inicio" class="col-lg-2 control-label">Fecha Inicio :</label>
+            <div class="col-lg-2">
+                <div class="input-group date" id='fecha_inicio'>
+                    <?php echo $this->formRow($this->form->get('fecha_inicio')); ?>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hora_inicio" class="col-lg-2 control-label">Hora Inicio :</label>
+            <div class="col-lg-2">
+                <div class="input-group date" id='hora_inicio'>
+                    <?php echo $this->formRow($this->form->get('hora_inicio')); ?>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_final" class="col-lg-2 control-label">Fecha Final :</label>
+            <div class="col-lg-2">
+                <div class="input-group date" id='fecha_final'>
+                    <?php echo $this->formRow($this->form->get('fecha_final')); ?>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hora_final" class="col-lg-2 control-label">Hora Final :</label>
+            <div class="col-lg-2">
+                <div class="input-group date" id='hora_final'>
+                    <?php echo $this->formRow($this->form->get('hora_final')); ?>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha_validez" class="col-lg-2 control-label">Fecha Validez :</label>
+            <div class="col-lg-2">
+                <div class="input-group date" id='fecha_validez'>
+                    <?php echo $this->formRow($this->form->get('fecha_validez')); ?>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cantidad_cupones" class="col-lg-2 control-label">Cantidad Cupones :</label>
+            <div class="col-lg-2">
+                <div class="input-group" id='cantidad_cupones'>
+                    <?php echo $this->formRow($this->form->get('cantidad_cupones')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tiempo_online" class="col-lg-2 control-label">Tiempo Online :</label>
+            <div class="col-lg-1">
+                <div class="input-group" id='tiempo_online'>
+                    <?php echo $this->formRow($this->form->get('tiempo_online')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">Horas</label>
+        </div>
+        <div class="form-group">
+            <label for="tiempo_offline" class="col-lg-2 control-label">Tiempo Offline :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='tiempo_offline'>
+                    <?php echo $this->formRow($this->form->get('tiempo_offline')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">Horas</label>
+        </div>
+        <div class="form-group">
+            <label for="comision_campana" class="col-lg-2 control-label">Comisión de Campaña :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='comision_campana'>
+                    <?php echo $this->formRow($this->form->get('comision_campana')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">% (Porciento)</label>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-7">
+                <?php echo $this->formRow($this->form->get('submit')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<!-- Editor HTML -->
+<div id="contentText" class="hide"></div>
+<div class="modal fade" id="modalEditorText" tabindex="-1" role="dialog" aria-labelledby="myModalLabelText" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="height:460px">
+                <form>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label" id="descripcionText"></label>
+                        <input type="hidden" id="textId" value="">
+                        <div class="col-xs-13"> 
+                            <div id="divEditorText"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" onclick="javascript:grabaOpcionText();"> &nbsp; Ok &nbsp; </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fecha_inicio,#fecha_final,#fecha_validez').datetimepicker({
+            format: 'yyyy/mm/dd',
+            language: 'es',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+
+        });
+
+        $('#hora_inicio,#hora_final').datetimepicker({
+            format: 'hh:ii',
+            language: 'es',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+
+        });
+
+        $('#contentText').liveEdit({
+            modal_id: 'divEditorText',
+            height: 400,
+            css: ['/css/bootstrap.min.css', '/css/bootstrap_extend.css'] /* Apply bootstrap css into the editing area */,
+            groups: [
+                ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
+                ["group2", "", ["Bullets", "Numbering", "Indent", "Outdent"]],
+                ["group3", "", ["Paragraph", "FontSize", "FontDialog", "TextDialog"]],
+                ["group4", "", ["LinkDialog"]],
+                        //["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "Emoticons", "Snippets"]],
+                        /*["group5", "", ["Undo", "Redo", "SourceDialog"]]*/
+            ] /* Toolbar configuration */
+        });
+
+        $('#div_sobre_campana').html($('#sobre_campana').val());
+        $('#div_observaciones').html($('#observaciones').val());
+
+        $(".edit-texto").click(function () {
+            var id = $(this).attr('data-toggle');
+            var ds = $(this).attr('data-description');
+
+            $('#textId').val(id);
+            $('#contentText').html($('#' + id).val());
+            $('#contentText').data('liveEdit').startedit();
+            $('#descripcionText').html(ds + ' :');
+            $('#modalEditorText').modal('show');
+        });
+
+    });
+
+    function grabaOpcionText() {
+
+        var id_div = $('#textId').val();
+        var descripcion = $('#contentText').data('liveEdit').getXHTMLBody();
+
+        $('#' + id_div).val(descripcion);
+        $('#div_' + id_div).html(descripcion);
+
+        $('#modalEditorText').modal('hide');
+    }
+</script>

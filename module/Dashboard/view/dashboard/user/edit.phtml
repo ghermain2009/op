@@ -1,0 +1,181 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Modificación de Usuario</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="full_name" class="col-lg-3 control-label">Nombre Usuario :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('full_name')); ?>
+                <?php echo $this->formRow($this->form->get('id')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-lg-3 control-label">Usuario:</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('username')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-lg-3 control-label">Password:</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('password')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('email')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="role_id" class="col-lg-3 control-label">Rol:</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('role_id')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_empresa" class="col-lg-3 control-label">Empresa:</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('id_empresa')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-7">
+                <?php echo $this->formRow($this->form->get('submit')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php echo $this->formRow($this->form->get('btn-regresar')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#username').attr('readonly','true');
+
+        // Delete button popover confirmation
+        $('#userForm').formValidation({
+            message: 'El valor no es válido.',
+            err: {
+                container: 'tooltip'
+            },
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh',
+            },
+            fields: {
+                full_name: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre el Nombre del usuario.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9ñáéíóúÑÁÉÍÓÚ& ,.-]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 300,
+                            message: 'Este campo debe contener 300 caracteres como máximo.'
+                        }
+                    }
+                },
+                username: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre el Código de Usuario.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9ñáéíóúÑÁÉÍÓÚ_]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 40,
+                            message: 'Este campo debe contener 40 caracteres como máximo.'
+                        }
+                    }
+                },
+                password: {
+                    err: 'popover',
+                    validators: {
+                        notEmpty: {
+                            message: 'Por favor registre el Password del usuario.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9ñáéíóúÑÁÉÍÓÚ& ,.-]+$/
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 40,
+                            message: 'Este campo debe contener 40 caracteres como máximo.'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        emailAddress: {
+                            message: 'El valor no es válido para un email.'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 300,
+                            message: 'Este campo debe contener 300 caracteres como máximo.'
+                        }
+                    }
+                },
+                role_id: {
+                    err: 'popover',
+                    //icon: false,
+                    validators: {
+                        greaterThan: {
+                            value: 1,
+                            message: 'Por favor seleciione el Rol del Usuario.'
+                        }
+                    }
+                }
+                     
+            }
+        }).on('success.form.fv', function (e) {
+            $("#modalConfirmacion").modal('show');
+        });
+
+        $("#modal-confirmacion-si").click(
+            function (e) {
+                $('button').removeClass('fv-hidden-submit disabled').addClass('fv-hidden-submit');
+                $('.fv-hidden-submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+                $('.fv-hidden-submit').click();
+            }
+        );
+
+        $("#modal-confirmacion-no").click(
+            function (e) {
+                $('#submit').removeClass('btn btn-primary disabled').addClass('btn btn-primary');
+                $('#submit').removeAttr('disabled');
+                $("#modalConfirmacion").modal('hide');
+            }
+        );
+
+        $("#btn-regresar").click(
+            function (e) {
+                $("#modalCancelacion").modal('show');
+            }
+        );
+
+        $("#modal-cancelacion-si").click(
+            function (e) {
+                $(location).attr('href','/dashboard/user/list');
+            }
+        );
+
+        $("#modal-cancelacion-no").click(
+            function (e) {
+                $("#modalCancelacion").modal('hide');
+            }
+        );
+    });
+</script>

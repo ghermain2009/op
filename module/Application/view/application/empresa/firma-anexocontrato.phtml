@@ -1,0 +1,57 @@
+<br/>
+<?php if($id_estado == '2') { ?>
+<div class="container"><b>Anexo Contrato Rebueno Firmado</b></div>
+<?php } else { ?>
+<div class="container"><b>Firma de Anexo Contrato Rebueno</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-sm" id="registrar_firma"><span class="glyphicon glyphicon-user"></span> Registrar Firma</a></div>
+<?php } ?>
+<br/>
+<div class="container">
+    <iframe src='/empresa/ver-contrato-pdf?nombre_documento=<?php echo $nombre_documento;?>' class="container" style="height:600px"></iframe>
+</div>
+<br/>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" style="width: 330px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Firmar anexo contrato Rebueno</h2>
+      </div>
+      <div class="modal-body">
+          <div>
+        <form method="post" action="/empresa/registrar-firma-anexo" class="sigPad">
+                    <label for="name">Escriba su nombre</label>
+                    <input type="text" name="name" id="name" class="name">
+                    <p class="typeItDesc">Revise su firma</p>
+                    <p class="drawItDesc">Dibuja tu firma</p>
+                    <ul class="sigNav">
+                      <li class="typeIt"><a href="#type-it" class="current">Escribelo</a></li>
+                      <li class="drawIt"><a href="#draw-it" >Dibujalo</a></li>
+                      <li class="clearButton"><a href="#clear">Borrar</a></li>
+                    </ul>
+                    <div class="sig sigWrapper">
+                      <div class="typed"></div>
+                      <canvas class="pad" width="295" height="100"></canvas>
+                      <input type="hidden" name="output" id="output" class="output">
+                    </div>
+                    <button type="submit">Acepto los términos de este contrato.</button>
+                    <input type="hidden" name="id_contrato" id="id_contrato" value="<?php echo $id_contrato;?>">
+                    <input type="hidden" name="id_campana" id="id_campana" value="<?php echo $id_campana;?>">
+                 </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/jquery.signaturepad.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.sigPad').signaturePad();
+  });
+
+  $('#registrar_firma').click(function() {
+    $('#myModal').modal();  
+  });
+  
+</script>
+<script src="/js/assets/json2.min.js"></script>

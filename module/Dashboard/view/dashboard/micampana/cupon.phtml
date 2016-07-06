@@ -1,0 +1,79 @@
+
+<?php
+
+if (count($datos) == 1) {
+    foreach ($datos as $mensaje) {
+
+        if ($mensaje['valido'] == 0) {
+            $mensaje = "Código no existe.";
+            $clase = 'alert-danger';
+            $error = 'Error!';
+        } else {
+            if ($mensaje['valido'] == 2) {
+                $mensaje = "Código ya fue válidado anteriomente.";
+                $clase = 'alert-success';
+                $error = 'Mensaje!';
+            } else {
+                if ($mensaje['tipo'] == 'C') {
+                    $mensaje = "Código válido.";
+                    $clase = 'alert-info';
+                    $error = 'Consulta!';
+                } else {
+                    $mensaje = "Código fue válidado correctamente.";
+                    $clase = 'alert-warning';
+                    $error = 'Validación!';
+                }
+            }
+        }
+        ?>    
+        <div class="alert <?php echo $clase; ?>" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><?php echo $error; ?></strong> <?php echo $mensaje; ?>
+        </div>
+        <?php
+    }
+} else {
+    $validados = "";
+    $noencontrados = "";
+    foreach ($datos as $mensaje) {
+        if ($mensaje['valido'] == 0 || $mensaje['valido'] == 2 ) {
+            if ($noencontrados == '') {
+                $noencontrados = $mensaje['cupon'];
+            } else {
+                $noencontrados.= ', ' . $mensaje['cupon'];
+            }
+        } else {
+            if ($validados == '') {
+                $validados = $mensaje['cupon'];
+            } else {
+                $validados.= ', ' . $mensaje['cupon'];
+            }
+        }
+    }
+    ?>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Validación de Cupones</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        <strong>Validados!</strong> <?php echo $validados; ?>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        <strong>Verificar!</strong> <?php echo $noencontrados; ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <?php
+}
+?>

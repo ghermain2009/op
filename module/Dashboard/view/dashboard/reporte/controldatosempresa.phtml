@@ -1,0 +1,36 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Datos Empresas</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-lg-15">
+                <table class="table">
+                    <tr class="info">
+                        <th>Razón Social</th>
+                        <th>Persona Contacto</th>
+                        <th>Teléfonos</th>
+                        <th>Direcciòn Matriz</th>
+                        <th>Email</th>
+                    </tr>
+                    <?php $i = 0;
+                    foreach( $datos as $campana ) { 
+                        $i++; ?>
+                    <tr class="<?php if( $i%2 == 0 ) {
+                                       echo 'warning';
+                                     } else {
+                                       echo 'success';
+                                     }
+                               ?>">
+                        <td><?php echo $campana['razon_social'];?></td>
+                        <td><?php echo $campana['persona_contacto'];?></td>
+                        <td><?php echo $campana['telefono'];?></td>
+                        <td><?php echo $campana['direccion_facturacion'];?></td>
+                        <td><?php echo $campana['email_contacto'];?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

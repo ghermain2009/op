@@ -1,0 +1,115 @@
+<div class="container">
+    <?php if ($flag == '1') { ?>
+        <span>
+            <div class='alert alert-warning alert-dismissible' role='alert'>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                <strong>Error!</strong> El e-mail no se encuentra registrado en Rebueno.
+            </div>
+        </span>
+    <?php } ?>
+    <form name="frmpago" role="form" action="/campana/registrarusuario" method="POST" data-parsley-validate>
+
+        <div class="section_cuenta">
+            <h3>Conectar con Facebook</h3></br>
+            <div class="form-group">
+                <label class="col-lg-10 control-label">Conecta tu cuenta de Facebook para ingresar a Rebueno</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-7">
+                    <a class="btn btn-block btn-lg btn-social btn-facebook" href="javascript:loginFacebook();">
+                        <i class="fa fa-facebook"></i> Conectar con Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="section_cuenta">       
+            <h3>Crear cuenta</h3><br/>
+            <div class="form-group">
+                <label for="nombre" class="col-lg-4 control-label"><span class="required">* </span>Nombres:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" pattern="^[A-z-ñáéíóúÑÁÉÍÓÚ ]+$" data-error="Solo letras, espacios y guiones (-)."  required>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellido" class="col-lg-2 control-label"><span class="required">* </span>Apellidos:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="apellido" id="apellido" maxlength="50" pattern="^[A-z-ñáéíóúÑÁÉÍÓÚ ]+$" data-error="Solo letras, espacios y guiones (-)."  required>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-lg-4 control-label"><span class="required">* </span>Email:</label>
+                <div class="col-xs-6">
+                    <input type="email" class="form-control" name="email" id="email" value="" maxlength="50" required>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="clave" class="col-lg-4 control-label"><span class="required">* </span>Contraseña:</label>
+                <div class="col-xs-6">
+                    <input type="password" class="form-control" name="clave" id="clave" value="" maxlength="50" required>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tpdoc" class="col-lg-4 control-label"><span class="required">* </span>Tipo de documento:</label>
+                <div class="col-xs-6">
+                    <select class="form-control" name="tipdoc" id="tipdoc" data-error="Seleccione una opción." required>
+                        <option value="DNI" label="DNI">DNI</option>
+                        <option value="RUC" label="RUC">RUC</option>
+                        <option value="PAS" label="Pasaporte">Pasaporte</option>
+                        <option value="CEX" label="Carnét de Extranjería">Carnét de Extranjería</option>
+                    </select>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="numdoc" class="col-lg-4 control-label"><span class="required">* </span>Número de documento:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="numdoc" id="numdoc" pattern="^[A-z0-9-ñáéíóúÑÁÉÍÓÚ]+$" data-error="Solo letras, números y guiones (-)." required>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telefono" class="col-lg-4 control-label"><span class="required">* </span>Teléfono:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control"  name="telefono" id="telefono" pattern="^[0-9-]+$" data-error="Solo números y guiones (-)." required >            
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="celular" class="col-lg-4 control-label"><span class="required">* </span>Celular:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="celular" id="celular" pattern="^[0-9-]+$" data-error="Solo números y guiones (-)." required >            
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="genero" class="col-lg-4 control-label"><span class="required">* </span>Género:</label>
+                <div class="col-xs-6">
+                    <div class="radio" >
+                        <label><input type="radio" name="genero" id="genero" value="M" required checked>Masculino</label>
+                    </div>
+                    <div class="radio" >
+                        <label><input type="radio" name="genero" id="genero" value="F" required>Femenino</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <br>
+                </div>
+            </div>
+            <div class="registrar"><br><br>
+                <button type="submit" class="btn btn_buy_action">Registrarse</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("img.lazy").lazyload();
+    });
+</script>

@@ -1,0 +1,152 @@
+<?php echo $this->doctype(); ?>
+
+<?php
+
+use Zend\Session\Container;
+
+$user_session = new Container('user');
+
+?>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Disfrutar de momentos inolvidables con descuentos de 50% a más en Ecuador es ya una realidad | Rebueno.ec</title>
+        <meta name="title" content="Disfrutar de momentos inolvidables con descuentos de 50% a más en Ecuador es ya una realidad | Rebueno.ec">
+        <meta name="keywords" content="comida, cupones, descuentos, diversion, full day, ofertas, oferton, rebueno, viajes, guayaquil, ecuador">
+        
+        <?php echo $this->headTitle('Rebueno')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+                ->appendHttpEquiv('Pragma', 'no-cache')
+                ->appendHttpEquiv('Cache-Control', 'no-cache')
+                ->appendHttpEquiv('Expires', 'Sat, 1 Jan 2000 00:00:00 GMT');
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/formValidation.css')
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/style-op.css')
+                ->prependStylesheet($this->basePath() . '/css/docs.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-social.css')
+                ->prependStylesheet($this->basePath() . '/css/font-awesome.css')
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/framework/bootstrap.js')
+                ->prependFile($this->basePath() . '/js/formValidation.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.lazyload.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ;
+        ?>
+    </head>
+    <body class="cuerpo-afiliacion">
+        <div class="container afiliacion">
+            <?php echo $this->content; ?>
+        </div>
+        <!-- /container -->
+        <div id="fb-root"></div>
+        <?php echo $this->inlineScript() ?>
+        <form name='envio' id='envio' method="post">
+            <input type="hidden" name="id" id="id" />
+            <input type="hidden" name="op" id="op" />
+            <input type="hidden" name="fl" id="fl" />
+        </form>
+    </body>
+</html>
+<script type="text/javascript">
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '<?php echo $user_session->facebook["id"];?>',
+            cookie: true,
+            xfbml: true,
+            version: '<?php echo $user_session->facebook["ve"];?>',
+            scopes: ["publish_actions"]
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id))
+            return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+    }(document, 'script', 'facebook-jssdk'));
+
+    function loginFacebook() {
+        FB.login(function (response) {
+            if (response.status === 'connected')
+                testAPI();
+        },{scope: 'public_profile,email'});
+    }
+
+    function shareFacebook() {
+        FB.ui(
+                {
+                    method: 'share',
+                    href: '<?php echo $user_session->localhost;?>/campana/detalle/<?php echo base64_encode($user_session->id_campana);?>',
+                },
+                function (response) {
+                    if (response && !response.error_code) {
+                        alert('Posting completed.');
+                    } else {
+                        alert('Error while posting.');
+                    }
+                }
+        );
+    }
+
+    function testAPI() {
+        FB.api('/me', function (response) {
+            //console.log(response);
+            var email = response.email;
+            var fname = response.first_name;
+            var lname = response.last_name;
+            var sex;
+            if (response.gender === 'male')
+                sex = 'M';
+            else
+                sex = 'F';
+            
+            if( $('#email').val() == email ) {
+                registrarFacebook(email, fname, lname, sex);
+            } else {
+                alert('El usuario facebook no coincide con el registrado.');
+            }
+        });
+    }
+
+    function registrarFacebook(email, fname, lname, sex) {
+
+        $.ajax({
+            type: "POST",
+            url: "/index/suscribirme",
+            data: {email: email, fname: fname, lname: lname, sex: sex, facebook: '1'},
+            success: function (data) {
+                $("#registro-container").css('display', 'none');
+                $("#promocion-saludo").css('display', 'inline-block');
+                $("#formulario-saludo").css('display', 'inline-block');
+                $("#imagen-saludo").css('display', 'inline-block');
+            }
+        });
+
+    }
+    
+</script>

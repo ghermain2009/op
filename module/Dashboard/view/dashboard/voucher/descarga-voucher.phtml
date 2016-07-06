@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Documento PDF</title>
+        <style type="text/css">
+            body {
+                font-family: Helvetica;
+            }
+            
+            .letra-cupon{
+                font-size: 16px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .letra-cupon-cabecera{
+                font-size: 16px;
+                font-weight: bold;
+                text-align: right;
+             }
+            
+            .letra-cupon-min {
+                font-size: 13px;
+                font-weight: bold;
+                text-align: right;
+
+            }
+
+            .borde-cupon-externo{
+                border-style:solid;
+                border-width: 1px;
+                width: 100%;
+                background-color: #ffffff;
+                padding: 10px;;
+            }
+
+            .separacion-voucher{
+                display: block;
+                width: 100%;
+                padding: 10px;
+            }
+            
+            .logo-fijo {
+                width: 100px; 
+                height: 35px;
+                background-image: url('<?php echo $localhost; ?>/img/logo_rebueno_cupon.png');
+            }
+            
+            .tabla-borde {
+                width:100% !important;
+                border-style:solid;
+                border-width:1.5px;
+                border-color:#000;
+            }
+            
+            .tabla-sinborde {
+                width:100%;
+            }
+            
+            .tabla-borde-redondo {
+                width:100%;
+                min-height:50px;
+                border-style:solid;
+                border-width:1.5px;
+                border-color:#000;
+                -webkit-border-radius:5px 5px 5px 5px;
+                padding:5px;
+            }
+            
+            .tabla-arriba {
+                margin:5px;
+            }
+            
+            .justificado {
+                 text-align:justify;
+            }
+            
+        </style>
+    </head>
+    <body>
+    <div>
+    <div class="borde-cupon-externo">
+        <div class="separacion-voucher">
+            <div class="en-linea logo-oferta-cabecera">
+                <!--div class="logo-fijo"></div-->
+            </div>
+            <div class="en-linea">
+                <table class="tabla-borde">
+                    <tr>
+                        <td>VOUCHER N° RE-<?php echo $datos_voucher['nombre_voucher'];?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php var_dump($datos_voucher);?>
+        <div class="separacion-voucher">
+            <table class="tabla-sinborde">
+                <tr>
+                    <td colspan="4">Se&ntilde;ores : <?php echo $datos_voucher['descripcion_hospedaje'];?></td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>    
+                <tr>
+                    <td>Nombre Pasajero :</td>
+                    <td><?php echo $datos_voucher['descripcion_hospedaje'];?></td>
+                    <td>Fecha Emisi&oacute;n :</td>
+                    <td>&nbsp;</td>
+                </tr>    
+                <tr>
+                    <td>Total Habitaciones :</td>
+                    <td>&nbsp;</td>
+                    <td>Pax :</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Niños :</td>
+                                <td>&nbsp;</td>
+                                <td>Infantes :</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>    
+            </table>
+        </div>
+        <div class="separacion-voucher">
+            <table class="tabla-borde">
+                <tr align="center">
+                    <td>FECHA</td>
+                    <td>SERVICIOS</td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <div class="tabla-arriba">
+                            <table>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Check In : </td>
+                                </tr>
+                                <tr>
+                                    <td>Check Out : </td>
+                                </tr>
+                            </table>
+                        <div>
+                    </td>
+                    <td valign="top">
+                        <div class="tabla-arriba">
+                            <table>
+                                <tr>
+                                    <td>Descripci&oacute;n Habitaci&oacute;n</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo de Habitaci&oacute;n : </td>
+                                </tr>
+                                <tr>
+                                    <td>N&uacute;mero de noches : </td>
+                                </tr>
+                                <tr>
+                                    <td>Inclusiones por habitaci&oacute;n : </td>
+                                </tr>
+                                <tr>
+                                    <td>Direcci&oacute;n : </td>
+                                </tr>
+                                <tr>
+                                    <td>Tel&eacute;fono : </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="separacion-voucher">
+                <table class="tabla-sinborde">
+                    <tr>
+                        <td valign="top" width='50%' style="padding-right: 5px">
+                            <div class="tabla-borde-redondo">
+                                <table>
+                                    <tr>
+                                        <td>Estado :</td>
+                                        <td>Confirmado</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Còdigo Reserva : </td>
+                                        <td>23233434343434</td>
+                                    </tr>
+                                </table>
+                            <div>
+                        </td>
+                        <td valign="top"  width='50%' style="padding-left: 5px">
+                            <div class="tabla-borde-redondo">
+                                <table>
+                                    <tr>
+                                        <td><p>Indispensable presentación tarjeta andina y pasaporte Hora check in: 11.30 am – Hora check out : 10.00 am Niño adicional: Pagará directamente en hotel </p></td>
+                                    </tr>
+                                </table>
+                            <div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="separacion-voucher">
+                <table class="tabla-sinborde">
+                    <tr>
+                        <td style="padding-right: 5px">Importante!</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right: 5px">
+                            <p class="justificado">Rebueno actúa sólo como intermediario entre el hotel y el cliente colaborando con la gestión de reserva, sin embargo la operación propia del hotel es responsabilidad a integridad del proveedor del servico.</p>
+                            <p class="justificado">Los cambios o modificaciones pueden realizarse con 72 horas de anticipación y están sujetas a una nueva disponibilidad del hotel o cambios tarifarios propias de la temporada o nueva acomodación.</p>
+                            <p class="justificado">Las compras realizadas bajo la modalidad de cuponeras de descuento u otro canal promocional no tradicional está sujeto a una penalidad de 100% por no presentación en el hotel.</p>
+                            <p class="justificado">En caso el pasajero extranjero no residente, no cuente con tarjeta andina y pasaporte deberá abonar el 18% de IGV de acuerdo a la normativa peruana.</p>
+                        </td>    
+                    </tr>
+                </table>
+            </div>
+    </div>
+    
+</div>
+    </body>
+</html>

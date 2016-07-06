@@ -1,0 +1,220 @@
+
+    
+    <div class="container">
+        <div class="row">
+
+            <div>
+                <div class="paneles"> 
+                    
+                    <div class="panel-group collap" id="accordion" role="tablist" aria-multiselectable="true" >
+                        <form class="form-horizontal" role="form" data-toggle="validator">
+                        <div class="panel panel-default ">
+                            <div class="panel-heading rebueno" role="tab" id="headingOne">
+                                <div>
+                                    <m class="panel-title">
+                                        Válidar cupones Buenisimo
+                                    </m>
+                                    <a data-toggle="modal" data-target="#codigo">
+                                        <span class="glyphicon glyphicon-question-sign btn-vk" data-toggle="tooltip" data-placement="right" title="" data-original-title="¿Dónde encuentro el código de validación?"></span>
+                                    </a>
+                                    <a id="ocultar_valida" class="pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="glyphicon glyphicon-collapse-down"></span> Mostrar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="tabbable tabs-left" style="padding: 0px">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#a" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por uno</a></li>
+                                            <li><a href="#b" data-toggle="tab"><span class="glyphicon glyphicon-barcode btn-lg"></span><br>Por varios</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="a">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <input type="text" class="form-control" placeholder="Ingrese Código de Válidación" id="cupon_unico" >
+                                                        <span class="help-block with-errors"></span>
+                                                        <span id="id_mensaje_valida"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-success btn-lg btn-block" id="valida_unico">Válidar</button>
+                                                        <button type="button" class="btn btn-default btn-block" id="consulta_unico">Consultar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="b">
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <textarea class="form-control" rows="3" placeholder="Separe múltiples códigos con coma, eje. BU123456, BU123457" id="cupon_multiple"></textarea>
+                                                        <span class="help-block with-errors"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <button type="button" class="btn btn-success btn-lg btn-block" id="valida_multiple">Válidar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal fade" id="codigo" tabindex="100" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">¿Dónde encuentro el código de validación?</h3>
+                                </div>
+                                <form class="form-horizontal">
+                                    <div class="modal-body">
+                                        <div style="position:relative; width:88%; margin: 0 auto;" >
+                                            <img alt="Ejemplo de donde encontrar el codigo" src="/img/rebueno_donde_codigo_cupon.jpg">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div></div>
+                    </div>
+                    
+                    <div class="panel-group collap" id="accordionTwo" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    <m class="panel-title">
+                                        Partner Management
+                                    </m>
+                                    <a id="ocultar_partner" class="pull-right" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        <span class="glyphicon glyphicon-collapse-down"></span> Mostrar
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <div class="contPartnerProfile">
+                                        <div class="info-pm" style="width: 100%;height: 190px">
+                                            <span>Para contactarte con tu Partner Manager, puedes escribir a <a href="mailto:socios.pe@groupon.com">socios.pe@groupon.com</a> o hacer click en </span><a id="contact-pm-opt" href="#contact-pm" data-toggle="modal" class="btn btn-large btn-success">Contactar a PM</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: inline-block;"><h3><b>Pagos</b></h3></div>
+                    <div style="position: relative; display: inline-block; float: right; padding-right: 50px; top:15px"><button id="btn_regresar" class="btn btn-success" type="button"><span class="glyphicon glyphicon-triangle-left"></span> Regresar</button></div>
+                </div>
+                <div class="paneles">   
+                    <div class="panel-group grafico" id="accordionTree" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading rebueno" role="tab" id="headingTwo">
+                                <div>
+                                    Listado de Liquidaciones
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-default detvalidados">
+                                    <?php echo $this->liquidaciones;?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- /row -->
+    </div>
+
+
+<script type="text/javascript">
+    
+    var id_empresa = <?php echo $id_empresa;?>;
+    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+    
+    $(document).ready(function () {
+        $("#ocultar_valida").click(function () {
+            if ($("#ocultar_valida").html().trim() == '<span class="glyphicon glyphicon-collapse-up"></span> Ocultar') {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-collapse-down"></span> Mostrar')
+            } else {
+                $("#ocultar_valida").html('<span class="glyphicon glyphicon-collapse-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+
+        $("#ocultar_partner").click(function () {
+            if ($("#ocultar_partner").html().trim() == '<span class="glyphicon glyphicon-collapse-up"></span> Ocultar') {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-collapse-down"></span> Mostrar')
+            } else {
+                $("#ocultar_partner").html('<span class="glyphicon glyphicon-collapse-up"></span> Ocultar')
+            }
+            //$("#element").hide();
+        });
+        
+        $("td").each(function(i){
+            var columna = $(this).attr("data-columnuniqueid");
+            if( columna == 'id_liquidacion' ) {
+                var htm = "<a class='display: inline-table !important;' href='../../micampana/resumenliquidacion/<?php echo base64_encode($id_empresa);?>/" + $(this).html() + "' ";
+                    htm+= "data-toggle='tooltip' data-placement='right' data-original-title='Ver esta Liquidación'>";
+                    htm+= $(this).html();
+                    htm+= "</a>"
+                $(this).html(htm);
+            }
+        });
+        
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    });
+    
+    $("#btn_regresar").click(function () {
+        var url = "/dashboard/micampana/<?php echo $id_empresa;?>";    
+        $(location).attr('href',url);
+    });
+
+    $("#valida_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        $.ajax({
+            type: "POST",
+            url: "../micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            } 
+        });
+    });
+
+    $("#consulta_unico").click(function () {
+        var cupon = $('#cupon_unico').val();
+        $.ajax({
+            type: "POST",
+            url: "../micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'C'},
+            success: function (data) {
+                $('#id_mensaje_valida').html(data);
+            }
+        });
+    });
+
+    $("#valida_multiple").click(function () {
+        var cupon = $('#cupon_multiple').val();
+        $.ajax({
+            type: "POST",
+            url: "../micampana/cupon",
+            data: {empresa: id_empresa, cupon: cupon, tipo: 'V'},
+            success: function (data) {
+                $('#id_mensaje_multiple').html(data);
+                $('#myModal').modal();
+            }
+        });
+    });
+
+
+
+</script>

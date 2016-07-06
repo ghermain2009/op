@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="mapasitio">
+        <h2>Mapa del sitio</h2>
+        <hr class="medium">
+        <ul>
+            <li><span>Acerca de <?php echo $empresa['nombre'];?></span>
+                <ul>
+                    <li><a href="/interes">Sobre <?php echo $empresa['nombre'];?></a></li>
+                    <li><a href="/interes/comofunciona">¿Cómo funciona?</a></li>
+                    <li><a href="/interes/preguntasfrecuentes">Preguntas frecuentes</a></li>
+                    <li><a href="/interes/terminosycondiciones">Términos y Condiciones</a></li>
+                    <li><a href="/interes/contactanos">Contáctanos</a></li>
+                    <li><a href="/interes/politicasdeprivacidad">Políticas de Privacidad</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><span>Categorías en <?php echo $empresa['nombre'];?></span>
+                <ul>
+                    <?php foreach($categorias as $categoria) { ?>
+                    <li><a href="/campana/categoria/<?php echo base64_encode($categoria['id_categoria']);?>"><?php echo $categoria['descripcion'];?></a></li>
+                    <?php } ?>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><span>Usuarios <?php echo $empresa['nombre'];?></span>
+                <ul>
+                    <li><a href="/campana/registrar">Registro de usuario</a></li>
+                    <li><a href="/campana/recuperar">Recuperar contraseña</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><span>Socios <?php echo $empresa['nombre'];?></span>
+                <ul>
+                    <li><a href="/dashboard">Ingresa a tu cuenta de socio</a></li>
+
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><span>Métodos de pago</span>
+                <ul>
+                    <li><a href="http://www.visanet.com.pe">Visa</a></li>
+                    <li><a href="http://www.mastercard.com/pe/consumidores/index.html">Master Card</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><span>Redes Sociales</span>
+                <ul>
+                    <li><a href="https://www.facebook.com/people/<?php echo $empresa['nombre'];?>-Ecuador/100010002690223" target="_blank">Facebook <?php echo $empresa['nombre'];?></a></li>
+                    <li><a href="https://twitter.com/<?php echo $empresa['nombre'];?>EC"  target="_blank">Twitter <?php echo $empresa['nombre'];?></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
