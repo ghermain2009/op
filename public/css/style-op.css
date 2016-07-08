@@ -1480,7 +1480,7 @@ section {
     //background-size: 1456px 260px; 
 }
 
-//descuento en circulo
+
 .campana-texto-descuento-circle-uno {
     position:absolute;
     margin-top:-190px;
@@ -1552,7 +1552,6 @@ section {
     margin-left:10px;
 }
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++
 .campana-texto-descuento-uno {
     font-family:gotham-medium, 'arial', 'sans-serif';
     font-size: 22px;
