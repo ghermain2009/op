@@ -85,7 +85,8 @@ class CupcampanaopcionTable {
                 ->join('cup_opcion_seleccion_detalle', new Expression("cup_opcion_seleccion.id_opcion_seleccion = cup_opcion_seleccion_detalle.id_opcion_seleccion"),
                 array('id_opcion_seleccion_detalle',
                       'cantidad_seleccion',
-                      'importe_seleccion'),'left')
+                      'importe_seleccion',
+                      'descripcion_seleccion'),'left')
                 ->where(array('cup_campana_opcion.id_campana' => $id_campana));
 
         $statement = $sql->prepareStatementForSqlObject($select);

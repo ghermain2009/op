@@ -51,51 +51,112 @@
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <div class="form-group bloque4">
         <label for="utiliza_descripcion_precio" class="col-lg-8 control-label">Utilizar el precio como descripción interna:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('utiliza_descripcion_precio')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2 bloque3">
+    <div class="form-group bloque4 bloque3">
         <label for="descripcion_interna" class="col-lg-8 control-label">Descripción Interna:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('descripcion_interna')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <div class="form-group bloque4">
         <label for="importe_seleccion" class="col-lg-8 control-label">Importe Selección:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('importe_seleccion')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <?php if(count($selecciongrupo) > 0 ) { ?>
+    <div class="form-group bloque4">
+        <label for="opcion_multiple" class="col-lg-8 control-label">Utilizar Grupo:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('opcion_multiple')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque4">
+        <label for="id_opcion_seleccion_referencia" class="col-lg-8 control-label">Agrupar con:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('id_opcion_seleccion_referencia')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <?php 
+          } ?>
+    <div class="form-group bloque5">
         <label for="valores_seleccion" class="col-lg-8 control-label">Valores a seleccionar:</label>
         <div class="col-xs-9"> 
-            <table class='table table table-bordered' id='js-tabla-valores-seleccion' >
+            <table class='table table table-bordered col-xs-9' id='js-tabla-valores-seleccion' style="font-size:10px !important">
             <thead >
                 <tr class='btn-info'>
                     <th>#</th>
                     <th>Cantidad</th>
+                    <?php 
+                          if( $this->form->get('opcion_multiple')->getValue() == '1') { 
+                            foreach( $seleccionreferencia as $referencia) { ?>
+                            <th><?php echo $referencia['descripcion_seleccion'];?></th>
+                        <?php }
+                          
+                          } else { ?>
                     <th>Importe x Cantidad</th>
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $cantidad = 0;
-                foreach( $selecciondetalle as $opcion) {
-                    $cantidad++;
-                    $fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle".$cantidad."'>";
-                    $fila_seleccion.= "<td><span class='badge'>".$cantidad."</span></td>";
-                    $fila_seleccion.= "<td>".$opcion['cantidad_seleccion']." x </td>";
-                    $fila_seleccion.= "<td> ".$simbolo_moneda." <input type='hidden' name='cantidad_seleccionar[]' value='".$opcion['cantidad_seleccion']."'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='".$opcion['importe_seleccion']."'></td>";
+                if($this->form->get('tipo_seleccion')->getValue() == '1') {
+                    $cantidad = 0;
+                    $cantidad_seleccion = -1;
+                    $fila_seleccion = '';
+                    foreach( $selecciondetalle as $opcion) {
+                        if( $cantidad_seleccion != $opcion['cantidad_seleccion'] ) {
+                            if($cantidad_seleccion != -1 ) $fila_seleccion.= "</tr>";
+                            echo $fila_seleccion;
+                            $cantidad++;
+                            $fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle".$cantidad."'>";
+                            $fila_seleccion.= "<td><span class='badge'>".$cantidad."</span></td>";
+                            $fila_seleccion.= "<td>".$opcion['cantidad_seleccion']." x </td>";
+                        }
+                        $fila_seleccion.= "<td><input type='hidden' name='referencia_seleccionar[]' value='".$opcion['id_detalle_referencia']."'><input type='hidden' name='cantidad_seleccionar[]' value='".$opcion['cantidad_seleccion']."'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='".$opcion['importe_seleccion']."'></td>";
+                        $cantidad_seleccion = $opcion['cantidad_seleccion'];
+                    } 
                     $fila_seleccion.= "</tr>";
-
                     echo $fila_seleccion;
-                } ?>
+                }?>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group bloque6">
+        <label for="valores_seleccion_relacion" class="col-lg-8 control-label">Valores a seleccionar:</label>
+        <div class="col-xs-9"> 
+            <table class='table table table-bordered' id='js-tabla-valores-seleccion-relacion'  style="font-size:10px !important">
+            <thead >
+                <tr class='btn-info'>
+                    <th>#</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if($this->form->get('tipo_seleccion')->getValue() == '3') {
+                    $cantidad = 0;
+                    foreach( $selecciondetalle as $opcion) {
+                        $cantidad++;
+                        $fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle".$cantidad."'>";
+                        $fila_seleccion.= "<td><span class='badge'>".$cantidad."</span></td>";
+                        $fila_seleccion.= "<td><input type='hidden' name='cantidad_seleccionar_relacion[]' value='".$opcion['cantidad_seleccion']."'><input name='opcion_seleccionar_relacion[]' style='text-align:left' type='text' value='".$opcion['descripcion_seleccion']."'></td>";
+                        $fila_seleccion.= "</tr>";
+
+                        echo $fila_seleccion;
+                    } 
+                }?>
             </tbody>
             </table>
         </div>

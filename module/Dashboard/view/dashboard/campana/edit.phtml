@@ -223,6 +223,7 @@ if (file_exists($directorio . "small2")) {
                             $campana_ant = -1;
                             $campana_opcion_ant = -1;
                             $opcion_seleccion_ant = -1;
+                            $tipo_seleccion_ant = '0';
                             $fila_padre = "";
                             foreach ($opciones as $opcion) {
                                 $registros++;
@@ -231,9 +232,17 @@ if (file_exists($directorio . "small2")) {
                                 $opcion_seleccion = $opcion['id_opcion_seleccion'];
                                 if( $campana_opcion_ant != $campana_opcion ) {
                                     $contador++;
+                                    if( $campana_ant != -1) {
+                                        switch($tipo_seleccion_ant) {
+                                            case '1':
+                                            case '3':
+                                                $t_opcion_seleccion_item.= "</select>";
+                                                break;
+                                        }
+                                        echo $fila_padre;
+                                    }
                                     $t_opcion_seleccion_item = '';
                                     $t_opcion_seleccion_det_pie = '';
-                                    if( $campana_ant != -1) echo $fila_padre;
                                 }
                                 
                                 if( !empty($opcion_seleccion) ) {
@@ -286,21 +295,26 @@ if (file_exists($directorio . "small2")) {
                                     $dias_bloqueo = $opcion['dias_bloqueo']; 
                                     $utiliza_descripcion_precio = $opcion['utiliza_descripcion_precio'];
                                     $importe = $opcion['importe_seleccion'];
+                                    $descripcion_seleccion = $opcion['descripcion_seleccion'];
                                     $descripcion_interna = $opcion['descripcion_interna'];
                                     
                                     $cantidad_item = $opcion['cantidad_seleccion'];
                                     $value = $opcion['importe_seleccion'];
-                                    
                                     switch ($tipo_seleccion) {
                                         case '1':
+                                        case '3':
                                             
                                             if($opcion_seleccion_ant != $opcion_seleccion) {
                                                 if($opcion_seleccion_ant == -1) {
                                                     $t_opcion_seleccion_item.= "<select id='' class='form-control input-sm'>";
                                                 } else {
-                                                    $t_opcion_seleccion_item.= "</select>";
-                                                    //imprimir el objeto
-                                                    $t_opcion_seleccion_item = "<select id='' class='form-control input-sm'>";
+                                                    switch($tipo_seleccion_ant) {
+                                                        case '1':
+                                                        case '3':
+                                                            $t_opcion_seleccion_item.= "</select>";
+                                                            break;
+                                                    }
+                                                   $t_opcion_seleccion_item = "<select id='' class='form-control input-sm'>";
                                                 }
                                                 $cantidad_seleccion = 0;
                                             }
@@ -313,31 +327,34 @@ if (file_exists($directorio . "small2")) {
                                                 $t_opcion_seleccion_item.= "<option value='0'>0</option>";
                                             } else {
                                                 $t_opcion_seleccion_item.= "<option value='".$cantidad_item."'>";
-                                                if($utiliza_descripcion_precio == '1') {
-                                                    $t_opcion_seleccion_item.= $cantidad_item." x ".$simbolo_moneda." ".$value;
+                                                if( $tipo_seleccion == '1') {
+                                                    if($utiliza_descripcion_precio == '1') {
+                                                        $t_opcion_seleccion_item.= $cantidad_item." x ".$simbolo_moneda." ".$value;
+                                                    } else {
+                                                        $t_opcion_seleccion_item.= $cantidad_item." ".$descripcion_interna." ( x ".$simbolo_moneda." ".$value." )";
+                                                    }
                                                 } else {
-                                                    $t_opcion_seleccion_item.= $cantidad_item." ".$descripcion_interna." ( x ".$simbolo_moneda." ".$value." )";
+                                                    $t_opcion_seleccion_item.= $descripcion_seleccion;
                                                 }
                                                 $t_opcion_seleccion_item.= "</option>";
                                             }
                                             
-                                            if($registros == count($opciones)) $t_opcion_seleccion_det.= $t_opcion_seleccion_item.$t_opcion_seleccion_det_pie;
-                                            $cantidad_seleccion++;
+                                            //if($registros == count($opciones)) $t_opcion_seleccion_det.= $t_opcion_seleccion_item.$t_opcion_seleccion_det_pie;
                                             
                                             break;
                                         case '2':
+                                            $t_opcion_seleccion_item = '';
+                                            
                                             $t_opcion_seleccion_det.= "<input id='calendargroup' class='form-control input-sm' value='dd/mm/yyyy + ".$dias_bloqueo." días' readonly>";
-                                            //if($registros == count($opciones)) 
-                                            if($opcion_seleccion_ant != -1) {
-                                                $t_opcion_seleccion_det.= $t_opcion_seleccion_det_pie;
-                                            }
-
+                                            
+                                            //if($registros == count($opciones)) $t_opcion_seleccion_det.= $t_opcion_seleccion_det_pie;
+                                            
                                             break;
                                     }
                                     
                                     $opcion_seleccion_ant = $opcion_seleccion;
                                     
-                                    $tabla = $t_opcion_seleccion_cab.$t_opcion_seleccion_det.$t_opcion_seleccion_pie;
+                                    $tabla = $t_opcion_seleccion_cab.$t_opcion_seleccion_det.$t_opcion_seleccion_item.$t_opcion_seleccion_det_pie.$t_opcion_seleccion_pie;
                                 } else {
                                     $t_opcion_seleccion_cab = "<table class='table table table-bordered' id='js-tabla-seleccion".$opcion['id_campana_opcion']."' >";
                                     $t_opcion_seleccion_cab.= "<thead >";
@@ -370,7 +387,6 @@ if (file_exists($directorio . "small2")) {
                                 //if( !empty($tabla) ) {
                                 $fila_padre.= "<tr tipo-fila='filaSeleccion' class='warning' id='filaOpcionSeleccion".$opcion['id_campana_opcion']."'>";
                                 $fila_padre.= "<td colspan='4'>".$tabla;
-                                //$fila_padre.= "<div class='btn btn-info' style='float:right' onclick=\"javascript:nuevaOpcionSeleccion('".$opcion['id_campana_opcion']."')\" title='Nueva Selección'><samp class='glyphicon glyphicon-file'></samp>Nueva Selección</div>";
                                 $fila_padre.= "<div class='btn btn-info' style='float:right' id-opcion-seleccion-nueva='".$opcion['id_campana_opcion']."' id-campana='".$opcion['id_campana']."' title='Nueva Selección'><samp class='glyphicon glyphicon-file'></samp>Nueva Selección</div>";
                                 $fila_padre.= "</td>";
                                 $fila_padre.= "<td>&nbsp;</td>";
@@ -379,6 +395,7 @@ if (file_exists($directorio . "small2")) {
                                 
                                 $campana_ant = $campana;
                                 $campana_opcion_ant = $campana_opcion;
+                                $tipo_seleccion_ant = $tipo_seleccion;
                             } 
                             
                             echo $fila_padre;
@@ -762,13 +779,55 @@ foreach ($ficheros2 as $file) {
     });
     
     function eventosdinamicosseleccion() {
+        $("#id_opcion_seleccion_referencia").on("change", function(){
+            var id_opcion_seleccion_referencia = $(this).val();
+            var v_inicial    = parseInt($("#valor_inicial").val());
+            var v_final      = parseInt($("#valor_final").val());
+            var v_incremento = parseInt($("#incremento").val());
+            var v_importe    = parseInt($("#importe_seleccion").val());
+            var valor;
+            $.ajax({
+                type: "POST",
+                url: "/dashboard/campana/opcionselecciondetalle",
+                data: {id_opcion_seleccion: id_opcion_seleccion_referencia},
+                success: function (data) {
+                    var valores = $.parseJSON(data);
+                    
+                    $("#js-tabla-valores-seleccion").find('tr').each(function(i,row) {
+                        for(var j=2; j<$(row).find('td,th').length; j++) {
+                            $(row).find('td:last,th:last').remove();
+                        }
+                    });
+                    
+                    valor = v_inicial;
+                    $("#js-tabla-valores-seleccion").find('tr').each(function(i,row){ 
+                        var primer_td= $(row).find('td,th')[1]; 
+                        var ultimo_td;
+                        if(primer_td.tagName=='TH'){
+                            for(var i=0;i<valores.length;i++){
+                                ultimo_td= $(row).find('td,th').last(); 
+                                $('<th>' + valores[i].descripcion_seleccion +'</th>').insertAfter(ultimo_td);
+                            }
+                        }else{
+                            for(var i=0;i<valores.length;i++){
+                                ultimo_td= $(row).find('td,th').last(); 
+                                $("<td><input type='hidden' name='referencia_seleccionar[]' value='" + valores[i].id_opcion_seleccion_detalle + "'><input type='hidden' name='cantidad_seleccionar[]' value='" + valor + "'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='" + (v_importe * valor).toFixed(2) + "'></td>").insertAfter(ultimo_td);
+                            }
+                            valor = valor + v_incremento;
+                        }
+                    });
+                        //
+                }
+            });
+        });
+    
         $("#utiliza_descripcion_precio").on("change", function(){
             switch($(this).val()) {
                 case '1':
-                    $('.form-group.bloque2.bloque3').hide();
+                    $('.form-group.bloque4.bloque3').hide();
                     break;
                 case '2':
-                    $('.form-group.bloque2.bloque3').show();
+                    $('.form-group.bloque4.bloque3').show();
                     break;
             }
         });
@@ -782,36 +841,65 @@ foreach ($ficheros2 as $file) {
                     if($('#importe_seleccion').val() == '' ) $('#importe_seleccion').val('0.00');
                     $('.form-group.bloque1').hide();
                     $('.form-group.bloque2').show();
+                    $('.form-group.bloque4').show();
+                    $('.form-group.bloque5').show();
+                    $('.form-group.bloque6').hide();
                     $("#utiliza_descripcion_precio").change()
                     break;
                 case '2':
                     $('.form-group.bloque1').show();
                     $('.form-group.bloque2').hide();
+                    $('.form-group.bloque4').hide();
+                    $('.form-group.bloque5').hide();
+                    $('.form-group.bloque6').hide();
+                    break;
+                case '3':
+                    $('.form-group.bloque1').hide();
+                    $('.form-group.bloque2').show();
+                    $('.form-group.bloque4').hide();
+                    $('.form-group.bloque5').hide();
+                    $('.form-group.bloque6').show();
                     break;
             }
         });
         
         $("#valor_inicial,#valor_final,#incremento,#importe_seleccion").on("change", function(){
             var cantidad, fila_seleccion;
+            var v_tipo       = $("#tipo_seleccion").val();
             var v_inicial    = parseInt($("#valor_inicial").val());
             var v_final      = parseInt($("#valor_final").val());
             var v_incremento = parseInt($("#incremento").val());
             var v_importe    = parseInt($("#importe_seleccion").val());
+            var v_tabla;
+            
+            switch(v_tipo) {
+                case '1':
+                    v_tabla = 'js-tabla-valores-seleccion';
+                    break;
+                case '3':
+                    v_tabla = 'js-tabla-valores-seleccion-relacion';
+                    break;
+            }
+                    
 
-            $("#js-tabla-valores-seleccion tr[tipo-fila='filaSeleccionDetalle']").remove();
+            $("#" + v_tabla + " tr[tipo-fila='filaSeleccionDetalle']").remove();
 
             for(var i=v_inicial; i<=v_final; i+=v_incremento) {
-                cantidad = $("#js-tabla-valores-seleccion tr[tipo-fila='filaSeleccionDetalle']").size();
+                cantidad = $("#" + v_tabla + " tr[tipo-fila='filaSeleccionDetalle']").size();
 
                 cantidad++;
 
                 fila_seleccion = "<tr tipo-fila='filaSeleccionDetalle' class='warning' id='filaSeleccionDetalle" + cantidad + "'>";
                 fila_seleccion+= "<td><span class='badge'>" + cantidad + "</span></td>";
-                fila_seleccion+= "<td>" + i + " x </td>";
-                fila_seleccion+= "<td><input type='hidden' name='cantidad_seleccionar[]' value='" + i + "'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='" + (v_importe * i).toFixed(2) + "'></td>";
+                if(v_tipo == '1') {
+                    fila_seleccion+= "<td>" + i + " x </td>";
+                    fila_seleccion+= "<td><input type='hidden' name='cantidad_seleccionar[]' value='" + i + "'><input name='opcion_seleccionar[]' style='text-align:right' type='text' value='" + (v_importe * i).toFixed(2) + "'></td>";
+                } else {
+                    fila_seleccion+= "<td><input type='hidden' name='cantidad_seleccionar_relacion[]' value='" + i + "'><input name='opcion_seleccionar_relacion[]' style='text-align:left' type='text' value=''></td>";
+                }
                 fila_seleccion+= "</tr>";
 
-                $('#js-tabla-valores-seleccion tr:last').after(fila_seleccion);
+                $("#" + v_tabla + " tr:last").after(fila_seleccion);
             }
             
             var modal_height = $('#modalSeleccion').find('.modal-content').height() + 70;

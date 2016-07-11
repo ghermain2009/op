@@ -50,6 +50,7 @@ $user_session = new Container('user');
         <!-- Scripts -->
         <?php
         echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/jquery.blockUI.js')
                 ->prependFile($this->basePath() . '/js/jquery.datetimepicker.full.js')
                 ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                 ->prependFile($this->basePath() . '/js/framework/bootstrap.js')

@@ -311,18 +311,38 @@ class CampanaController extends AbstractActionController {
         $importe_seleccion = $this->params()->fromPost("importe_seleccion", null);
         $descripcion_interna = $this->params()->fromPost("descripcion_interna", null);
         $utiliza_descripcion_precio = $this->params()->fromPost("utiliza_descripcion_precio", null);
-        $cantidad_seleccionar = $this->params()->fromPost("cantidad_seleccionar", null);
-        $opcion_seleccionar = $this->params()->fromPost("opcion_seleccionar", null);
+        $opcion_multiple = $this->params()->fromPost("opcion_multiple", null);
+        $id_opcion_seleccion_referencia = $this->params()->fromPost("id_opcion_seleccion_referencia", null);
         
-        if($tipo_seleccion == '1') {
-            $dias_bloqueo = null;
-        } else {
-            $valor_inicial = null;
-            $valor_final = null;
-            $incremento = null;
-            $importe_seleccion = null;
-            $descripcion_interna = null;
-            $utiliza_descripcion_precio = null;
+        switch($tipo_seleccion) {
+            case '1':
+                $opcion_seleccionar = $this->params()->fromPost("opcion_seleccionar", null);
+                $cantidad_seleccionar = $this->params()->fromPost("cantidad_seleccionar", null);
+                $referencia_seleccionar = $this->params()->fromPost("referencia_seleccionar", null);
+                $dias_bloqueo = null;
+                break;
+            case '2':
+                $opcion_seleccionar = null;
+                $cantidad_seleccionar = null;
+                $valor_inicial = null;
+                $valor_final = null;
+                $incremento = null;
+                $importe_seleccion = null;
+                $descripcion_interna = null;
+                $utiliza_descripcion_precio = null;
+                $opcion_multiple = null;
+                $id_opcion_seleccion_referencia = null;
+                break;
+            case '3':
+                $opcion_seleccionar = $this->params()->fromPost("opcion_seleccionar_relacion", null);
+                $cantidad_seleccionar = $this->params()->fromPost("cantidad_seleccionar_relacion", null);
+                $referencia_seleccionar = null;
+                $dias_bloqueo = null;
+                $importe_seleccion = null;
+                $descripcion_interna = null;
+                $opcion_multiple = null;
+                $id_opcion_seleccion_referencia = null;
+                break;
         }
         
         $data = array(  'id_opcion_seleccion' => $id_opcion_seleccion,
@@ -337,7 +357,9 @@ class CampanaController extends AbstractActionController {
                         'incremento' => $incremento,
                         'importe_seleccion' => $importe_seleccion,
                         'descripcion_interna' => $descripcion_interna,
-                        'utiliza_descripcion_precio' => $utiliza_descripcion_precio
+                        'utiliza_descripcion_precio' => $utiliza_descripcion_precio,
+                        'opcion_multiple' => $opcion_multiple,
+                        'id_opcion_seleccion_referencia' => $id_opcion_seleccion_referencia
         );
 
         $serviceLocator = $this->getServiceLocator();
@@ -355,6 +377,7 @@ class CampanaController extends AbstractActionController {
         $t_opcion_seleccion_det.= "<div class='col-lg-5'>";
         switch ($tipo_seleccion) {
             case '1':
+            case '3':
                 if(!empty($id_opcion_seleccion)) $campanaSeleccionDetalleTable->delSeleccionOpcionDetalleId($id_opcion_seleccion);
                 
                 
@@ -362,10 +385,19 @@ class CampanaController extends AbstractActionController {
                 $cantidad = 0;
                 foreach( $opcion_seleccionar as $item => $value) {
                     $cantidad_item = $cantidad_seleccionar[$item];
-                    $datos_item = array('id_opcion_seleccion_detalle' => '' ,
-                                        'id_opcion_seleccion' => $id_opcion_seleccion,
-                                        'cantidad_seleccion' => $cantidad_item,
-                                        'importe_seleccion' => $value);
+                    if(count($referencia_seleccionar) > $item) $referencia_item = $referencia_seleccionar[$item];
+                    if($tipo_seleccion == '1') {
+                        $datos_item = array('id_opcion_seleccion_detalle' => '' ,
+                                            'id_opcion_seleccion' => $id_opcion_seleccion,
+                                            'cantidad_seleccion' => $cantidad_item,
+                                            'importe_seleccion' => $value,
+                                            'id_detalle_referencia' => $referencia_item);
+                    } else {
+                        $datos_item = array('id_opcion_seleccion_detalle' => '' ,
+                                            'id_opcion_seleccion' => $id_opcion_seleccion,
+                                            'cantidad_seleccion' => $cantidad_item,
+                                            'descripcion_seleccion' => $value);
+                    }
                     
                     $campanaSeleccionDetalleTable->addSeleccionOpcionDetalle($datos_item);
                     
@@ -376,10 +408,14 @@ class CampanaController extends AbstractActionController {
                         $t_opcion_seleccion_det.= "<option value='0'>0</option>";
                     } else {
                         $t_opcion_seleccion_det.= "<option value='".$cantidad_item."'>";
-                        if($utiliza_descripcion_precio == '1') {
-                            $t_opcion_seleccion_det.= $cantidad_item." x ".$simbolo_moneda." ".$value;
+                        if($tipo_seleccion == '1') {
+                            if($utiliza_descripcion_precio == '1') {
+                                $t_opcion_seleccion_det.= $cantidad_item." x ".$simbolo_moneda." ".$value;
+                            } else {
+                                $t_opcion_seleccion_det.= $cantidad_item." ".$descripcion_interna." ( x ".$simbolo_moneda." ".$value." )";
+                            }
                         } else {
-                            $t_opcion_seleccion_det.= $cantidad_item." ".$descripcion_interna." ( x ".$simbolo_moneda." ".$value." )";
+                            $t_opcion_seleccion_det.= $value;
                         }
                         $t_opcion_seleccion_det.= "</option>";
                     }
@@ -452,9 +488,13 @@ class CampanaController extends AbstractActionController {
         $viewmodel = new ViewModel();
         $viewmodel->setTerminal(true);
         
-        $form = new CampanaseleccionopcionForm();
-
         foreach ($seleccionData as $seleccion) {
+            
+            $seleccionGrupo = $campanaOpcionTable->getSeleccionOpcionAgrupable($seleccion['id_campana'], $seleccion['id_campana_opcion']); 
+            $detallereferenciaData = $campanaOpcionSeleccionDetalleTable->getSeleccionOpcionDetalleId($seleccion['id_opcion_seleccion_referencia']);
+
+            $form = new CampanaseleccionopcionForm($seleccionGrupo);
+            
             $form->get('pks_opcion_seleccion')->setValue($seleccion['id_opcion_seleccion']);
             $form->get('pks_campana_opcion')->setValue($seleccion['id_campana_opcion']);
             $form->get('pks_campana')->setValue($seleccion['id_campana']);
@@ -468,10 +508,17 @@ class CampanaController extends AbstractActionController {
             $form->get('importe_seleccion')->setValue($seleccion['importe_seleccion']);
             $form->get('descripcion_interna')->setValue($seleccion['descripcion_interna']);
             $form->get('utiliza_descripcion_precio')->setValue($seleccion['utiliza_descripcion_precio']);
+            $form->get('opcion_multiple')->setValue($seleccion['opcion_multiple']);
+            $form->get('id_opcion_seleccion_referencia')->setValue($seleccion['id_opcion_seleccion_referencia']);
+            
+            
+            
         }
                 
         $viewmodel->form = $form;
         $viewmodel->setVariable('selecciondetalle', $selecciondetalleData);
+        $viewmodel->setVariable('seleccionreferencia', $detallereferenciaData);
+        $viewmodel->setVariable('selecciongrupo', $seleccionGrupo);
         $viewmodel->setVariable('simbolo_moneda', $simbolo_moneda);
         
         return $viewmodel;
@@ -483,11 +530,40 @@ class CampanaController extends AbstractActionController {
         $opcionseleccion = $this->params()->fromPost("opcion_seleccion", null);
 
         $serviceLocator = $this->getServiceLocator();
+        $campanaSeleccionDetalleTable = $serviceLocator->get('Dashboard\Model\CupopcionselecciondetalleTable');
         $campanaSeleccionTable = $serviceLocator->get('Dashboard\Model\CupopcionseleccionTable');
 
+        $campanaSeleccionDetalleTable->delSeleccionOpcionDetalleId($opcionseleccion);
         $campanaSeleccionTable->delSeleccionxOpcionId($opcionseleccion);
 
         return $this->getResponse()->setContent(Json::encode(array('data' => '1')));
+    }
+    
+    public function opcionselecciondetalleAction() {
+
+        $id_opcion_seleccion = $this->params()->fromPost("id_opcion_seleccion", null);
+
+        $serviceLocator = $this->getServiceLocator();
+        $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionselecciondetalleTable');
+
+        $datos = $campanaOpcionTable->getSeleccionOpcionDetalleId($id_opcion_seleccion);
+
+
+        return $this->getResponse()->setContent(Json::encode($datos));
+    }
+    
+    public function selecciondetallereferenciaAction() {
+
+        $id_opcion_seleccion = $this->params()->fromPost("id_opcion_seleccion", null);
+        $id_referencia = $this->params()->fromPost("id_referencia", null);
+
+        $serviceLocator = $this->getServiceLocator();
+        $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionselecciondetalleTable');
+
+        $datos = $campanaOpcionTable->getSeleccionDetalleReferenciaId($id_opcion_seleccion,$id_referencia);
+
+
+        return $this->getResponse()->setContent(Json::encode($datos));
     }
     
 }

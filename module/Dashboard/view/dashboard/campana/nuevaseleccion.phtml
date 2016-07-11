@@ -51,28 +51,28 @@
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <div class="form-group bloque4">
         <label for="utiliza_descripcion_precio" class="col-lg-8 control-label">Utilizar el precio como descripción interna:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('utiliza_descripcion_precio')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2 bloque3">
+    <div class="form-group bloque4 bloque3">
         <label for="descripcion_interna" class="col-lg-8 control-label">Descripción Interna:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('descripcion_interna')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <div class="form-group bloque4">
         <label for="importe_seleccion" class="col-lg-8 control-label">Importe Selección:</label>
         <div class="col-xs-5"> 
             <?php echo $this->formRow($this->form->get('importe_seleccion')); ?>
             <span class="help-block with-errors"></span>
         </div>
     </div>
-    <div class="form-group bloque2">
+    <div class="form-group bloque5">
         <label for="valores_seleccion" class="col-lg-8 control-label">Valores a seleccionar:</label>
         <div class="col-xs-9"> 
             <table class='table table table-bordered' id='js-tabla-valores-seleccion' >
@@ -81,6 +81,21 @@
                     <th>#</th>
                     <th>Cantidad</th>
                     <th>Importe x Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group bloque6">
+        <label for="valores_seleccion_relacion" class="col-lg-8 control-label">Valores a seleccionar:</label>
+        <div class="col-xs-9"> 
+            <table class='table table table-bordered' id='js-tabla-valores-seleccion-relacion' >
+            <thead >
+                <tr class='btn-info'>
+                    <th>#</th>
+                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody>

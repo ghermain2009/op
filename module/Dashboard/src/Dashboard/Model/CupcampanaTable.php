@@ -305,7 +305,9 @@ class CupcampanaTable {
                       'utiliza_descripcion_precio',
                       'importe_seleccion',
                       'descripcion_interna',
-                      'fecha_bloqueo' => new Expression("DATE_FORMAT(ADDDATE(NOW(),IFNULL(dias_bloqueo,0)),'%Y-%m-%d')")),'left')
+                      'fecha_bloqueo' => new Expression("DATE_FORMAT(ADDDATE(NOW(),IFNULL(dias_bloqueo,0)),'%Y-%m-%d')"),
+                      'opcion_multiple',
+                      'id_opcion_seleccion_referencia'),'left')
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
 
         $statement = $sql->prepareStatementForSqlObject($select);
@@ -327,7 +329,9 @@ class CupcampanaTable {
         ->join('cup_opcion_seleccion_detalle', new Expression("cup_opcion_seleccion.id_opcion_seleccion = cup_opcion_seleccion_detalle.id_opcion_seleccion"),
                 array('id_opcion_seleccion_detalle',
                       'cantidad_seleccion',
-                      'importe_seleccion'))
+                      'importe_seleccion',
+                      'descripcion_detalle' => 'descripcion_seleccion',
+                      'id_detalle_referencia'))
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
 
         $statement = $sql->prepareStatementForSqlObject($select);

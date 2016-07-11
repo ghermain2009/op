@@ -52,10 +52,44 @@ class CupopcionseleccionTable {
                     'incremento',
                     'utiliza_descripcion_precio',
                     'importe_seleccion',
-                    'descripcion_interna'
+                    'descripcion_interna',
+                    'opcion_multiple',
+                    'id_opcion_seleccion_referencia'
                 ))
                 ->from('cup_opcion_seleccion')
                 ->where(array('id_opcion_seleccion' => $id_opcion_selecion));
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+
+        return ArrayUtils::iteratorToArray($result);
+        
+    }
+    
+    public function getSeleccionOpcionAgrupable($id_campana, $id_campana_opcion) {
+        $sql = new Sql($this->tableGateway->adapter);
+
+        $select = $sql->select();
+
+        $select->columns(array(
+                    'id_opcion_seleccion',
+                    'id_campana_opcion',
+                    'id_campana',
+                    'tipo_seleccion',
+                    'dias_bloqueo',
+                    'descripcion_primaria',
+                    'descripcion_secundaria',
+                    'valor_inicial',
+                    'valor_final',
+                    'incremento',
+                    'utiliza_descripcion_precio',
+                    'importe_seleccion',
+                    'descripcion_interna'
+                ))
+                ->from('cup_opcion_seleccion')
+                ->where(array('id_campana' => $id_campana,
+                              'id_campana_opcion' => $id_campana_opcion,
+                              'tipo_seleccion' => '3'));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
@@ -83,6 +117,8 @@ class CupopcionseleccionTable {
                 'importe_seleccion' => (isset($datos['importe_seleccion'])) ? $datos['importe_seleccion'] : null,
                 'descripcion_interna' => (isset($datos['descripcion_interna'])) ? $datos['descripcion_interna'] : null,
                 'utiliza_descripcion_precio' => (isset($datos['utiliza_descripcion_precio'])) ? $datos['utiliza_descripcion_precio'] : null,
+                'opcion_multiple' => (isset($datos['opcion_multiple'])) ? $datos['opcion_multiple'] : null,
+                'id_opcion_seleccion_referencia' => (isset($datos['id_opcion_seleccion_referencia'])) ? $datos['id_opcion_seleccion_referencia'] : null,
             ));
             
             $statement = $sql->prepareStatementForSqlObject($insert);
@@ -103,6 +139,8 @@ class CupopcionseleccionTable {
                          'importe_seleccion' => (isset($datos['importe_seleccion'])) ? $datos['importe_seleccion'] : null,
                          'descripcion_interna' => (isset($datos['descripcion_interna'])) ? $datos['descripcion_interna'] : null,
                          'utiliza_descripcion_precio' => (isset($datos['utiliza_descripcion_precio'])) ? $datos['utiliza_descripcion_precio'] : null,
+                         'opcion_multiple' => (isset($datos['opcion_multiple'])) ? $datos['opcion_multiple'] : null,
+                         'id_opcion_seleccion_referencia' => (isset($datos['id_opcion_seleccion_referencia'])) ? $datos['id_opcion_seleccion_referencia'] : null,        
             );
             
             $where = array('id_opcion_seleccion' => (isset($datos['id_opcion_seleccion'])) ? $datos['id_opcion_seleccion'] : null,

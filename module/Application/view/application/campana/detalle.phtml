@@ -281,8 +281,14 @@ foreach ($data as $detalle) {
 
                                     switch ($tipo_seleccion) {
                                         case '1':
+                                        case '3':
                                             $cantidad_seleccion++;
-                                            $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' name='opcion-seleccion[]' class='form-control input-sm'>";
+                                            $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
+                                            if(!empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' ";
+                                            }
+                                            $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
+                                            
                                             $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
                                             $contar_i=0;
                                             for($i=$key;$i<count($data_s);$i++) { 
@@ -293,11 +299,15 @@ foreach ($data as $detalle) {
                                                     if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
                                                         $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
                                                     } else {
-                                                        $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' value='".$data_s[$i]['importe_seleccion']."'>".$data_s[$i]['cantidad_seleccion']." ";
-                                                        if($utiliza_descripcion == '1') {
-                                                            $opcion_seleccion.= "x ".$data_s[$i]['importe_seleccion'];
+                                                        $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' value='".$data_s[$i]['importe_seleccion']."'>";
+                                                        if( $tipo_seleccion == '1') {
+                                                            if($utiliza_descripcion == '1') {
+                                                                $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." x ".$data_s[$i]['importe_seleccion'];
+                                                            } else {
+                                                                $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." ".$descripcion;
+                                                            }
                                                         } else {
-                                                            $opcion_seleccion.= $descripcion;
+                                                            $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
                                                         }
                                                         $opcion_seleccion.= "</option>";
                                                     }
@@ -569,7 +579,9 @@ foreach ($data_p as $dato) {
             var id_selecion = $(this).attr('id');
             var id_opcion = $(this).attr('campana-opcion');
             var name_selecion_each;
-            var total, habilitar;
+            var total;
+            var habilitar;
+            var key_seleccion, opcion_seleccion, id_opcion_seleccion;
             habilitar = true;
             switch(tipo_selecion){
                 case '1':
@@ -611,6 +623,41 @@ foreach ($data_p as $dato) {
                     if($("#" + id_selecion).val() == ''){
                         habilitar = false;
                     }
+                    break;
+                case '3':
+                    key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
+                    $.blockUI({ 
+                        message:'Estamos procesando su petición ...',
+                        css: { 
+                        border: 'none', 
+                        padding: '15px', 
+                        backgroundColor: '#000', 
+                        '-webkit-border-radius': '10px', 
+                        '-moz-border-radius': '10px', 
+                        opacity: .5, 
+                        color: '#fff' 
+                    } });
+                    var cantidad_object;
+                    cantidad_object = 0;
+                    $('[id-referencia=' + id_selecion + ']').each(function (index, value) { 
+                        cantidad_object++;
+                        opcion_seleccion = $(this).attr('opcion-seleccion');
+                        id_opcion_seleccion = $(this).attr('id');
+                        $(this).find('[keyseleccion]').remove();
+                        $.ajax({
+                            type: "POST",
+                            url: "/dashboard/campana/selecciondetallereferencia",
+                            data: {id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
+                            success: function (data) {
+                                var valores = $.parseJSON(data);
+                                for(var i=0;i<valores.length;i++){
+                                    $('#' + id_opcion_seleccion).append("<option keyseleccion='" + valores[i].id_opcion_seleccion_detalle + "' cantidad='" + valores[i].cantidad_seleccion + "' value='" + valores[i].importe_seleccion + "'>" + valores[i].cantidad_seleccion + ' x ' + valores[i].importe_seleccion + "</option>");
+                                }
+                                if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
+                            }
+                        });
+                    });
+                    
                     break;
             }
             if(habilitar) {

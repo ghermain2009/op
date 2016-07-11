@@ -8,19 +8,28 @@ use Zend\Form\Form;
 
 class CampanaseleccionopcionForm extends Form
 {
-    public function __construct() {
+    public function __construct($grupos) {
         parent::__construct('seleccionopcion');
         
         $selTipoSeleccion = array('1' => 'Selección Cantidad',
-                                               '2' => 'Selección Fecha');
+                                  '2' => 'Selección Fecha',
+                                  '3' => 'Selección Relación');
         
         $selUtilizaPrecio = array('1' => 'Si',
-                                            '2' => 'No');
+                                  '2' => 'No');
+        
+        $selUtilizaGrupo  = array('-1'=> 'Seleccionar',
+                                  '1' => 'Si',
+                                  '2' => 'No');
+        
+        $selAgrupado = array();
+        $selAgrupado['-1'] = 'Seleccionar';
+        foreach( $grupos as $grupo) {
+            $id = $grupo['id_opcion_seleccion'];
+            $selAgrupado[$id] = $grupo['descripcion_primaria'];
+        }
         
         $this->setAttributes(array('id' => 'frmSeleccionOpcion'));
-//        $this->setAttributes(array('method' => 'post',
-//                                  'class'  => 'form-horizontal',
-//                                  'role'   => 'form'));
         
         $this->add(array(
             'name' => 'pks_opcion_seleccion',
@@ -137,6 +146,30 @@ class CampanaseleccionopcionForm extends Form
             'attributes' => array(
                 'id' => 'importe_seleccion',
                 'type'  => 'text',
+                'class' => 'form-control input-sm'
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'opcion_multiple',
+            'options' => array(
+                 'value_options' => $selUtilizaGrupo,
+             ),
+            'attributes' => array(
+                'id' => 'opcion_multiple',
+                'class' => 'form-control input-sm'
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_opcion_seleccion_referencia',
+            'options' => array(
+                 'value_options' => $selAgrupado,
+             ),
+            'attributes' => array(
+                'id' => 'id_opcion_seleccion_referencia',
                 'class' => 'form-control input-sm'
             ),
         ));
