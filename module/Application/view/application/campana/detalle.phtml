@@ -1,5 +1,10 @@
-<div  class="container">
 <?php
+/*******************
+ * 1 Normal - Rebueno
+ * 2 Excursion
+ */
+$tipo_pantalla = '2';
+
 
 if (! function_exists('array_column')) {
     function array_column(array $input, $columnKey, $indexKey = null) {
@@ -43,11 +48,13 @@ foreach ($data_v as $vendidos) {
     $maximo_cupones = $vendidos['maximo_cupones'];
     $vendidos = $vendidos['vendidos'];
 }
+?>
+<div  class="container">
+<?php
 
 foreach ($data as $detalle) {
     $fecha_final = $detalle['fecha_final'];
     ?>
-
     <div style="display:inline-block;width:100%">
         <div class="detalle-titulo"><p><?php echo $detalle['titulo']; ?></p></div>
         <div id="carousel-detalle-promocion" class="carousel slide carrusel-detalle" data-ride="carousel">
@@ -130,8 +137,11 @@ foreach ($data as $detalle) {
 
             if ($cantidad == 1) {
                 ?>
-
+                <?php if($tipo_pantalla == '1') { ?>
                 <div class="contenedor-compra-detalle" id="detalle_precio"> 
+                <?php } else { ?>
+                <div class="contenedor-compra-detalle total" id="detalle_precio"> 
+                <?php } ?>
                     <div class="box_center_d">
                         <span class="text">Precio <?php echo $moneda['simbolo'];?></span>
                         <span class="priceBuy"><?php echo $opciones['precio_especial']; ?></span>
@@ -345,29 +355,75 @@ foreach ($data as $detalle) {
         </div>
     </div>
     <!-- Nav tabs -->
+    <?php if($tipo_pantalla == '1') { ?>
     <div class="contenedor-tabs" id="contenedor-tabs-detalle">
+    <?php } else { ?>
+    <div class="contenedor-tabs total" id="contenedor-tabs-detalle">
+    <?php } ?>
         <div>
             <ul>
+                
+                <?php if($tipo_pantalla == '1') { ?>
                 <li><a href="javascript:;" class="reftab" data-tab="taboferta"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-thumbs-up"></i></ta>  Todo sobre la oferta</a></li>
                 <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
+                <?php } else { ?>
+                <li><a href="javascript:;" class="reftab" data-tab="taboferta"><ex class="btn"><i class="glyphicon glyphicon-sunglasses"></i></ex>Descripción de la excursión</a></li>
+                <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabsaber"><ex class="btn"><i class="glyphicon glyphicon-info-sign"></i></ex>Información importante</a></li>
+                <?php } ?>
+                
+                <?php if($tipo_pantalla == '1') { ?>
                 <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>
+                <?php } ?>
             </ul>
         </div>
         <!-- Tab panes -->
-        <div class="contenedor-tabs-panel" id="taboferta" >
+        <div class="contenedor-tabs-panel inicio" id="taboferta" >
             <nosale>
             <?php echo $detalle['sobre_campana']; ?>
             </nosale>
         </div>
+        <?php
+            //Agergamos la opcines de venta
+            if( $mostrar_opciones ) {
+                foreach($venta_opciones as $venta_opcion) {
+                ?>
+                <div class="modal-content">
+                <form class="form-horizontal" role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
+                    <?php echo $venta_opcion['form'];?>
+                </form>
+                </div>
+                <?php
+                }
+            }
+            
+            if($tipo_pantalla == '1') { ?>
+        <div class="contenedor-tabs-panel inicio" id="tabsaber">
+        <?php } else { ?>
         <div class="contenedor-tabs-panel" id="tabsaber">
+        <?php } ?>
+        
             <ul>
+                <?php if($tipo_pantalla == '1') { ?>
                 <li><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
+                <?php } else { ?>
+                <li><a href="javascript:;" class="reftab" data-tab="tabsaber"><ex class="btn"><i class="glyphicon glyphicon-info-sign"></i></ex>Información importante</a></li>
+                <?php } ?>
             </ul>
+            <?php if($tipo_pantalla == '1') { ?>
             <nosale>
-            <?php echo $detalle['observaciones']; ?>
+                <?php echo $detalle['observaciones']; ?>
+            </nosale>
+            <?php } ?>
+        </div>
+        <?php if($tipo_pantalla != '1') { ?>
+        <div class="contenedor-informacion">
+            <nosale>
+                <?php echo $detalle['observaciones']; ?>
             </nosale>
         </div>
-        <div class="contenedor-tabs-panel cierre" id="tabempresa">
+        <?php } ?>
+        <?php if($tipo_pantalla == '1') { ?>
+        <div class="contenedor-tabs-panel inicio cierre" id="tabempresa">
             <ul>
                 <li><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>
             </ul>
@@ -389,24 +445,11 @@ foreach ($data as $detalle) {
             </div>    
             <?php } ?>
         </div>
+        <?php } ?>
     </div>
     <?php
 }
-?>
-<br>
-<?php
-//Agergamos la opcines de venta
-if( $mostrar_opciones ) {
-foreach($venta_opciones as $venta_opcion) {
-?>
-<div class="modal-content">
-<form class="form-horizontal" role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
-    <?php echo $venta_opcion['form'];?>
-</form>
-</div>
-<?php
-}
-}
+
 $anterior = '';
 $ultimo   = 'uno';
 $contador = 0;
@@ -646,7 +689,7 @@ foreach ($data_p as $dato) {
                         $(this).find('[keyseleccion]').remove();
                         $.ajax({
                             type: "POST",
-                            url: "/dashboard/campana/selecciondetallereferencia",
+                            url: "/campana/selecciondetallereferencia",
                             data: {id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
                             success: function (data) {
                                 var valores = $.parseJSON(data);
