@@ -3,7 +3,7 @@
  * 1 Normal - Rebueno
  * 2 Excursion
  */
-$tipo_pantalla = '2';
+$tipo_pantalla = 1;
 
 
 if (! function_exists('array_column')) {
@@ -54,10 +54,15 @@ foreach ($data_v as $vendidos) {
 
 foreach ($data as $detalle) {
     $fecha_final = $detalle['fecha_final'];
+    $tipo_pantalla = $detalle['id_tipo_pantalla'];
     ?>
     <div style="display:inline-block;width:100%">
         <div class="detalle-titulo"><p><?php echo $detalle['titulo']; ?></p></div>
+        <?php if($tipo_pantalla == 1) { ?>
         <div id="carousel-detalle-promocion" class="carousel slide carrusel-detalle" data-ride="carousel">
+        <?php } else { ?>
+        <div id="carousel-detalle-promocion" class="carousel slide carrusel-detalle-total" data-ride="carousel">
+        <?php } ?>
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <?php
@@ -134,22 +139,16 @@ foreach ($data as $detalle) {
                 $cantidad_opcion++;
                 $cantidad_seleccion = 0;
             }
-
+            $mostrar_opciones = true;
             if ($cantidad == 1) {
                 ?>
-                <?php if($tipo_pantalla == '1') { ?>
+                <?php if($tipo_pantalla == 1) { ?>
                 <div class="contenedor-compra-detalle" id="detalle_precio"> 
-                <?php } else { ?>
-                <div class="contenedor-compra-detalle total" id="detalle_precio"> 
-                <?php } ?>
                     <div class="box_center_d">
                         <span class="text">Precio <?php echo $moneda['simbolo'];?></span>
                         <span class="priceBuy"><?php echo $opciones['precio_especial']; ?></span>
                     </div>
-
-                    <!-- P1_Comprar -->
                     <?php
-                        $mostrar_opciones = true;
                         if( $maximo_cupones > 0 ) { 
                                     $quedan = $maximo_cupones - $vendidos;
                                     if( $quedan <= 10 ) { 
@@ -203,6 +202,19 @@ foreach ($data as $detalle) {
                         </ul>
                     </div>                
                 </div>
+                <?php } else { ?>
+                <div class="contenedor-compra-detalle total" id="detalle_precio"> 
+                    <div class="value super-tachado">
+                        <s><?php echo $moneda['simbolo'];?><?php echo $opciones['precio_regular']; ?></s>
+                    </div>
+                    <div class="value">
+                        <div class="value super-notachado left">Precio : </div><div class="value super-notachado right"><s><?php echo $moneda['simbolo'];?><?php echo $opciones['precio_especial']; ?></s></div>
+                    </div>
+                    <div class="value">
+                        <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action total">Reservar <span class="glyphicon glyphicon-play"></span></a>
+                    </div>
+                </div>
+                <?php } ?>
                 <div class="modal fade" id="exampleModal" tabindex="100" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -355,7 +367,7 @@ foreach ($data as $detalle) {
         </div>
     </div>
     <!-- Nav tabs -->
-    <?php if($tipo_pantalla == '1') { ?>
+    <?php if($tipo_pantalla == 1) { ?>
     <div class="contenedor-tabs" id="contenedor-tabs-detalle">
     <?php } else { ?>
     <div class="contenedor-tabs total" id="contenedor-tabs-detalle">
@@ -363,7 +375,7 @@ foreach ($data as $detalle) {
         <div>
             <ul>
                 
-                <?php if($tipo_pantalla == '1') { ?>
+                <?php if($tipo_pantalla == 1) { ?>
                 <li><a href="javascript:;" class="reftab" data-tab="taboferta"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-thumbs-up"></i></ta>  Todo sobre la oferta</a></li>
                 <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
                 <?php } else { ?>
@@ -371,7 +383,7 @@ foreach ($data as $detalle) {
                 <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabsaber"><ex class="btn"><i class="glyphicon glyphicon-info-sign"></i></ex>Información importante</a></li>
                 <?php } ?>
                 
-                <?php if($tipo_pantalla == '1') { ?>
+                <?php if($tipo_pantalla == 1) { ?>
                 <li class="hidde"><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>
                 <?php } ?>
             </ul>
@@ -396,20 +408,20 @@ foreach ($data as $detalle) {
                 }
             }
             
-            if($tipo_pantalla == '1') { ?>
+            if($tipo_pantalla == 1) { ?>
         <div class="contenedor-tabs-panel inicio" id="tabsaber">
         <?php } else { ?>
         <div class="contenedor-tabs-panel" id="tabsaber">
         <?php } ?>
         
             <ul>
-                <?php if($tipo_pantalla == '1') { ?>
+                <?php if($tipo_pantalla == 1) { ?>
                 <li><a href="javascript:;" class="reftab" data-tab="tabsaber"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-eye-open"></i></ta>  Lo que debes saber</a></li>
                 <?php } else { ?>
                 <li><a href="javascript:;" class="reftab" data-tab="tabsaber"><ex class="btn"><i class="glyphicon glyphicon-info-sign"></i></ex>Información importante</a></li>
                 <?php } ?>
             </ul>
-            <?php if($tipo_pantalla == '1') { ?>
+            <?php if($tipo_pantalla == 1) { ?>
             <nosale>
                 <?php echo $detalle['observaciones']; ?>
             </nosale>
@@ -422,7 +434,7 @@ foreach ($data as $detalle) {
             </nosale>
         </div>
         <?php } ?>
-        <?php if($tipo_pantalla == '1') { ?>
+        <?php if($tipo_pantalla == 1) { ?>
         <div class="contenedor-tabs-panel inicio cierre" id="tabempresa">
             <ul>
                 <li><a href="javascript:;" class="reftab" data-tab="tabempresa"><ta class="btn btn-rebueno"><i class="glyphicon glyphicon-home"></i></ta>  La Empresa</a></li>

@@ -5,19 +5,24 @@
 namespace Dashboard\Form;
 
 use Zend\Form\Form;
-use Dashboard\Model\Genempresa;
 
 class CampanaForm extends Form
 {
-    public function __construct($empresaTable) {
+    public function __construct($empresaTable, $pantallaTable) {
         parent::__construct('campana');
         
         $empresas = $empresaTable->fetchAll();
         $selEmpresa = array();
         foreach($empresas as $empresa) {
-            //var_dump($empresa);
             $id = $empresa->getId_empresa();
             $selEmpresa[$id] = $empresa->getNombre_comercial();
+        }
+        
+        $pantallas = $pantallaTable->fetchAll();
+        $selTipoPantalla = array();
+        foreach($pantallas as $pantalla) {
+            $id = $pantalla->getId_tipo_pantalla();
+            $selTipoPantalla[$id] = $pantalla->getDescripcion_pantalla();
         }
         
         $this->setAttributes(array('method' => 'post',
@@ -151,6 +156,16 @@ class CampanaForm extends Form
                 'class' => 'form-control input-sm',
             ),
           ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_tipo_pantalla',
+            'options' => array(
+                 'value_options' => $selTipoPantalla,
+             ),
+            'attributes' => array(
+                'class' => 'form-control input-sm'
+            ),
+        ));
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

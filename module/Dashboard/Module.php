@@ -63,6 +63,9 @@ use Dashboard\Model\CupliquidacioncuponTable;
 use Dashboard\Model\Genempresa;
 use Dashboard\Model\GenempresaTable;
 
+use Dashboard\Model\Gentipopantalla;
+use Dashboard\Model\GentipopantallaTable;
+
 use Dashboard\Model\Gentipodocumento;
 use Dashboard\Model\GentipodocumentoTable;
 use Dashboard\Model\Gencategoria;
@@ -390,6 +393,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                         $rsPrototype = new ResultSet();
                         $rsPrototype->setArrayObjectPrototype(new Genempresa());
                         $tableGateway = new TableGateway('gen_empresa', $adapter, null, $rsPrototype);
+                        return $tableGateway;
+                    },
+                    'Dashboard\Model\GentipopantallaTable' => function($sl){
+                        $gateway = $sl->get('GentipopantallaTableGateway');
+                        $table = new GentipopantallaTable($gateway);
+                        return $table;
+                    },
+                    'GentipopantallaTableGateway' => function($sl) {
+                        $adapter = $sl->get('Zend\Db\Adapter\Adapter');
+                        $rsPrototype = new ResultSet();
+                        $rsPrototype->setArrayObjectPrototype(new Gentipopantalla());
+                        $tableGateway = new TableGateway('gen_tipo_pantalla', $adapter, null, $rsPrototype);
                         return $tableGateway;
                     },
                     'Dashboard\Model\GentipodocumentoTable' => function($sl){

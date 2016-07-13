@@ -160,6 +160,12 @@ if (file_exists($directorio . "small2")) {
             <label class="col-lg-2 control-label">% (Porciento)</label>
         </div>
         <div class="form-group">
+            <label for="id_tipo_pantalla" class="col-lg-2 control-label">Tipo de Pantalla :</label>
+            <div class="col-lg-2">
+                <?php echo $this->formRow($this->form->get('id_tipo_pantalla')); ?>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="categoria" class="col-lg-2 control-label">Categoría :</label>
             <div class="col-lg-8">
                 <input type="hidden" id="id_categoria" name="id_categoria" value="">

@@ -207,7 +207,8 @@ class CupcampanaTable {
             'observaciones',
             'fecha_final' => new Expression("DATE_FORMAT(ADDTIME(fecha_final, hora_final),'%m/%d/%Y %l:%i %p')"),
             'comision_campana',
-            'id_empresa'
+            'id_empresa',
+            'id_tipo_pantalla' => new Expression("IFNULL(cup_campana.id_tipo_pantalla,1)")
         ))
         ->from('cup_campana')
         ->join('con_contrato_anexo', new Expression("cup_campana.id_campana = con_contrato_anexo.id_campana"),

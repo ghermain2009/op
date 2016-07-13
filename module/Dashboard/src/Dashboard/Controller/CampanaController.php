@@ -16,7 +16,8 @@ class CampanaController extends AbstractActionController {
         $viewmodel = new ViewModel();
         $sl = $this->getServiceLocator();
         $empresaTable = $sl->get('Dashboard/Model/GenempresaTable');
-        $form = new CampanaForm($empresaTable);
+        $tipopantallaTable = $sl->get('Dashboard\Model\GentipopantallaTable');
+        $form = new CampanaForm($empresaTable,$tipopantallaTable);
         $request = $this->getRequest();
         $serviceLocator = $this->getServiceLocator();
         $form->get('submit');
@@ -158,11 +159,12 @@ class CampanaController extends AbstractActionController {
                                          'simbolo_moneda' => $simbolo_moneda));
         $sl = $this->getServiceLocator();
         $empresaTable = $sl->get('Dashboard\Model\GenempresaTable');
+        $tipopantallaTable = $sl->get('Dashboard\Model\GentipopantallaTable');
         $campanaTable = $sl->get('Dashboard\Model\CupcampanaTable');
         $campanaOpcionTable = $sl->get('Dashboard\Model\CupcampanaopcionTable');
         $campanaCategoriaTable = $sl->get('Dashboard\Model\CupcampanacategoriaTable');
 
-        $form = new CampanaForm($empresaTable);
+        $form = new CampanaForm($empresaTable,$tipopantallaTable);
 
         if ($request->isPost()) {
             // @TODO addfilters
@@ -198,6 +200,7 @@ class CampanaController extends AbstractActionController {
                 $form->get('tiempo_online')->setValue($campana['tiempo_online']);
                 $form->get('tiempo_offline')->setValue($campana['tiempo_offline']);
                 $form->get('comision_campana')->setValue($campana['comision_campana']);
+                $form->get('id_tipo_pantalla')->setValue($campana['id_tipo_pantalla']);
             }
         }
 
