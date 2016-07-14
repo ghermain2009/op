@@ -389,6 +389,7 @@ class CampanaController extends AbstractActionController {
                 foreach( $opcion_seleccionar as $item => $value) {
                     $cantidad_item = $cantidad_seleccionar[$item];
                     if(count($referencia_seleccionar) > $item) $referencia_item = $referencia_seleccionar[$item];
+                    else $referencia_item = null;
                     if($tipo_seleccion == '1') {
                         $datos_item = array('id_opcion_seleccion_detalle' => '' ,
                                             'id_opcion_seleccion' => $id_opcion_seleccion,
@@ -453,7 +454,10 @@ class CampanaController extends AbstractActionController {
         $viewmodel = new ViewModel();
         $viewmodel->setTerminal(true);
         
-        $form = new CampanaseleccionopcionForm();
+        $serviceLocator = $this->getServiceLocator();
+        $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionseleccionTable');
+        $seleccionGrupo = $campanaOpcionTable->getSeleccionOpcionAgrupable($campana, $campana_opcion);
+        $form = new CampanaseleccionopcionForm($seleccionGrupo);
 
         $form->get('pks_opcion_seleccion')->setValue('');
         $form->get('pks_campana_opcion')->setValue($campana_opcion);
