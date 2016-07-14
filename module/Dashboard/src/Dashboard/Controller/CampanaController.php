@@ -457,6 +457,7 @@ class CampanaController extends AbstractActionController {
         $serviceLocator = $this->getServiceLocator();
         $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionseleccionTable');
         $seleccionGrupo = $campanaOpcionTable->getSeleccionOpcionAgrupable($campana, $campana_opcion);
+        error_log(print_r($seleccionGrupo,true));
         $form = new CampanaseleccionopcionForm($seleccionGrupo);
 
         $form->get('pks_opcion_seleccion')->setValue('');
@@ -474,6 +475,7 @@ class CampanaController extends AbstractActionController {
         $form->get('utiliza_descripcion_precio')->setValue('1');
         
         $viewmodel->form = $form;
+        $viewmodel->setVariable('selecciongrupo', $seleccionGrupo);
         
         return $viewmodel;
         

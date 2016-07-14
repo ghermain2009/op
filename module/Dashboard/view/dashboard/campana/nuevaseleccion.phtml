@@ -72,6 +72,23 @@
             <span class="help-block with-errors"></span>
         </div>
     </div>
+    <?php if(count($selecciongrupo) > 0 ) { ?>
+    <div class="form-group bloque4">
+        <label for="opcion_multiple" class="col-lg-8 control-label">Utilizar Grupo:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('opcion_multiple')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class="form-group bloque4">
+        <label for="id_opcion_seleccion_referencia" class="col-lg-8 control-label">Agrupar con:</label>
+        <div class="col-xs-5"> 
+            <?php echo $this->formRow($this->form->get('id_opcion_seleccion_referencia')); ?>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <?php 
+          } ?>
     <div class="form-group bloque5">
         <label for="valores_seleccion" class="col-lg-8 control-label">Valores a seleccionar:</label>
         <div class="col-xs-9"> 
