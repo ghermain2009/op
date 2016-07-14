@@ -718,6 +718,9 @@ foreach ($data_p as $dato) {
                                     if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
                                 }
                             });
+                            if( parseFloat($("#" + id_opcion_seleccion + " option:selected" ).val()) < 0) {
+                                habilitar = false;
+                            }
                         });
                     } 
                     
