@@ -4475,6 +4475,8 @@ fieldset[disabled] .navbar-default .btn-link:hover,
 fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
+
+/*cambiando el menu*/
 .navbar-inverse {
   background-color: #222;
   border-color: #080808;
@@ -4577,6 +4579,9 @@ fieldset[disabled] .navbar-inverse .btn-link:hover,
 fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #444;
 }
+
+/*********************/
+
 .breadcrumb {
   padding: 8px 15px;
   margin-bottom: 20px;

@@ -16,6 +16,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Json\Json;
+use Zend\Session\Container;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mime\Message as MimeMessage;
@@ -182,6 +183,54 @@ class ClienteController extends AbstractActionController {
         
         return $this->getResponse()->setContent(Json::encode($data));
         
+    }
+    
+    public function verificaagenteAction() {
+
+        $usuario = $this->params()->fromPost("usuario", null);
+        $password = $this->params()->fromPost("password", null);
+
+        $serviceLocator = $this->getServiceLocator();
+        $usuarioTable = $serviceLocator->get('Dashboard\Model\UserTable');
+        $datos = $usuarioTable->getUserAgente($usuario);
+
+        $data = array();
+        foreach ($datos as $dato) {
+            $data[] = $dato;
+        }
+        
+        $user_session = new Container('user');
+
+        if (count($data) == 0) {
+            $data[0]['validar'] = '3';
+            $user_session->getManager()->getStorage()->clear('user');
+        } else {
+            if ($password == null) {
+                $data[0]['validar'] = '0';
+                $user_session->getManager()->getStorage()->clear('user');
+            } else {
+                if ($data[0]['password'] == sha1($password)) {
+                    $data[0]['validar'] = '1';
+                    $data[0]['email'] = base64_encode($data[0]['email']);
+                    /* Guardamos los datos de la session del usuario */
+                    $user_session->username = $usuario;
+                    $user_session->nombre = $data[0]['full_name'];
+                    $user_session->apellido = '';
+                    $user_session->tipdoc = '';
+                    $user_session->numdoc = '';
+                    $user_session->telefono = '';
+                    $user_session->celular = '';
+                    $user_session->genero = '';
+                    $user_session->facebook['login'] = 'N';
+                    $user_session->agente = 'S';
+                } else {
+                    $data[0]['validar'] = '2';
+                    $user_session->getManager()->getStorage()->clear('user');
+                }
+            }
+        }
+
+        return $this->getResponse()->setContent(Json::encode($data));
     }
 
 }

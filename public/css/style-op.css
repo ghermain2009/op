@@ -17,6 +17,34 @@
     font-family: "cookie-regular";
     src: url('../fonts/Cookie-Regular.ttf') format("truetype");
 }
+
+/****************/
+@media screen and (min-width:768px){
+    .navbar {min-height:25px;}
+    .nav>li>a {padding: 5px 15px;}
+    .navbar-inverse { background-color: #FFFFFF  !important;}
+    .navbar-inverse .navbar-nav>li{border-right-style: solid;border-right-width: 1px}
+    .navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #A5CD37  !important}
+    .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { background-color: #FF0000 !important}
+    .dropdown-menu { background-color: #FFFFFF  !important}
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-color: #FF0000 !important}
+    .navbar-inverse { background-image: none; }
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-image: none; }
+    .navbar-inverse { border-color: #FFFFFF  !important}
+    .navbar-inverse .navbar-brand { color: #000000 !important}
+    .navbar-inverse .navbar-brand:hover { color: #FFFFFF !important}
+    .navbar-inverse .navbar-nav>li>a { color: #000000 !important}
+    .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { color: #FFFFFF !important}
+    .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { color: #FFFFFF !important}
+    .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus { color: #FFFFFF !important}
+    .dropdown-menu>li>a { color: #000000 !important}
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { color: #FFFFFF !important}
+    .navbar-inverse .navbar-nav>.dropdown>a .caret { border-top-color: #000000 !important}
+    .navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-top-color: #000000 !important}
+    .navbar-inverse .navbar-nav>.dropdown>a .caret { border-bottom-color: #000000 !important}
+    .navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-bottom-color: #000000 !important}
+}
+/***************/
   
 p.justificado {
     text-align: justify;
@@ -27,7 +55,10 @@ p.justificado {
      display: inline-block;
 }
 
-
+.container.total {
+    width:100%;
+    padding: 0px;
+}
 
 .compra {
     display: inline-block;
@@ -844,8 +875,8 @@ h4 {
 .header-top-center.logo {
     position: relative;
     top: 0px;
-    width: 102px; 
-    height: 38px;
+    width: 35px; 
+    height: 40px;
     background-image: url('../img/logo_rebueno.png');
     z-index: 9;
     padding: 0px;
@@ -853,7 +884,7 @@ h4 {
     //top:10px;
     //float:left;
     //clear: both !important;
-    background-size: 102px 38px;
+    background-size: 35px 40px;
     
 }
  
@@ -1206,6 +1237,7 @@ h4 {
 
 .slider > img {
     width: 100%;
+    max-height: 300px;
 }
 
 /*Solo para la afiliacion */
@@ -1308,10 +1340,11 @@ h4 {
 
 .cabecera-top {
     width: 100%;
-    height: 35px;
+    height: 40px;
     padding: 0px;
     margin: 0px;
-    background-color: #fdaf06;
+    //background-color: #fdaf06;
+    background-color: #000000;
 }
 
 .cabecera-menu {
@@ -1405,7 +1438,7 @@ section {
 }
 /*Index*/
 .contenedor-carrusel {
-    background-image:  url('../img/back_rebueno.png');
+    //background-image:  url('../img/back_rebueno.png');
     background-repeat: repeat-x;
     padding: 0px;
     //padding-bottom: 10px;
@@ -1415,7 +1448,8 @@ section {
 }
 
 .carousel.carrusel-principal{
-     width:74%;
+     //width:74%;
+     width:100%;
      display:inline-block;
 }
 
@@ -1448,7 +1482,8 @@ section {
     //height: 360px;
     display:inline-block;
     background-color: #ffffff;
-    box-shadow: 0px 0px 1px 1px #d6d3d3;
+    //linea bordeada
+    //box-shadow: 0px 0px 1px 1px #d6d3d3;
 }
 
 .campana-stilo-uno.left {
@@ -1709,6 +1744,58 @@ section {
     background: -o-linear-gradient(#93ba2f,#93ba2f);
 }
 
+.btn.btn-ver-oferta-uno.color-background1,
+.btn.btn-ver-oferta-dos.color-background1{
+    background: linear-gradient(to bottom, #ff3170 0%,#ff3170 50%,#000000 50%,#ec1b23 50%,#ec1b23 100%);
+    background: -webkit-linear-gradient(bottom, #ff3170 0%,#ff3170 50%,#000000 50%,#ec1b23 50%,#ec1b23 100%);
+    background: -moz-linear-gradient(bottom, #ff3170 0%,#ff3170 50%,#000000 50%,#ec1b23 50%,#ec1b23 100%);
+    background: -o-linear-gradient(bottom, #ff3170 0%,#ff3170 50%,#000000 50%,#ec1b23 50%,#ec1b23 100%);
+}
+
+.btn.btn-ver-oferta-uno.color-background1:hover,
+.btn.btn-ver-oferta-dos.color-background1:hover{
+    background: linear-gradient(#ec1b23,#ec1b23);
+    background: -webkit-linear-gradient(#ec1b23,#ec1b23);
+    background: -moz-linear-gradient(#ec1b23,#ec1b23);
+    background: -o-linear-gradient(#ec1b23,#ec1b23);
+}
+
+.btn.btn-ver-oferta-uno.color-background2,
+.btn.btn-ver-oferta-dos.color-background2{
+    background: linear-gradient(to bottom, #b9e838 0%,#b9e838 50%,#000000 50%,#abd046 50%,#abd046 100%);
+    background: -webkit-linear-gradient(bottom, #b9e838 0%,#b9e838 50%,#000000 50%,#abd046 50%,#abd046 100%);
+    background: -moz-linear-gradient(bottom, #b9e838 0%,#b9e838 50%,#000000 50%,#abd046 50%,#abd046 100%);
+    background: -o-linear-gradient(bottom, #b9e838 0%,#b9e838 50%,#000000 50%,#abd046 50%,#abd046 100%);
+}
+
+.btn.btn-ver-oferta-uno.color-background2:hover,
+.btn.btn-ver-oferta-dos.color-background2:hover{
+    background: linear-gradient(#abd046,#abd046);
+    background: -webkit-linear-gradient(#abd046,#abd046);
+    background: -moz-linear-gradient(#abd046,#abd046);
+    background: -o-linear-gradient(#abd046,#abd046);
+}
+
+.campana-precio-oferta-uno.color-texto1,
+.campana-precio-oferta-dos.color-texto1{
+    color: #ec1b23;
+}
+
+.campana-precio-oferta-uno.color-texto2,
+.campana-precio-oferta-dos.color-texto2{
+    color: #abd046;
+}
+
+.campana-texto-descuento-bottom-uno.color-background-solid1,
+.campana-texto-descuento-bottom-dos.color-background-solid1 {
+    background: #ec1b23;
+}
+
+.campana-texto-descuento-bottom-uno.color-background-solid2,
+.campana-texto-descuento-bottom-dos.color-background-solid2 {
+    background: #abd046;
+}
+
 .campana-vendidos-uno{
     font-family:gotham-medium, 'arial', 'sans-serif';
     font-size: 12px;
@@ -1733,7 +1820,7 @@ section {
     //height: 440px;
     display:inline-block;
     background-color: #ffffff;
-    box-shadow: 0px 0px 1px 1px #d6d3d3;
+    //box-shadow: 0px 0px 1px 1px #d6d3d3;
 }
 
 .campana-stilo-dos.left {
@@ -1907,25 +1994,32 @@ section {
     //position:relative;
 }
 
+.buscar {
+  display: inline-block;
+  width: 60%;
+  padding-top: 20px;
+}
+
 .logo-principal {
-    width: 204px; 
-    height: 75px;
+    width: 70px; 
+    height: 80px;
     background-image: url('../img/logo_rebueno.png');
     z-index: 8;
     padding: 0px;
     margin: 0px;
     float:left;
     clear: both !important;
+    background-size: 70px 80px;
 }
 
 .logo-principal-mini {
-    width: 102px; 
-    height: 38px;
+    width: 50px; 
+    height: 54px;
     background-image: url('../img/logo_rebueno.png');
     z-index: 9;
     padding: 0px;
     margin: 0px;
-    background-size: 102px 38px;
+    background-size: 50px 54px;
 }
 
 .btn-group.oferta {
@@ -1947,6 +2041,10 @@ section {
 .ofertas_siguenos {
     display: inline-block;
     float: right;
+}
+
+.ofertas_siguenos > ul > li > span {
+    color:#FFFFFF;
 }
 
 .en-donde-top-center {
@@ -2327,6 +2425,11 @@ section {
    font-size: 11px;
 }
 
+.cabecera-ofertas {
+    //background-color: #ffffff;
+    background-color: #000000 !important;
+}
+
 @media only screen and (max-width: 1055px) {
     li.hidde:nth-child(2){
         display:none;
@@ -2357,6 +2460,77 @@ section {
 }
 
 @media only screen and (min-width: 602px) and (max-width: 750px) {
+    
+    .campana-texto-descuento-circle-uno {
+        position:absolute;
+        margin-top:-90px;
+        margin-left:5px;
+    }
+    
+    .campana-texto-descuento-circle-dos {
+        position:absolute;
+        margin-top:-140px;
+        margin-left:5px;
+    }
+
+    .campana-texto-descuento-top-uno,
+    .campana-texto-descuento-top-dos {
+        font-family:gotham-medium, 'arial', 'sans-serif';
+        font-size: 17px;
+        color:white;
+        text-align: center;
+        width: 60px; 
+        height: 30px; 
+        border: 2px solid #000000; 
+        background: #000000;
+        -moz-border-radius: 60px 60px 0 0;
+        -webkit-border-radius: 60px 60px 0 0;
+        border-radius: 60px 60px 0 0;
+    }
+
+    .campana-texto-descuento-top-uno > div,
+    .campana-texto-descuento-top-dos > div {
+        top:50%;
+        left: 50%; 
+        margin-top:3px
+    }
+
+    .campana-texto-descuento-bottom-uno,
+    .campana-texto-descuento-bottom-dos {
+        font-family:great-vibes, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 15px;
+        color:white;
+        text-align: center;
+        width: 60px; 
+        height: 30px; 
+        border: 2px solid #000000; 
+        background: #ec1b23;
+        -moz-border-radius: 0 0 60px 60px;
+        -webkit-border-radius: 0 0 60px 60px;
+        border-radius: 0 0 60px 60px;
+    }
+
+    .campana-texto-descuento-bottom-uno > div,
+    .campana-texto-descuento-bottom-dos > div {
+        top:50%;
+        left: 50%; 
+        margin-top:3px
+    }
+
+    .campana-texto-descuento-top-uno > div > span,
+    .campana-texto-descuento-top-dos > div > span {
+        font-family:cookie-regular, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 19px;
+    }
+
+    .campana-texto-descuento-bottom-uno > div > span,
+    .campana-texto-descuento-bottom-dos > div > span {
+        font-family:cookie-regular, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 16px;
+    }
     
     .campana-texto-descuento-uno {
         font-family:gotham-medium, 'arial', 'sans-serif';
@@ -2514,6 +2688,72 @@ section {
 
 @media only screen and (max-width: 602px) {
     
+    .campana-texto-descuento-circle-uno,
+    .campana-texto-descuento-circle-dos {
+        position:absolute;
+        margin-top:-105px;
+        margin-left:5px;
+    }
+
+    .campana-texto-descuento-top-uno,
+    .campana-texto-descuento-top-dos {
+        font-family:gotham-medium, 'arial', 'sans-serif';
+        font-size: 17px;
+        color:white;
+        text-align: center;
+        width: 60px; 
+        height: 30px; 
+        border: 2px solid #000000; 
+        background: #000000;
+        -moz-border-radius: 60px 60px 0 0;
+        -webkit-border-radius: 60px 60px 0 0;
+        border-radius: 60px 60px 0 0;
+    }
+
+    .campana-texto-descuento-top-uno > div,
+    .campana-texto-descuento-top-dos > div {
+        top:50%;
+        left: 50%; 
+        margin-top:3px
+    }
+
+    .campana-texto-descuento-bottom-uno,
+    .campana-texto-descuento-bottom-dos {
+        font-family:great-vibes, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 15px;
+        color:white;
+        text-align: center;
+        width: 60px; 
+        height: 30px; 
+        border: 2px solid #000000; 
+        background: #ec1b23;
+        -moz-border-radius: 0 0 60px 60px;
+        -webkit-border-radius: 0 0 60px 60px;
+        border-radius: 0 0 60px 60px;
+    }
+
+    .campana-texto-descuento-bottom-uno > div,
+    .campana-texto-descuento-bottom-dos > div {
+        top:50%;
+        left: 50%; 
+        margin-top:3px
+    }
+
+    .campana-texto-descuento-top-uno > div > span,
+    .campana-texto-descuento-top-dos > div > span {
+        font-family:cookie-regular, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 19px;
+    }
+
+    .campana-texto-descuento-bottom-uno > div > span,
+    .campana-texto-descuento-bottom-dos > div > span {
+        font-family:cookie-regular, 'arial', 'sans-serif';
+        font-weight: bold;
+        font-size: 16px;
+    }
+
     .reftab ta i {
         font-size: 18px;
     }
@@ -2575,7 +2815,7 @@ section {
         //height: 290px;
         display:block;
         background-color: #ffffff;
-        box-shadow: 0px 0px 1px 1px #d6d3d3;
+        //box-shadow: 0px 0px 1px 1px #d6d3d3;
     }
     
     .campana-quedan-uno,
@@ -2802,7 +3042,8 @@ section {
         width: 100%;
         height: 45px !important;
         display: inline-block;
-        background-color: #ffffff;
+        //background-color: #ffffff;
+        background-color: #000000 !important;
     }
     
     .ofertas_donde {

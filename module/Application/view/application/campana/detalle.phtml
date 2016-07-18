@@ -186,8 +186,9 @@ foreach ($data as $detalle) {
                             <div class="value"><?php echo $moneda['simbolo'];?><?php echo $opciones['ahorro']; ?></div>
                         </li>
                     </ul>
+                    <?php if($tipo_pantalla == 1) { ?>
                     <p class="sold_campaignsp">Se han vendido <b><?php echo $opciones['vendidos']; ?> </b>ofertas</p>
-
+                    <?php } ?>
                     <div class="time_campaigns">
                         <div class="name">La oferta finaliza en</div>
                         <div class="result"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;<span id='cntdwn'></span></div>

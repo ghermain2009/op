@@ -5,10 +5,16 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
+            <label for="tipo_empresa" class="col-lg-3 control-label">Tipo de Empresa :</label>
+            <div class="col-lg-7">
+                <?php echo $this->formRow($this->form->get('tipo_empresa')); ?>
+                <?php echo $this->formRow($this->form->get('id_empresa')); ?>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="razon_social" class="col-lg-3 control-label">Razón Social :</label>
             <div class="col-lg-7">
                 <?php echo $this->formRow($this->form->get('razon_social')); ?>
-                <?php echo $this->formRow($this->form->get('id_empresa')); ?>
             </div>
         </div>
         <div class="form-group">

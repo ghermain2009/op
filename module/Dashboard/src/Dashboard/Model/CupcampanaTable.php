@@ -48,7 +48,7 @@ class CupcampanaTable {
         $select = $sql->select();
 
         $select->columns(array(
-            'categoria' => new Expression("'Lo más nuevo'"),
+            'categoria' => new Expression("'Now'"),
             'prioridad' => new Expression("CASE WHEN id_empresa = ".$empresa_promocion." THEN 0 ELSE 1 END"),
             'id_campana',
             'subtitulo',
@@ -86,7 +86,7 @@ class CupcampanaTable {
         $select = $sql->select();
 
         $select->columns(array(
-            'categoria' => new Expression("'Lo más nuevo'"),
+            'categoria' => new Expression("'Now'"),
             'id_campana',
             'subtitulo',
             'maximo_cupones' => new Expression("IFNULL(cantidad_cupones,0)"),
@@ -134,11 +134,13 @@ class CupcampanaTable {
                     ))
         ->join('cup_campana_categoria', new Expression("cup_campana.id_campana = cup_campana_categoria.id_campana"), array())
         ->join('gen_sub_categoria', new Expression("cup_campana_categoria.id_sub_categoria = gen_sub_categoria.id_sub_categoria"),array())
-        ->join('gen_categoria', new Expression("gen_sub_categoria.id_categoria = gen_categoria.id_categoria"),array('categoria' => 'descripcion','id_categoria'));
+        ->join('gen_categoria', new Expression("gen_sub_categoria.id_categoria = gen_categoria.id_categoria"),array('categoria' => 'descripcion','id_categoria','comentario','icono'));
         $select->where("NOW() >= CONCAT(DATE_FORMAT(cup_campana.fecha_inicio,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_inicio,'%H:%i:%s'))");
         $select->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))");
         $select->group(array('gen_categoria.descripcion'));
         $select->group(array('gen_categoria.id_categoria'));
+        $select->group(array('gen_categoria.comentario'));
+        $select->group(array('gen_categoria.icono'));
         $select->group(array('cup_campana.id_campana'));
         $select->group(array('cup_campana.subtitulo'));
         
@@ -428,24 +430,27 @@ class CupcampanaTable {
         return $results;
     }
     
-    public function getMenu() {
+    public function getMenu($tipo_menu) {
                         
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         
         $select->columns(array(
-                    'categoria' => 'descripcion',
+                    'categoria' => new Expression("case when ifnull(icono,'') = '' then gen_categoria.descripcion else concat(gen_categoria.descripcion,\" <span class='\",gen_categoria.icono,\"'></span>\") end"),
                     'id_categoria',
                     'cantidad' => new Expression("count(1)")
                 ))
                 ->from('gen_categoria')
                 ->join('gen_sub_categoria', new Expression("gen_categoria.id_categoria = gen_sub_categoria.id_categoria"), 
                         array('subcategoria' => 'descripcion', 
-                              'id_sub_categoria')
+                              'id_sub_categoria',
+                              'sub_categoria_hija')
                 )
                 ->join('cup_campana_categoria', new Expression("gen_sub_categoria.id_sub_categoria = cup_campana_categoria.id_sub_categoria"),array())
-                ->join('cup_campana', new Expression("cup_campana_categoria.id_campana = cup_campana.id_campana AND NOW() BETWEEN ADDTIME(cup_campana.fecha_inicio, cup_campana.hora_inicio) AND ADDTIME(cup_campana.fecha_final, cup_campana.hora_final)"),array());
-        
+                ->join('cup_campana', new Expression("cup_campana_categoria.id_campana = cup_campana.id_campana AND NOW() BETWEEN ADDTIME(cup_campana.fecha_inicio, cup_campana.hora_inicio) AND ADDTIME(cup_campana.fecha_final, cup_campana.hora_final)"),array())
+                ->where(array('gen_categoria.estado_categoria' => '1',
+                              'gen_categoria.tipo_acceso' => $tipo_menu ));
+                 
         $select->group(array('gen_categoria.descripcion','gen_categoria.id_categoria','gen_sub_categoria.descripcion','gen_sub_categoria.id_sub_categoria'));
         $select->order('categoria');
         //echo $select->getSqlString();

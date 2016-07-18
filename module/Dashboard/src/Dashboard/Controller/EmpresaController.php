@@ -209,6 +209,8 @@ class EmpresaController extends AbstractActionController {
                 $form->get('email_facturacion')->setValue($empresa['email_facturacion']);
                 $form->get('banco_cuenta')->setValue($empresa['banco_cuenta']);
                 
+                $form->get('tipo_empresa')->setValue($empresa['tipo_empresa']);
+                
             //}
         }
 

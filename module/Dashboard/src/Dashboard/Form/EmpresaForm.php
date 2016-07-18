@@ -18,6 +18,9 @@ class EmpresaForm extends Form
             $selTipoDocumento[$id] = $tipoDocumento['descripcion'];
         }
         
+        $selTipoEmpresa = array('3' => 'Establecimiento',
+                                '4' => 'Agente de Venta');
+        
         $this->setAttributes(array('method' => 'post',
                                   'class'  => 'form-horizontal',
                                   'role'   => 'form'));
@@ -26,6 +29,18 @@ class EmpresaForm extends Form
             'attributes' => array(
                 'type'  => 'hidden',
                 'class' => 'form-control input-sm'
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'tipo_empresa',
+            'options' => array(
+                 'value_options' => $selTipoEmpresa,
+             ),
+            'attributes' => array(
+                'class' => 'form-control input-sm',
+                'placeholder' => 'Seleccione el Tipo de Empresa'
             ),
         ));
         

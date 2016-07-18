@@ -10,6 +10,7 @@ namespace Application\Navigation;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Navigation\Service\DefaultNavigationFactory;
 use Zend\Authentication\AuthenticationService;
+use Zend\Session\Container;
 use Application\Helper\RouteHelper;
 
 class ApplicationMenu extends DefaultNavigationFactory
@@ -22,7 +23,14 @@ class ApplicationMenu extends DefaultNavigationFactory
             $mvcEvent = $serviceLocator->get('Application')->getMvcEvent();
             $listMenu = $serviceLocator->get('Dashboard\Model\CupcampanaTable');
             
-            $dataMenu = $listMenu->getMenu();
+            $user_session = new Container('user');
+            if(empty($user_session->agente)) {
+                $tipo_acceso = '1';
+            } else {
+                $tipo_acceso = '2';
+            }
+            $dataMenu = $listMenu->getMenu($tipo_acceso);
+            
             $menu = $this->menuFormat($dataMenu);
             
             $routeMatch = $mvcEvent->getRouteMatch();
@@ -55,13 +63,22 @@ class ApplicationMenu extends DefaultNavigationFactory
                 );
             }
             $order_hijo++;
-            $menu[$opt['id_categoria']]['pages'][] = array(
-                'label' => $opt['subcategoria'],
-                //'uri' => "javascript:postfunction('/campana','categoria','".base64_encode($opt['id_categoria'])."','".base64_encode($opt['id_sub_categoria'])."');",
-                'uri' => "/campana/categoria/".base64_encode($opt['id_categoria'])."/".base64_encode($opt['id_sub_categoria']),
-                'order' => $order_hijo,
-                'title' => $opt['cantidad']
-            );
+            if($opt['sub_categoria_hija'] == '1') {
+                $menu[$opt['id_categoria']]['pages'][] = array(
+                    'label' => $opt['subcategoria'],
+                    //'uri' => "javascript:postfunction('/campana','categoria','".base64_encode($opt['id_categoria'])."','".base64_encode($opt['id_sub_categoria'])."');",
+                    'uri' => "/campana/categoria/".base64_encode($opt['id_categoria'])."/".base64_encode($opt['id_sub_categoria']),
+                    'order' => $order_hijo,
+                    'title' => $opt['cantidad']
+                );
+            } else {
+                $menu[$opt['id_categoria']] = array(
+                    'label' => $opt['categoria'],
+                    'uri' => "/campana/categoria/".base64_encode($opt['id_categoria'])."/".base64_encode($opt['id_sub_categoria']),
+                    'order' => $order_padre,
+                    'title' => $opt['cantidad']
+                );
+            }
             
             $padre = $opt['categoria'];
         }

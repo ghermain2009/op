@@ -38,6 +38,7 @@ class Genempresa {
     public $tipo_cuenta;
     public $email_facturacion;
     public $banco_cuenta;
+    public $tipo_empresa;
     
     function getId_empresa() {
         return $this->id_empresa;
@@ -133,6 +134,10 @@ class Genempresa {
 
     function getBanco_cuenta() {
         return $this->banco_cuenta;
+    }
+    
+    function getTipo_empresa() {
+        return $this->tipo_empresa;
     }
 
     function setId_empresa($id_empresa) {
@@ -231,7 +236,10 @@ class Genempresa {
         $this->banco_cuenta = $banco_cuenta;
     }
 
-        
+    function setTipo_empresa($tipo_empresa) {
+        $this->tipo_empresa = $tipo_empresa;
+    }
+
     public function exchangeArray($data)
     {
         $this->id_empresa = (isset($data['id_empresa'])) ? $data['id_empresa'] : null;
@@ -259,6 +267,7 @@ class Genempresa {
         $this->tipo_cuenta = (isset($data['tipo_cuenta'])) ? $data['tipo_cuenta'] : null;
         $this->email_facturacion = (isset($data['email_facturacion'])) ? $data['email_facturacion'] : null;
         $this->banco_cuenta = (isset($data['banco_cuenta'])) ? $data['banco_cuenta'] : null;
+        $this->tipo_empresa = (isset($data['tipo_empresa'])) ? $data['tipo_empresa'] : null;
         
     }
  

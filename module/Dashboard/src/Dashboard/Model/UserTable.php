@@ -67,6 +67,20 @@ class UserTable
         return $results;
     }
     
+    public function getUserAgente($userName)
+    {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql
+                  ->select()
+                  ->from(array('u' => 'user'))
+                  ->where(array('u.username' => $userName,
+                                'u.role_id' => '4'))
+                  ->order('u.id');
+        $stmt = $sql->prepareStatementForSqlObject($select);
+        $results = $stmt->execute(); 
+        return $results;
+    }
+    
     /**
      * This function allows to add users
      * @param array $params
