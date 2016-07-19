@@ -152,25 +152,28 @@ foreach ($data as $detalle) {
                         if( $maximo_cupones > 0 ) { 
                                     $quedan = $maximo_cupones - $vendidos;
                                     if( $quedan <= 10 ) { 
-                                        if( $quedan <= 0 ) { 
-                                            $mostrar_opciones = false;
-                                        ?>
-                                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action" disabled="disabled">Opciones</a>
-                                        <?php 
-                                        } else { 
-                                        ?>
-                                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
-                                        <?php
+                                        if( $quedan <= 0 ) { ?>
+                                            <button type="button" class="btn btn_buy_action disabled" data-toggle="modal" data-target="#exampleModal" >Comprar</button>
+                                  <?php } else { 
+                                            if ($total == 1) { ?>
+                                           <a href="../../campana/formulariopago/<?php echo base64_encode($opciones['id_campana']); ?>/<?php echo base64_encode($opciones['id_campana_opcion']); ?>" title="Comprar" class="btn btn_buy_action">Comprar</a>
+                                       <?php } else { ?> 
+                                           <button type="button" class="btn btn_buy_action" data-toggle="modal" data-target="#exampleModal" >Comprar</button>
+                                       <?php }
                                         }
                                     } else {
-                                        ?>
-                                        <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
-                                        <?php
+                                        if ($total == 1) { ?>
+                                            <a href="../../campana/formulariopago/<?php echo base64_encode($opciones['id_campana']); ?>/<?php echo base64_encode($opciones['id_campana_opcion']); ?>" title="Comprar" class="btn btn_buy_action">Comprar</a>
+                                        <?php } else { ?> 
+                                            <button type="button" class="btn btn_buy_action" data-toggle="modal" data-target="#exampleModal" >Comprar</button>
+                                        <?php } 
                                     }
                         } else {
-                            ?>
-                            <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action">Opciones</a>
-                            <?php
+                            if ($total == 1) { ?>
+                               <a href="../../campana/formulariopago/<?php echo base64_encode($opciones['id_campana']); ?>/<?php echo base64_encode($opciones['id_campana_opcion']); ?>" title="Comprar" class="btn btn_buy_action">Comprar</a>
+                           <?php } else { ?> 
+                               <button type="button" class="btn btn_buy_action" data-toggle="modal" data-target="#exampleModal" >Comprar</button>
+                           <?php } 
                         } 
                     ?>
                     <ul class="discount_information">
@@ -212,7 +215,7 @@ foreach ($data as $detalle) {
                         <div class="value super-notachado left">Precio : </div><div class="value super-notachado right"><s><?php echo $moneda['simbolo'];?><?php echo $opciones['precio_especial']; ?></s></div>
                     </div>
                     <div class="value">
-                        <a data-opcion="1" href="#tabempresa" title="Comprar" class="btn btn_buy_action total">Reservar <span class="glyphicon glyphicon-play"></span></a>
+                        <a data-opcion="1" href="#tabempresa" title="Reservar" class="btn btn_buy_action total excursion">RESERVAR <span class="glyphicon glyphicon-play"></span></a>
                     </div>
                 </div>
                 <?php } ?>
@@ -256,32 +259,37 @@ foreach ($data as $detalle) {
                                 
                                 
                                 
-                                $opcion_venta = "<div class='form-group'>";
-                                $opcion_venta.= "<div style='width:80%;display:inline;'>";
+                                $opcion_venta = "<div class='opcion-venta-excursion'>";
+                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-seleccion'>";
                                 //$opcion_venta.= "<div boton-seleccion='".$opciones['id_campana_opcion']."' class='btn btn_buy_action_opcion btn-sm'>comprar</div>";
                                 $opcion_venta.= "<input type='hidden' id='total-opcion".$opciones['id_campana_opcion']."' name='total-opcion".$opciones['id_campana_opcion']."' value='0'>";
-                                $opcion_venta.= "<label for='message-text' class='col-lg-9 control-label'>";
+                                /*$opcion_venta.= "<label for='message-text' class='col-lg-9 control-label'>";
                                 $opcion_venta.= "<span class='text-opcion'>OPCIÓN ".$cantidad_opcion." :</span>";
                                 $opcion_venta.= " <b>".$opciones['descripcion']."</b>";
                                 $opcion_venta.= "<span class='text-precio'>Precio Regular : ".$moneda['simbolo']." ".$opciones['precio_regular'];
                                 $opcion_venta.= " - Descuento : ".$opciones['descuento'];
-                                $opcion_venta.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";
-                                $opcion_venta.= "</div>";
-                                $opcion_venta.= "<div style='width:20%;display:inline;'>";
-                                $opcion_venta.= "<a id='btntotal-opcion".$opciones['id_campana_opcion']."' boton-compra='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                $opcion_venta.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";*/
+                                
+                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>Seleccionar fecha y Cantidad de pax</div>";
+                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
+                                
+                                $opcion_venta_bottom = "</div>";
+                                $opcion_venta_bottom.= "</div>";
+                                $opcion_venta_bottom.= "<div class='opcion-venta-excursion opcion-boton'><div>";
+                                $opcion_venta_bottom.= "<a id='btntotal-opcion".$opciones['id_campana_opcion']."' boton-compra='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
                                 if( !empty($opciones['id_opcion_seleccion']) ) {
-                                    $opcion_venta.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
+                                    $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
                                     if($cantidad_seleccion > 0) {
-                                        $opcion_venta.= $moneda['simbolo']." 0.00<div style='font-size:13px'>Comprar</div></a>";
+                                        $opcion_venta_bottom.= $moneda['simbolo']." 0.00<div style='font-size:13px'>Comprar</div></a></div>";
                                     } else {
-                                        $opcion_venta.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a>";
+                                        $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a></div>";
                                     }
                                 } else {
-                                    $opcion_venta.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
-                                    $opcion_venta.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a>";
+                                    $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
+                                    $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a></div>";
                                 }
-                                $opcion_venta.= "</div>";
-                                $opcion_venta.= "</div>";
+                                $opcion_venta_bottom.= "</div>";
+                                $opcion_venta_bottom.= "</div>";
                                 
                                 $tipo_seleccion      = $opciones['tipo_seleccion']; 
                                 $dias_bloqueo        = $opciones['dias_bloqueo']; 
@@ -358,7 +366,7 @@ foreach ($data as $detalle) {
                         }
                         
                         $venta_opciones[] = array('id'   => $id_opcion_anterior,
-                                                  'form' => $opcion_venta.$opcion_seleccion);
+                                                  'form' => $opcion_venta.$opcion_seleccion.$opcion_venta_bottom);
                         
                         ?>
                         
@@ -371,7 +379,7 @@ foreach ($data as $detalle) {
     <?php if($tipo_pantalla == 1) { ?>
     <div class="contenedor-tabs" id="contenedor-tabs-detalle">
     <?php } else { ?>
-    <div class="contenedor-tabs total" id="contenedor-tabs-detalle">
+    <div class="contenedor-tabs total excursion" id="contenedor-tabs-detalle">
     <?php } ?>
         <div>
             <ul>
@@ -390,14 +398,18 @@ foreach ($data as $detalle) {
             </ul>
         </div>
         <!-- Tab panes -->
+        <?php if($tipo_pantalla == 1) { ?>
         <div class="contenedor-tabs-panel inicio" id="taboferta" >
+        <?php } else { ?>
+        <div class="contenedor-tabs-panel inicio excursion" id="taboferta" >
+        <?php } ?>
             <nosale>
             <?php echo $detalle['sobre_campana']; ?>
             </nosale>
         </div>
         <?php
-            //Agergamos la opcines de venta
-            if( $mostrar_opciones ) {
+            //Agregamos la opcines de venta
+            if($tipo_pantalla != 1) {
                 foreach($venta_opciones as $venta_opcion) {
                 ?>
                 <div class="modal-content">
