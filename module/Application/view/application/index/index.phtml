@@ -93,6 +93,7 @@ function crearUrl($str_cadena) {
 }
 $contador = 0;
 $color_muestra = 0;
+$solo_uno = true;
 $ultimo   = 'uno';
 foreach ($data as $dato) {
     if ($dato['mostrar'] == 0 ) continue;
@@ -110,7 +111,7 @@ foreach ($data as $dato) {
                     <?php
                 }
                 $contador++;
-                if( $ultimo == 'uno' ) {
+                if( $ultimo == 'uno' || $solo_uno ) {
                     if($contador > 3) {
                         $contador = 1;
                         //$ultimo = 'dos';
@@ -233,7 +234,8 @@ foreach ($dataG as $dato) {
         if($color_muestra > 2 ) $color_muestra = 1;
         $contador = 0;
         if( $ultimo == 'uno' ) {
-            $ultimo = 'dos';
+            if($solo_uno) $ultimo = 'uno';
+            else $ultimo = 'dos';
         } else {
             $ultimo = 'uno';
         }
@@ -257,10 +259,11 @@ foreach ($dataG as $dato) {
                     <?php
                 }
                 $contador++;
-                if( $ultimo == 'uno' ) {
+                if( $ultimo == 'uno' || $solo_uno ) {
                     if($contador > 3) {
                         $contador = 1;
-                        $ultimo = 'dos';
+                        if($solo_uno) $ultimo = 'uno';
+                        else $ultimo = 'dos';
                         $position = ' left';
                         ?>
                         </div>
