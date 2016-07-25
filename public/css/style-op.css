@@ -3386,12 +3386,54 @@ section {
 }
 
 .form-group.opcion-seleccion {
-    width:40%;
+    width:100%;
     display: inline-block;
+}
+
+/*.form-group.opcion-seleccion > div > select:before {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 5px 0 5px;
+    border-color: #000000 transparent transparent transparent;
+    z-index: 5;
+    pointer-events: none;
+}*/
+
+.boton-venta {
+    padding-bottom: 20px; 
 }
 
 .opcion-venta-excursion {
    width:100%  
+}
+
+.opcion-venta-excursion.titulo-excursion{
+    width: 40%;
+    border-radius: 5px;
+    background: #e4e5e6;
+    padding: 5px;
+    margin-bottom: 8px;
+}
+
+.opcion-venta-excursion.grupo-seleccion-left {
+   width:50% !important;
+   display: inline-block;
+   float: left;
+}
+
+.opcion-venta-excursion.grupo-seleccion-right {
+   width:50% !important;
+   display: inline-block;
+   float: right;
+}
+
+.opcion-venta-excursion.grupo-seleccion-right > div > label {
+    color:#0094d8;
 }
 
 .opcion-venta-excursion.opcion-seleccion {
@@ -3418,4 +3460,102 @@ section {
 
 .opcion-venta-excursion.opcion-venta {
    width:100% !important;
+}
+
+.completa-datos-left {
+   width:70%;
+   display: inline-block;
+   vertical-align: top;
+}
+
+.completa-datos-left > div {
+    padding-bottom: 20px;
+}
+.completa-datos-left > div > div {
+    width:100%;
+    display: table;
+}
+
+.completa-datos-left > div > div > div {
+    display: inline-block;
+}
+
+.completa-datos-right {
+   width:30%;
+   display: inline-block;
+}
+
+.completa-datos-right > div {
+    width:100%;
+}
+
+.completa-datos-right > div > div > div > img {
+    width: 150px; 
+    height: 90px;
+    background-size: 150px 90px;
+}
+
+.completa-datos-right.datos {
+    float: right;
+    width:50%;
+}
+.completa-datos-right.imagen {
+    width:50%;
+}
+
+.completa-datos-right.precio-raya {
+    background-color: #ccc;
+    width: 70%;
+    display:inline-block;
+    height: 3px;
+    margin-top:12px; 
+}
+
+.completa-datos-right.precio-raya-pago {
+    background-color: #ccc;
+    width: 70%;
+    display:inline-block;
+    height: 1px;
+    margin-top:12px; 
+}
+
+.completa-datos-right.precio {
+    width: 30%;
+    display:inline-block;
+    text-align: right;
+    color:#0094d8;
+    font-size: 18px;
+    vertical-align: top;
+    float: right;
+}
+
+.completa-datos-right.precio-pago {
+    width: 30%;
+    display:inline-block;
+    text-align: right;
+    color:#0094d8;
+    font-size: 14px;
+    vertical-align: top;
+    float: right;
+}
+
+.col-lg-4.completa-datos {
+    color:#0094d8;
+    padding-top: 5px !important;
+}
+
+.col-lg-4.completa-datos-label {
+    padding-top: 5px !important;
+}
+
+.completa-datos-titulo {
+    font-family:gotham-medium, 'arial', 'sans-serif';
+    font-size:25px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.completa-datos-total{
+    padding-top:20px;
+    
 }

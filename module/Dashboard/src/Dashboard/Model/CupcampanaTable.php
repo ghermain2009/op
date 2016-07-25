@@ -312,6 +312,7 @@ class CupcampanaTable {
                       'opcion_multiple',
                       'id_opcion_seleccion_referencia'),'left')
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
+        $select->order('cup_opcion_seleccion.tipo_seleccion desc');
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
@@ -336,6 +337,8 @@ class CupcampanaTable {
                       'descripcion_detalle' => 'descripcion_seleccion',
                       'id_detalle_referencia'))
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
+        $select->order('cup_opcion_seleccion.tipo_seleccion desc');
+        $select->order('cup_opcion_seleccion_detalle.cantidad_seleccion asc');
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();

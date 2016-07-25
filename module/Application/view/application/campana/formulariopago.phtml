@@ -198,67 +198,128 @@
         }
         ?>
     </div>
-    <?php foreach ($data_o as $dato) { 
-            $ruta_imagen_pro = $directorio.$id.$sep_path .'small2'.$sep_path.'image1.jpg';
-            if (file_exists($ruta_imagen_pro)){
-                ob_start();
-                $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
-                imagejpeg($resource_image);
-                $imagedata = ob_get_clean();
-                $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
-            } else {
-                $image = '';
-            }
-     ?>
-        <div class="section_payment">
-            <h3>Confirma tu pedido</h3>
-            <div class="box_payment">
-                <h4 class="titulo_negro">Producto</h4>
-                <div class="box_center_info">
-                    <img class="img_container_pago" src="<?php echo $image; ?>">
-                    <span class="confirma-detalle"><?php echo strip_tags($dato['descripcion']); ?></span>
-                </div>
-                <?php 
-                    $etiquetas = $user_session->etiqueta_seleccion;
-                    $cantidades = $user_session->cantidad_seleccion;
-                    $opciones = $user_session->monto_seleccion;
-                    if(count($etiquetas) > 0 ) { 
-                ?>
-                <div class="box_center_info">
-                    <?php foreach($etiquetas as $item => $value) { 
-                            if(empty($cantidades[$item])) {
-                                $valor = $opciones[$item];
-                            } else {
-                                $valor = $cantidades[$item];
-                            }
+    <?php 
+    if(empty($user_session->carrito)) {
+        foreach ($data_o as $dato) { 
+                $ruta_imagen_pro = $directorio.$id.$sep_path .'small2'.$sep_path.'image1.jpg';
+                if (file_exists($ruta_imagen_pro)){
+                    ob_start();
+                    $resource_image = imagecreatefromjpeg($ruta_imagen_pro);
+                    imagejpeg($resource_image);
+                    $imagedata = ob_get_clean();
+                    $image = 'data:image/jpeg;base64,'.base64_encode($imagedata);
+                } else {
+                    $image = '';
+                }
+         ?>
+            <div class="section_payment">
+                <h3>Confirma tu pedido</h3>
+                <div class="box_payment">
+                    <h4 class="titulo_negro">Producto</h4>
+                    <div class="box_center_info">
+                        <img class="img_container_pago" src="<?php echo $image; ?>">
+                        <span class="confirma-detalle"><?php echo strip_tags($dato['descripcion']); ?></span>
+                    </div>
+                    <?php 
+                        $etiquetas = $user_session->etiqueta_seleccion;
+                        $cantidades = $user_session->cantidad_seleccion;
+                        $opciones = $user_session->monto_seleccion;
+                        if(count($etiquetas) > 0 ) { 
                     ?>
-                    <span class="confirma-detalle"><?php echo $value. " : ".$valor; ?></span>
-                    <?php } ?>
-                </div>
-                <?php
-                    }
-                ?>
-                <div class="box_quantity">
-                    <span class="quantity">
-                        <input type="hidden" name="IdCampana" id="IdCampana" value="<?php echo base64_encode($id); ?>">
-                        <input type="hidden" name="IdOpcion" id="IdOpcion" value="<?php echo base64_encode($op); ?>">
-                        <input type="hidden" name="PriceUnit" id="PriceUnit" value="<?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?>">
-                        <input type="hidden" name="PriceTotal" id="PriceTotal" value="<?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?>">
-                        <span id="lblPriceUnit" class="price_subtotal"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span>
-                        <span class="form_quantity">
-                            <span>Cant: </span>
-                            <input class="text_cantidad" type="text" name="cantidad" id="txtQuantity" value="1" required="" data-parsley-trigger="change focusin keyup" data-parsley-min="1" data-parsley-min-message="Debe comprar un mínimo de 1" data-parsley-max="10" data-parsley-max-message="Debe comprar un máximo de 10" maxlength="3" data-parsley-type="digits" data-parsley-required-message="Ingrese una cantidad." data-parsley-errors-container=".error_quantity" <?php if( $dato['precio_especial'] == '0.00' ) { ?>readonly<?php } ?>>                </span>
-                    </span><br><br>
-                </div>
-                <div id="boxStockError" class="box_info error hide">
-                    <span class="ico_alert"></span>
-                    <span class="error_quantity"></span>
-                </div>
-                <div class="subtotal"><br><b>Sub total: </b><span id="lblSubtotal" class="price_subtotal"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span></div>
-                <div class="subtotal"><br><b>Total: </b><span id="lblTotal" class="price"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span>
+                    <div class="box_center_info">
+                        <?php foreach($etiquetas as $item => $value) { 
+                                if(is_numeric($cantidades[$item])) {
+                                    $valor = $cantidades[$item];
+                                } else {
+                                    $valor = $opciones[$item];
+                                }
+                        ?>
+                        <span class="confirma-detalle"><?php echo $value. " : ".$valor; ?></span>
+                        <?php } ?>
+                    </div>
+                    <?php
+                        }
+                    ?>
+                    <div class="box_quantity">
+                        <span class="quantity">
+                            <input type="hidden" name="IdCampana" id="IdCampana" value="<?php echo base64_encode($id); ?>">
+                            <input type="hidden" name="IdOpcion" id="IdOpcion" value="<?php echo base64_encode($op); ?>">
+                            <input type="hidden" name="PriceUnit" id="PriceUnit" value="<?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?>">
+                            <input type="hidden" name="PriceTotal" id="PriceTotal" value="<?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?>">
+                            <span id="lblPriceUnit" class="price_subtotal"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span>
+                            <span class="form_quantity">
+                                <span>Cant: </span>
+                                <input class="text_cantidad" type="text" name="cantidad" id="txtQuantity" value="1" required="" data-parsley-trigger="change focusin keyup" data-parsley-min="1" data-parsley-min-message="Debe comprar un mínimo de 1" data-parsley-max="10" data-parsley-max-message="Debe comprar un máximo de 10" maxlength="3" data-parsley-type="digits" data-parsley-required-message="Ingrese una cantidad." data-parsley-errors-container=".error_quantity" <?php if( $dato['precio_especial'] == '0.00' ) { ?>readonly<?php } ?>>                </span>
+                        </span><br><br>
+                    </div>
+                    <div id="boxStockError" class="box_info error hide">
+                        <span class="ico_alert"></span>
+                        <span class="error_quantity"></span>
+                    </div>
+                    <div class="subtotal"><br><b>Sub total: </b><span id="lblSubtotal" class="price_subtotal"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span></div>
+                    <div class="subtotal"><br><b>Total: </b><span id="lblTotal" class="price"><?php echo $moneda['simbolo'];?> <?php if($dato['cantidad_seleccion'] > 0) { echo $dato['total_seleccion']; } else { echo $dato['precio_especial']; } ?></span>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } 
+    } else { ?>
+        <div class="section_payment">
+                <h3>Confirma tu pedido</h3>
+                <div class="box_payment">
+                    <h4 class="titulo_negro">Producto</h4>
+                    <div class="box_center_info">
+                    </div>
+                    <?php 
+                        $datos_carrito = $user_session->carrito;
+                        $total_carrito = 0;
+                        $div_right ="";
+                        for($i=0; $i<count($datos_carrito); $i++) {
+                            $cantidad_seleccion = $datos_carrito[$i]['cantidad-opcion-seleccion'];
+                            $label_seleccion = $datos_carrito[$i]['label-opcion-seleccion'];
+                            $opcion_seleccion = $datos_carrito[$i]['opcion-seleccion'];
+
+                            $div_right .= "<div>";
+                            $div_right .= "<div>City tour Panoramico</div>";
+                            $div_right .= "<div>";
+                            $div_right .= "<div class='completa-datos-right imagen'>";
+                            $div_right .= "<div>";
+                            $cantidad_sel = 0;
+
+                            $total_item = 0;
+                            for($j=0;$j<count($cantidad_seleccion);$j++) {
+                                if(!empty($cantidad_seleccion[$j]) && $cantidad_seleccion[$j] > 0) {
+                                    $total_item += $opcion_seleccion[$j];
+                                    if( $cantidad_sel > 0 ) $div_right .= ' - ';
+                                    $div_right .= $cantidad_seleccion[$j]." ".$label_seleccion[$j];
+                                    $cantidad_sel++;
+                                }
+                            }
+                            $div_right .= "</div>";
+                            $div_right .= "</div>";
+                            $div_right .= "</div>";
+                            $div_right .= "<div><div class='completa-datos-right precio-raya-pago'>&nbsp;</div><div class='completa-datos-right precio-pago'>".$moneda['simbolo']." ".number_format($total_item,2)."</div></div>";
+                            $div_right .= "</div>";
+
+                            $total_carrito += $total_item;
+                        }
+                        
+                        echo $div_right;
+                    ?>
+                    <div class="box_quantity">
+                            <input type="hidden" name="IdCampana"  id="IdCampana" value="<?php echo base64_encode($id); ?>">
+                            <input type="hidden" name="IdOpcion"   id="IdOpcion" value="<?php echo base64_encode($op); ?>">
+                            <input type="hidden" name="PriceUnit"  id="PriceUnit" value="<?php echo $total_carrito; ?>">
+                            <input type="hidden" name="PriceTotal" id="PriceTotal" value="<?php echo $total_carrito; ?>">
+                            <input type="hidden" name="cantidad"   id="txtQuantity" value="1">
+                    </div>
+                    <div id="boxStockError" class="box_info error hide">
+                        <span class="ico_alert"></span>
+                        <span class="error_quantity"></span>
+                    </div>
+                    <div class="subtotal"><br><b>Total: </b><span id="lblTotal" class="price"><?php echo $moneda['simbolo'];?> <?php echo number_format($total_carrito,2); ?></span>
+                    </div>
+                </div>
+            </div>
     <?php } ?>
     
 

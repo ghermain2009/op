@@ -213,19 +213,29 @@ class CampanaController extends AbstractActionController {
         }
         
         if( empty($id) ) {
-            $id = base64_decode($this->params()->fromPost("id", null));
-            $op = base64_decode($this->params()->fromPost("op", null));
-            $fl = base64_decode($this->params()->fromPost("fl", null));
-            $em = base64_decode($this->params()->fromPost("em", null));
-            $etiqueta_seleccion = $this->params()->fromPost("label-opcion-seleccion", null);
-            $cantidad_seleccion = $this->params()->fromPost("cantidad-opcion-seleccion", null);
-            $monto_seleccion = $this->params()->fromPost("opcion-seleccion", null);
-            $key_seleccion = $this->params()->fromPost("keyseleccion-opcion-seleccion", null);
             
-            $user_session->etiqueta_seleccion = $etiqueta_seleccion;
-            $user_session->cantidad_seleccion = $cantidad_seleccion;
-            $user_session->monto_seleccion = $monto_seleccion;
-            $user_session->key_seleccion = $key_seleccion;
+            $carrito_session = new Container('carrito');
+            if(empty($carrito_session->carrito)) {
+                $id = base64_decode($this->params()->fromPost("id", null));
+                $op = base64_decode($this->params()->fromPost("op", null));
+                $fl = base64_decode($this->params()->fromPost("fl", null));
+                $em = base64_decode($this->params()->fromPost("em", null));
+                $etiqueta_seleccion = $this->params()->fromPost("label-opcion-seleccion", null);
+                $cantidad_seleccion = $this->params()->fromPost("cantidad-opcion-seleccion", null);
+                $monto_seleccion = $this->params()->fromPost("opcion-seleccion", null);
+                $key_seleccion = $this->params()->fromPost("keyseleccion-opcion-seleccion", null);
+
+                $user_session->etiqueta_seleccion = $etiqueta_seleccion;
+                $user_session->cantidad_seleccion = $cantidad_seleccion;
+                $user_session->monto_seleccion = $monto_seleccion;
+                $user_session->key_seleccion = $key_seleccion;
+            } else {
+                $id = -1;
+                $op = -1;
+                $fl = null;
+                $em = null;
+                $user_session->carrito = $carrito_session->carrito;
+            }
         }
         
         if(!empty($key_seleccion)) {
@@ -256,7 +266,7 @@ class CampanaController extends AbstractActionController {
                     $sep_path;
         
         $moneda = $config['moneda'];
-
+        
         $data_o = $campanaTable->getCampanaOpcionId($op,$key_seleccion);
 
         $this->layout('layout/layout_pago');
@@ -1345,6 +1355,7 @@ class CampanaController extends AbstractActionController {
     
     public function selecciondetallereferenciaAction() {
 
+        $objeto = $this->params()->fromPost("objeto", null);
         $id_opcion_seleccion = $this->params()->fromPost("id_opcion_seleccion", null);
         $id_referencia = $this->params()->fromPost("id_referencia", null);
 
@@ -1353,7 +1364,63 @@ class CampanaController extends AbstractActionController {
 
         $datos = $campanaOpcionTable->getSeleccionDetalleReferenciaId($id_opcion_seleccion,$id_referencia);
 
+        $respuesta = array('name' => $objeto,
+                           'datos' => $datos);
 
-        return $this->getResponse()->setContent(Json::encode($datos));
+        return $this->getResponse()->setContent(Json::encode($respuesta));
+    }
+    
+    public function agregarcarritoAction() {
+        
+        $datos_carrito = $this->params()->fromPost();
+        $carrito_session = new Container('carrito');
+        if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
+        array_push($carrito_session->carrito,$datos_carrito);
+        
+        return $this->getResponse()->setContent(Json::encode($carrito_session->carrito));
+    }
+    
+    public function completardatosAction() {
+        
+        $serviceLocator = $this->getServiceLocator();
+        $config = $serviceLocator->get('Config');
+        $moneda = $config['moneda'];
+        $dir_image = $config['constantes']['dir_image'];
+        $sep_path = $config['constantes']['sep_path'];
+        $dir_imagenes = $config['rutas']['dir_principal'] .
+                        $sep_path .
+                        $config['rutas']['dir_imgcampanas'];
+        
+        $ruta_int = $dir_image . 
+                    $sep_path . 
+                    ".." .
+                    $sep_path .
+                    ".." .
+                    $sep_path .
+                    $dir_imagenes .
+                    $sep_path;
+        
+        $carrito_session = new Container('carrito');
+        $datos_carrito = $carrito_session->carrito;
+        
+        $campanaTable = $serviceLocator->get('Dashboard\Model\CupcampanaTable');
+        $datos_carrito_campana = array();
+        for($i=0;$i<count($datos_carrito);$i++) {
+            $id_campana = base64_decode($datos_carrito[$i]['id']);
+            $datos_campana   = $campanaTable->getCampanaId($id_campana);
+            $datos_seleccion = $campanaTable->getCampanaSeleccionDetalle($id_campana);
+            
+            array_push($datos_carrito_campana,array('datos_campana' => $datos_campana,
+                                                    'datos_seleccion' => $datos_seleccion));
+        }
+        
+        $variados = new Variados($serviceLocator);
+        $variados->datosLayout($this->layout(), $config, '2');
+        
+        return new ViewModel(array('directorio' => $ruta_int,
+                                   'sep_path' => $sep_path,
+                                   'moneda' => $moneda,
+                                   'datos_carrito' => $datos_carrito,
+                                   'datos_carrito_campana' => $datos_carrito_campana));
     }
 }

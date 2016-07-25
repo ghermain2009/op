@@ -132,6 +132,8 @@ foreach ($data as $detalle) {
         $total = count($data_o);
         $opciones_saber = array();
         $id_opcion_anterior = -1;
+        $inicio_opcion_seleccion_left = 0;
+        $inicio_opcion_seleccion_right = 0;
         foreach ($data_o as $opciones) {
             $id_opcion = $opciones['id_campana_opcion'];
             $cantidad++;
@@ -245,7 +247,7 @@ foreach ($data as $detalle) {
                                 
                                 if($id_opcion_anterior != $id_opcion && $id_opcion_anterior != -1 ) {
                                     $venta_opciones[] = array('id'   => $id_opcion_anterior,
-                                                              'form' => $opcion_venta.$opcion_seleccion);
+                                                              'form' => $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom);
                                     
                                     ?>
                                     <div class="modal-content">
@@ -254,7 +256,8 @@ foreach ($data as $detalle) {
                                         </form>
                                     </div>
                                     <?php
-                                    $opcion_seleccion = "";
+                                    $opcion_seleccion_left = "";
+                                    $opcion_seleccion_right = "";
                                 }
                                 
                                 
@@ -270,24 +273,36 @@ foreach ($data as $detalle) {
                                 $opcion_venta.= " - Descuento : ".$opciones['descuento'];
                                 $opcion_venta.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";*/
                                 
-                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>Seleccionar fecha y Cantidad de pax</div>";
+                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
+                                $opcion_venta.= "<div class='opcion-venta-excursion titulo-excursion'>Seleccionar fecha y Cantidad de pax</div>";
+                                $opcion_venta.= "</div>";
                                 $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
                                 
                                 $opcion_venta_bottom = "</div>";
                                 $opcion_venta_bottom.= "</div>";
-                                $opcion_venta_bottom.= "<div class='opcion-venta-excursion opcion-boton'><div>";
-                                $opcion_venta_bottom.= "<a id='btntotal-opcion".$opciones['id_campana_opcion']."' boton-compra='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                $opcion_venta_bottom.= "<div class='opcion-venta-excursion opcion-boton'>";
+                                $opcion_venta_bottom.= "<div class='boton-venta'><a id='btntotal-opcion".$opciones['id_campana_opcion']."' boton-precio='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
+                                $opcion_venta_bottom.= "<div style='font-size:13px'>Precio</div>";
                                 if( !empty($opciones['id_opcion_seleccion']) ) {
-                                    $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
                                     if($cantidad_seleccion > 0) {
-                                        $opcion_venta_bottom.= $moneda['simbolo']." 0.00<div style='font-size:13px'>Comprar</div></a></div>";
+                                        $opcion_venta_bottom.= $moneda['simbolo']." 0.00</a></div>";
                                     } else {
-                                        $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a></div>";
+                                        $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."</a></div>";
                                     }
                                 } else {
-                                    $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm'>";
-                                    $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."<div style='font-size:13px'>Comprar</div></a></div>";
+                                    $opcion_venta_bottom.= $moneda['simbolo']." ".$opciones['precio_especial']."</a></div>";
                                 }
+                                
+                                $opcion_venta_bottom.= "<div class='boton-venta'><a id='btncomprar-opcion".$opciones['id_campana_opcion']."' boton-reserva='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' href='/campana/completardatos' ";
+                                $opcion_venta_bottom.= "disabled='disabled'>";
+                                $opcion_venta_bottom.= "<div style='font-size:13px'>COMPRAR  <span class='glyphicon glyphicon-play'></span></div></a></div>";
+                                
+                                $opcion_venta_bottom.= "<div class='boton-venta'><a id='btncarrito-opcion".$opciones['id_campana_opcion']."' boton-carrito='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
+                                $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
+                                $opcion_venta_bottom.= "<div style='font-size:13px'>AGREGAR  <span class='glyphicon glyphicon-shopping-cart'></span></div></a></div>";
+                                
                                 $opcion_venta_bottom.= "</div>";
                                 $opcion_venta_bottom.= "</div>";
                                 
@@ -302,7 +317,7 @@ foreach ($data as $detalle) {
                                 
                                 if( !empty($opciones['id_opcion_seleccion']) ) {
                                 
-                                    $opcion_seleccion.= "<div class='form-group opcion-seleccion'>";
+                                    $opcion_seleccion = "<div class='form-group opcion-seleccion'>";
                                     $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
                                     $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
                                     $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
@@ -316,7 +331,7 @@ foreach ($data as $detalle) {
                                             $cantidad_seleccion++;
                                             $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
                                             if(!empty($opciones['id_opcion_seleccion_referencia'])) {
-                                                $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' ";
+                                                $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
                                             }
                                             $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
                                             
@@ -327,38 +342,51 @@ foreach ($data as $detalle) {
                                                     if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 1) {
                                                         $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
                                                     }
-                                                    if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
-                                                        $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
-                                                    } else {
-                                                        $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' value='".$data_s[$i]['importe_seleccion']."'>";
-                                                        if( $tipo_seleccion == '1') {
-                                                            if($utiliza_descripcion == '1') {
-                                                                $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." x ".$data_s[$i]['importe_seleccion'];
-                                                            } else {
-                                                                $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." ".$descripcion;
-                                                            }
+                                                    if(empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                        if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
+                                                            $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
                                                         } else {
-                                                            $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
+                                                            $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
+                                                            if( $tipo_seleccion == '3') {
+                                                                $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."'>";
+                                                            } else {
+                                                                $opcion_seleccion.= "value='".$data_s[$i]['importe_seleccion']."'>";
+                                                            }
+                                                            
+                                                            if( $tipo_seleccion == '1') {
+                                                                
+                                                                if($utiliza_descripcion == '1') {
+                                                                    $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." x ".$data_s[$i]['importe_seleccion'];
+                                                                } else {
+                                                                    $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." ".$descripcion;
+                                                                }
+                                                            } else {
+                                                                $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
+                                                            }
+                                                            $opcion_seleccion.= "</option>";
                                                         }
-                                                        $opcion_seleccion.= "</option>";
                                                     }
                                                 } else {
                                                     continue;
                                                 }
                                                 $contar_i++;
                                             }
+                                            
                                             $opcion_seleccion.= "</select>";
-
+                                            $opcion_seleccion.= "</div></div>";
+                                            if($tipo_seleccion == '1') $opcion_seleccion_right.= $opcion_seleccion;
+                                            else $opcion_seleccion_left.= $opcion_seleccion;
                                             break;
                                         case '2':
                                             $opcion_seleccion.= "<div class='input-group date'>";
                                             $opcion_seleccion.= "<input campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' fecha-bloqueo='".$opciones['fecha_bloqueo']."' name='opcion-seleccion[]' class='form-control input-sm' value=''>";
                                             $opcion_seleccion.= "<span class='input-group-addon' id='hora_inicio_addon'><span class='glyphicon glyphicon-calendar'></span></span>";
                                             $opcion_seleccion.= "</div>";
+                                            $opcion_seleccion.= "</div></div>";
+                                            $opcion_seleccion_left.= $opcion_seleccion;
                                             break;
                                     }
-
-                                    $opcion_seleccion.= "</div></div>";
+                                   
                                 }
                                 
                                 $id_opcion_anterior = $opciones['id_campana_opcion'];   
@@ -366,7 +394,7 @@ foreach ($data as $detalle) {
                         }
                         
                         $venta_opciones[] = array('id'   => $id_opcion_anterior,
-                                                  'form' => $opcion_venta.$opcion_seleccion.$opcion_venta_bottom);
+                                                  'form' => $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom);
                         
                         ?>
                         
@@ -412,7 +440,7 @@ foreach ($data as $detalle) {
             if($tipo_pantalla != 1) {
                 foreach($venta_opciones as $venta_opcion) {
                 ?>
-                <div class="modal-content">
+                <div>
                 <form class="form-horizontal" role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
                     <?php echo $venta_opcion['form'];?>
                 </form>
@@ -664,8 +692,14 @@ foreach ($data_p as $dato) {
                                 habilitar = false;
                             }
                         } else {
-                            if($("#" + name_selecion_each).val() == ''){
-                                habilitar = false;
+                            if( $(this).attr('tipo-seleccion') == '3' ) {
+                                if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) > 0) {
+                                    habilitar = false;
+                                }
+                            } else {
+                                if($("#" + name_selecion_each).val() == ''){
+                                    habilitar = false;
+                                }
                             }
                         }
                         
@@ -673,7 +707,7 @@ foreach ($data_p as $dato) {
                     $("#cantidad-" + id_selecion ).val($("#" + id_selecion + " option:selected" ).attr('cantidad'));
                     $("#keyseleccion-" + id_selecion ).val($("#" + id_selecion + " option:selected" ).attr('keyseleccion'));
                     $('#total-opcion' + id_opcion).val(total);
-                    $('#btntotal-opcion' + id_opcion).html( '$ ' + total.toFixed(2) + '<div style=\'font-size:13px\'>Comprar</div>');
+                    $('#btntotal-opcion' + id_opcion).html('<div style=\'font-size:13px\'>Precio</div>' + '$ ' + total.toFixed(2));
                     break;
                 case '2':
                     $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
@@ -717,18 +751,21 @@ foreach ($data_p as $dato) {
                             $.ajax({
                                 type: "POST",
                                 url: "/campana/selecciondetallereferencia",
-                                data: {id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
+                                data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
                                 success: function (data) {
                                     var valores = $.parseJSON(data);
-                                    if(valores.length > 0) {
-                                        for(var i=0;i<valores.length;i++){
-                                            $('#' + id_opcion_seleccion).append("<option keyseleccion='" + valores[i].id_opcion_seleccion_detalle + "' cantidad='" + valores[i].cantidad_seleccion + "' value='" + valores[i].importe_seleccion + "'>" + valores[i].cantidad_seleccion + ' x ' + valores[i].importe_seleccion + "</option>");
+                                    if(valores.datos.length > 0) {
+                                        for(var i=0;i<valores.datos.length;i++){
+                                            $('#' + valores.name).append("<option keyseleccion='" + valores.datos[i].id_opcion_seleccion_detalle + "' cantidad='" + valores.datos[i].cantidad_seleccion + "' value='" + valores.datos[i].importe_seleccion + "'>" + valores.datos[i].cantidad_seleccion + ' x ' + valores.datos[i].importe_seleccion + "</option>");
                                         }
-                                        $('#' + id_opcion_seleccion).removeAttr('disabled');
+                                        $('#' + valores.name).removeAttr('disabled');
                                     } else {
-                                        $('#' + id_opcion_seleccion).attr('disabled','disabled');
+                                        $('#' + valores.name).attr('disabled','disabled');
                                     }
+                                    $('#cantidad-' + valores.name).val($("#" + valores.name + " option" ).first().attr('cantidad'));
+                                    $('#keyseleccion-' + valores.name).val($("#" + valores.name + " option" ).first().attr('keyseleccion'));
                                     if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
+                                    
                                 }
                             });
                             if( parseFloat($("#" + id_opcion_seleccion + " option:selected" ).val()) < 0) {
@@ -740,9 +777,11 @@ foreach ($data_p as $dato) {
                     break;
             }
             if(habilitar) {
-               $('#btntotal-opcion' + id_opcion).removeAttr('disabled');
+               $('#btncomprar-opcion' + id_opcion).removeAttr('disabled');
+               $('#btncarrito-opcion' + id_opcion).removeAttr('disabled');
             } else {
-               $('#btntotal-opcion' + id_opcion).attr('disabled','disabled');
+               $('#btncomprar-opcion' + id_opcion).attr('disabled','disabled');
+               $('#btncarrito-opcion' + id_opcion).attr('disabled','disabled');
             }
         });
         
@@ -758,6 +797,27 @@ foreach ($data_p as $dato) {
                 $("<input type='hidden'/>").attr("name", "id").attr("value", $(this).attr('campana')).prependTo('#'+formulario_seleccion);
 
                 $('#'+formulario_seleccion).submit();
+            }
+        });
+        
+        $("[boton-carrito]").click(function () {
+            var formulario_seleccion = $(this).attr('boton-carrito');
+            var disabled_seleccion = $(this).attr('disabled');
+            
+            if(!disabled_seleccion) {
+                $("<input type='hidden'/>").attr("name", "op").attr("value", $(this).attr('campana-opcion')).prependTo('#'+formulario_seleccion);
+                $("<input type='hidden'/>").attr("name", "id").attr("value", $(this).attr('campana')).prependTo('#'+formulario_seleccion);
+
+                var dataString = $('#'+formulario_seleccion).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/campana/agregarcarrito",
+                    data: dataString,
+                    success: function (data) {
+                        
+                    }
+                });
             }
         });
         
