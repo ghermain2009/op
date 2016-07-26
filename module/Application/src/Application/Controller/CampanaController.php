@@ -60,6 +60,9 @@ class CampanaController extends AbstractActionController {
         $user_session = new Container('user');
         $user_session->id_campana = $id;
         $user_session->localhost = $localhost;
+        
+        $carrito_session = new Container('carrito');
+        if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
 
         $campanaTable = $serviceLocator->get('Dashboard\Model\CupcampanaTable');
         $empresaTable = $serviceLocator->get('Dashboard\Model\GenempresaTable');
@@ -87,6 +90,7 @@ class CampanaController extends AbstractActionController {
             'moneda' => $moneda,
             'localhost' => $localhost,
             'directorio' => $ruta_int,
+            'carrito_session' => $carrito_session->carrito
             ));
     }
     

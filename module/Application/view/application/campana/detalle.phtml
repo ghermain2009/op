@@ -296,12 +296,12 @@ foreach ($data as $detalle) {
                                 
                                 $opcion_venta_bottom.= "<div class='boton-venta'><a id='btncomprar-opcion".$opciones['id_campana_opcion']."' boton-reserva='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
                                 $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' href='/campana/completardatos' ";
-                                $opcion_venta_bottom.= "disabled='disabled'>";
-                                $opcion_venta_bottom.= "<div style='font-size:13px'>COMPRAR  <span class='glyphicon glyphicon-play'></span></div></a></div>";
+                                if(count($carrito_session) == 0) $opcion_venta_bottom.= "disabled='disabled'";
+                                $opcion_venta_bottom.= "><div style='font-size:13px'>COMPRAR  <span class='glyphicon glyphicon-play'></span></div></a></div>";
                                 
                                 $opcion_venta_bottom.= "<div class='boton-venta'><a id='btncarrito-opcion".$opciones['id_campana_opcion']."' boton-carrito='form-opcion-venta".$opciones['id_campana_opcion']."' campana='".base64_encode($opciones['id_campana'])."' ";
                                 $opcion_venta_bottom.= "campana-opcion='".base64_encode($opciones['id_campana_opcion'])."' title='Comprar' class='btn btn_buy_action_opcion btn-sm' disabled='disabled'>";
-                                $opcion_venta_bottom.= "<div style='font-size:13px'>AGREGAR  <span class='glyphicon glyphicon-shopping-cart'></span></div></a></div>";
+                                $opcion_venta_bottom.= "<div style='font-size:13px'><span class='badge' id='opcion-cantidad-carrito'>".count($carrito_session)."</span>  AGREGAR  <span class='glyphicon glyphicon-shopping-cart'></span></div></a></div>";
                                 
                                 $opcion_venta_bottom.= "</div>";
                                 $opcion_venta_bottom.= "</div>";
