@@ -805,6 +805,19 @@ foreach ($data_p as $dato) {
             var disabled_seleccion = $(this).attr('disabled');
             
             if(!disabled_seleccion) {
+                
+                $.blockUI({ 
+                    message:'Agregando al carrito ...',
+                    css: { 
+                    border: 'none', 
+                    padding: '15px', 
+                    backgroundColor: '#000', 
+                    '-webkit-border-radius': '10px', 
+                    '-moz-border-radius': '10px', 
+                    opacity: .5, 
+                    color: '#fff' 
+                } });
+                
                 $("<input type='hidden'/>").attr("name", "op").attr("value", $(this).attr('campana-opcion')).prependTo('#'+formulario_seleccion);
                 $("<input type='hidden'/>").attr("name", "id").attr("value", $(this).attr('campana')).prependTo('#'+formulario_seleccion);
 
@@ -815,7 +828,9 @@ foreach ($data_p as $dato) {
                     url: "/campana/agregarcarrito",
                     data: dataString,
                     success: function (data) {
-                        
+                        var valores = $.parseJSON(data);
+                        $("#opcion-cantidad-carrito").html(valores.length);
+                        $.unblockUI();
                     }
                 });
             }
