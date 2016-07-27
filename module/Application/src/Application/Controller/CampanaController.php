@@ -316,8 +316,13 @@ class CampanaController extends AbstractActionController {
     }
 
     public function pagoAction() {
+        
+        $user_session = new Container('user');
+        error_log(print_r($user_session->carrito,true));
 
         $datos = $this->params()->fromPost();
+        
+        error_log(print_r($datos,true));
 
         $serviceLocator = $this->getServiceLocator();
 
@@ -325,6 +330,8 @@ class CampanaController extends AbstractActionController {
         $cuponTable = $serviceLocator->get('Dashboard\Model\CupcuponTable');
         
         $datosCupon = $cuponTable->getCuponPromocion($datos['email'], base64_decode($datos['IdCampana']), base64_decode($datos['IdOpcion']));
+        
+        error_log(print_r($datosCupon,true));
         
         if( !($datos['metodo'] == 'OFE' && count($datosCupon) > 0) ) { 
             $clienteTable->addCliente($datos);
