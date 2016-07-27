@@ -216,14 +216,16 @@ class CampanaController extends AbstractActionController {
             $key_seleccion = $user_session->key_seleccion;
         }
         
-        if( empty($id) ) {
+        if( $id == null ) {
+            
+            $id = base64_decode($this->params()->fromPost("id", null));
+            $op = base64_decode($this->params()->fromPost("op", null));
+            $fl = base64_decode($this->params()->fromPost("fl", null));
+            $em = base64_decode($this->params()->fromPost("em", null));
             
             $carrito_session = new Container('carrito');
             if(empty($carrito_session->carrito)) {
-                $id = base64_decode($this->params()->fromPost("id", null));
-                $op = base64_decode($this->params()->fromPost("op", null));
-                $fl = base64_decode($this->params()->fromPost("fl", null));
-                $em = base64_decode($this->params()->fromPost("em", null));
+                
                 $etiqueta_seleccion = $this->params()->fromPost("label-opcion-seleccion", null);
                 $cantidad_seleccion = $this->params()->fromPost("cantidad-opcion-seleccion", null);
                 $monto_seleccion = $this->params()->fromPost("opcion-seleccion", null);
@@ -234,10 +236,12 @@ class CampanaController extends AbstractActionController {
                 $user_session->monto_seleccion = $monto_seleccion;
                 $user_session->key_seleccion = $key_seleccion;
             } else {
-                $id = -1;
-                $op = -1;
-                $fl = null;
-                $em = null;
+                if( $id == null ) {
+                    $id = 0;
+                    $op = 0;
+                    $fl = null;
+                    $em = null;
+                }
                 $user_session->carrito = $carrito_session->carrito;
             }
         }
@@ -821,7 +825,7 @@ class CampanaController extends AbstractActionController {
                     $user_session->telefono = $data[0]['telefono'];
                     $user_session->celular = $data[0]['celular'];
                     $user_session->genero = $data[0]['id_sexo'];
-                    $user_session->facebook['login'] = 'N';
+                    $user_session->facebook = array('login' => 'N');
                 } else {
                     $data[0]['validar'] = '2';
                     $user_session->getManager()->getStorage()->clear('user');
