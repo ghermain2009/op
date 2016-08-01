@@ -3413,11 +3413,37 @@ section {
 }
 
 .opcion-venta-excursion.titulo-excursion{
-    width: 40%;
+    width: 30%;
     border-radius: 5px;
     background: #e4e5e6;
     padding: 5px;
     margin-bottom: 8px;
+    display: inline-block;
+}
+
+.opcion-venta-excursion.titulo-duracion{
+    width: 30%;
+    padding: 5px;
+    padding-left: 10%;
+    margin-bottom: 8px;
+    display: inline-block;
+    color:#0094d8;
+}
+
+.opcion-venta-excursion.titulo-duracion-completa{
+    color:#0094d8;
+}
+
+.campana-precio-center.titulo-duracion-completa{
+    color:#0094d8;
+}
+
+.opcion-venta-excursion.titulo-observacion{
+    width: 30%;
+    padding: 5px;
+    margin-bottom: 8px;
+    display: inline-block;
+    float:right;
 }
 
 .opcion-venta-excursion.grupo-seleccion-left {
@@ -3562,4 +3588,52 @@ section {
 
 .formulario-pago-carrito{
     font-size:12px;
+}
+
+.opcion-seleccion-row {
+    width:100%
+}
+
+.opcion-seleccion-row.titulo-left {
+    background-color: #0094d8;
+    color: #ffffff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: bold;  
+}
+
+.opcion-seleccion-row > div {
+    width:20%;
+    display:inline-block;
+}
+
+.opcion-seleccion-row > div > div > div {
+    width:100%;
+    background-color: #e4e5e6;
+    color: #0094d8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.opcion-venta-excursion.grupo-paquete-left {
+   width:25% !important;
+   display: inline-block;
+}
+
+.opcion-venta-excursion.grupo-paquete-right {
+   width:75% !important;
+   display: inline-block;
+   float: right;
+}
+
+.opcion-seleccion-detallado {
+    width: 100%;
+    padding: 5px;
+}
+
+.opcion-seleccion-detallado > input {
+    //margin-left: 10px;
 }

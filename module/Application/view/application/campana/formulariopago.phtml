@@ -310,7 +310,7 @@
                             <input type="hidden" name="IdOpcion"   id="IdOpcion" value="<?php echo base64_encode($op); ?>">
                             <input type="hidden" name="PriceUnit"  id="PriceUnit" value="<?php echo $total_carrito; ?>">
                             <input type="hidden" name="PriceTotal" id="PriceTotal" value="<?php echo $total_carrito; ?>">
-                            <input type="hidden" name="cantidad"   id="txtQuantity" value="1">
+                            <input type="hidden" name="cantidad"   id="txtQuantity" value="<?php echo count($datos_carrito); ?>">
                     </div>
                     <div id="boxStockError" class="box_info error hide">
                         <span class="ico_alert"></span>

@@ -223,9 +223,43 @@ class CampanaController extends AbstractActionController {
             $fl = base64_decode($this->params()->fromPost("fl", null));
             $em = base64_decode($this->params()->fromPost("em", null));
             
+            $variables_post = $this->params()->fromPost();
+            $nombres_opciones = array();
+            $indice_padre_ant = -1;
+            $indice_hijo_ant = -1;
+            $contador = -1;
+            $contador_opciones = -1;
+            $opciones = array();
+            if(count($variables_post) > 0) {
+                foreach($variables_post as $item => $value) {
+                    $dato = explode('-',$item);
+                    if(count($dato) == 3) {
+                        if( strcmp($dato[0],'nombre') || strcmp($dato[0],'apellido') ) {
+                            $indice_padre = $dato[1];
+                            $indice_hijo = $dato[2];
+                            $contador_opciones++;
+                            if($indice_padre != $indice_padre_ant || $indice_hijo != $indice_hijo_ant) {
+                                if($contador >= 0) $nombres_opciones[$contador]['opciones_nombre'] = $opciones;
+                                $contador++;
+                                $nombres_opciones[$contador] = array('indice_padre' => $indice_padre,
+                                                                     'indice_hijo'  => $indice_hijo);
+                                $opciones = array();
+                                $contador_opciones = 0;
+                            }
+                            for($i=0; $i<count($value); $i++) {
+                                $opciones[$i][$dato[0]] = $value[$i];
+                            }
+
+                            $indice_padre_ant = $indice_padre;
+                            $indice_hijo_ant = $indice_hijo;
+                        }
+                    }
+                }
+                $nombres_opciones[$contador]['opciones_nombre'] = $opciones;
+            }
+            
             $carrito_session = new Container('carrito');
             if(empty($carrito_session->carrito)) {
-                
                 $etiqueta_seleccion = $this->params()->fromPost("label-opcion-seleccion", null);
                 $cantidad_seleccion = $this->params()->fromPost("cantidad-opcion-seleccion", null);
                 $monto_seleccion = $this->params()->fromPost("opcion-seleccion", null);
@@ -241,6 +275,7 @@ class CampanaController extends AbstractActionController {
                     $op = 0;
                     $fl = null;
                     $em = null;
+                    $user_session->carrito_nombres = $nombres_opciones;
                 }
                 $user_session->carrito = $carrito_session->carrito;
             }
@@ -319,8 +354,23 @@ class CampanaController extends AbstractActionController {
         
         $user_session = new Container('user');
         error_log(print_r($user_session->carrito,true));
+        error_log(print_r($user_session->carrito_nombres,true));
 
         $datos = $this->params()->fromPost();
+        
+        if(count($user_session->carrito) > 0) {
+            $datos_carrito = array('carrito' => $user_session->carrito,
+                                   'carrito_nombres' => $user_session->carrito_nombres);
+            
+            unset($user_session->carrito);
+            unset($user_session->carrito_nombres);
+            
+            $carrito_session = new Container('carrito');
+            unset($carrito_session->carrito);
+            
+        } else {
+            $datos_carrito = array();
+        }
         
         error_log(print_r($datos,true));
 
@@ -335,7 +385,7 @@ class CampanaController extends AbstractActionController {
         
         if( !($datos['metodo'] == 'OFE' && count($datosCupon) > 0) ) { 
             $clienteTable->addCliente($datos);
-            $idTransaccion = $cuponTable->addCupon($datos,$serviceLocator);
+            $idTransaccion = $cuponTable->addCupon($datos,$serviceLocator,$datos_carrito);
         }
         //$idTransaccion = 171;
         $config = $serviceLocator->get('config');
@@ -749,8 +799,16 @@ class CampanaController extends AbstractActionController {
                     $sep_path .
                     $dir_imagenes .
                     $sep_path;
+        
+        $user_session = new Container('user');
+        
+        if( !isset($user_session->agente) ) {
+            $tipo_usuario = '1';
+        } else {
+            $tipo_usuario = '2';
+        }
                 
-        $data = $campanaTable->getCampanaCategoria($id,$op);
+        $data = $campanaTable->getCampanaCategoria($id,$op,$tipo_usuario);
         
         $moneda = $config['moneda'];
         

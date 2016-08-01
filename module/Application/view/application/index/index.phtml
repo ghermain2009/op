@@ -206,7 +206,20 @@ foreach ($data as $dato) {
                         <a href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html" target="_self" title="<?php echo $dato['subtitulo']; ?>" class="description"><?php echo $dato['subtitulo']; ?></a>
                     </div>
                     <div class="campana-tarifario-<?php echo $ultimo;?>">
-                        <div class="campana-precio-regular"><div class="campana-precio-center"><?php echo $moneda['simbolo'];?> <?php echo $dato['precio_regular']; ?></div></div>
+                        <div class="campana-precio-regular">
+                            <?php if($dato['id_tipo_pantalla'] == '2') { 
+                                        $duracion = "";
+                                        $duracion_venta = "";
+                                        if(!empty($dato['duracion_dias'])) $duracion .= $dato['duracion_dias']." días ";
+                                        if(!empty($dato['duracion_horas'])) $duracion .= $dato['duracion_horas']." horas";
+                                        if(!empty($duracion)) {
+                                            $duracion_venta = "<div class='campana-precio-center titulo-duracion-completa'><span class='glyphicon glyphicon-time'></span> ".$duracion."</div>";
+                                        }
+                                        echo $duracion_venta;
+                                  } else { ?>
+                            <div class="campana-precio-center"><?php echo $moneda['simbolo'];?> <?php echo $dato['precio_regular']; ?></div>
+                            <?php } ?>
+                        </div>
                         <div class="campana-precio-oferta-<?php echo $ultimo;?> color-texto<?php echo $color_muestra;?>"><?php echo $moneda['simbolo'];?>&nbsp;<?php echo $dato['precio_especial']; ?></div>
                         <div class="campana-precio-boton"><a class="btn btn-ver-oferta-<?php echo $ultimo;?> color-background<?php echo $color_muestra;?>" href="/campana/detalle/<?php echo crearUrl($dato['subtitulo']).'--'.base64_encode($dato['id_campana']); ?>.html" title="Ver oferta"><?php echo $portada[0]['boton-texto'];?> <?php if($portada[0]['opcion'] != '1') { ?><span class="glyphicon glyphicon-play"></span><?php } ?></a></div>
                     </div>

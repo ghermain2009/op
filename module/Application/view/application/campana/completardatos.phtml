@@ -4,6 +4,8 @@
     $div_left  = "<div class='completa-datos-left'>"; 
     $div_right = "<div class='completa-datos-right'>";
     
+    error_log(print_r($datos_carrito_campana,true));
+    
     $total_carrito = 0;
     for($i=0; $i<count($datos_carrito); $i++) {
         $cantidad_seleccion = $datos_carrito[$i]['cantidad-opcion-seleccion'];
@@ -22,11 +24,16 @@
         }
         
         $div_right .= "<div>";
-        $div_right .= "<div>City tour Panoramico</div>";
+        $div_right .= "<div>".$datos_carrito_campana[$i]['datos_campana'][0]['subtitulo']."</div>";
         $div_right .= "<div>";
         $div_right .= "<div class='completa-datos-right imagen'><img src='".$image."'/></div>";
         $div_right .= "<div class='completa-datos-right datos'>";
-        $div_right .= "<div>Punto de quiebre</div>";
+        $duracion = "";
+        if(!empty($datos_carrito_campana[$i]['datos_campana'][0]['duracion_dias'])) $duracion .= $datos_carrito_campana[$i]['datos_campana'][0]['duracion_dias']." días ";
+        if(!empty($datos_carrito_campana[$i]['datos_campana'][0]['duracion_horas'])) $duracion .= $datos_carrito_campana[$i]['datos_campana'][0]['duracion_horas']." horas";
+        if(!empty($duracion)) {
+            $div_right.= "<div class='opcion-venta-excursion titulo-duracion-completa'><span class='glyphicon glyphicon-time'></span> Duración ".$duracion."</div>";
+        }
         $div_right .= "<div>";
         $cantidad_sel = 0;
         
@@ -47,8 +54,8 @@
                     $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Apellidos</label></div>";
                     $div_left .= "</div>"; 
                     $div_left .= "<div>"; 
-                    $div_left .= "<div class='col-lg-4'><input type='text' class='form-control input-sm'></div>";
-                    $div_left .= "<div class='col-lg-4'><input type='text' class='form-control input-sm'></div>";
+                    $div_left .= "<div class='col-lg-4'><input name='nombre-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
+                    $div_left .= "<div class='col-lg-4'><input name='apellido-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
                     $div_left .= "</div>"; 
                     
                     
@@ -67,13 +74,18 @@
         $total_carrito += $total_item;
     }
     
-    $div_left.= "</div>";
+    
+    $div_left .= "</div>";
     $div_right .= "<div class='completa-datos-total'><div class='completa-datos-left'>Total de Reserva</div><div class='completa-datos-right precio'>".$moneda['simbolo']." ".number_format($total_carrito,2)."</div></div>";
-    $div_right .= "<div class='boton-venta'><a id='btncomprar-opcion' title='Comprar' class='btn btn_buy_action_opcion btn-sm' href='/campana/formulariopago' >";
-    $div_right .= "<div style='font-size:13px'>COMPRAR  <span class='glyphicon glyphicon-play'></span></div></a></div>";
+    //$div_right .= "<div class='boton-venta'><a id='btncomprar-opcion' title='Comprar' class='btn btn_buy_action_opcion btn-sm' href='/campana/formulariopago' >";
+    //$div_right .= "<div style='font-size:13px'>COMPRAR  <span class='glyphicon glyphicon-play'></span></div></a></div>";
+    $div_right .= "<button class='btn btn_buy_action_opcion btn-sm' type='submit'>COMPRAR  <span class='glyphicon glyphicon-play'></span></button>";
     $div_right.= "</div>";
      
-    $pantalla = "<div class='completa-datos-titulo'>Culmina Reserva</div><div>".$div_left.$div_right."</div>";
+    $pantalla = "<div class='completa-datos-titulo'>Culmina Reserva</div>";
+    $pantalla.= "<form id='completa-datos' method='post' action='/campana/formulariopago'>"; 
+    $pantalla.= "<div>".$div_left.$div_right."</div>";
+    $pantalla.= "</form>"; 
     
     echo $pantalla;
 ?>

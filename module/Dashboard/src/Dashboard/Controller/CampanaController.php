@@ -201,6 +201,11 @@ class CampanaController extends AbstractActionController {
                 $form->get('tiempo_offline')->setValue($campana['tiempo_offline']);
                 $form->get('comision_campana')->setValue($campana['comision_campana']);
                 $form->get('id_tipo_pantalla')->setValue($campana['id_tipo_pantalla']);
+                $form->get('id_entorno_visualizacion')->setValue($campana['id_entorno_visualizacion']);
+                $form->get('duracion_dias')->setValue($campana['duracion_dias']);
+                $form->get('duracion_noches')->setValue($campana['duracion_dias']);
+                $form->get('duracion_horas')->setValue($campana['duracion_horas']);
+                $form->get('duracion_observacion')->setValue($campana['duracion_observacion']);
             }
         }
 

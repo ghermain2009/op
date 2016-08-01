@@ -2,6 +2,7 @@
 /*******************
  * 1 Normal - Rebueno
  * 2 Excursion
+ * 3 Paquetes
  */
 $tipo_pantalla = 1;
 
@@ -245,9 +246,19 @@ foreach ($data as $detalle) {
                                 $opcion_venta_ant.= $moneda['simbolo']." ".$opciones['precio_especial']."</a>";
                                 $opcion_venta_ant.= "</div>";
                                 
+                                if($tipo_pantalla == 3) {
+                                    $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>";
+                                    $opcion_venta_total.= "<div class='opcion-seleccion-row titulo-left'>Estandar</div>";
+                                    $opcion_venta_total.= $opcion_seleccion_left;
+                                    $opcion_venta_total.= "</div>";
+                                    $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                                } else {
+                                    $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                                }
+                                                                
                                 if($id_opcion_anterior != $id_opcion && $id_opcion_anterior != -1 ) {
                                     $venta_opciones[] = array('id'   => $id_opcion_anterior,
-                                                              'form' => $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom);
+                                                              'form' => $opcion_venta_total);
                                     
                                     ?>
                                     <div class="modal-content">
@@ -275,6 +286,16 @@ foreach ($data as $detalle) {
                                 
                                 $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
                                 $opcion_venta.= "<div class='opcion-venta-excursion titulo-excursion'>Seleccionar fecha y Cantidad de pax</div>";
+                                $duracion = "";
+                                if(!empty($detalle['duracion_dias'])) $duracion .= $detalle['duracion_dias']." días ";
+                                if(!empty($detalle['duracion_noches'])) $duracion .= $detalle['duracion_noches']." noches ";
+                                if(!empty($detalle['duracion_horas'])) $duracion .= $detalle['duracion_horas']." horas";
+                                if(!empty($duracion)) {
+                                    $opcion_venta.= "<div class='opcion-venta-excursion titulo-duracion'><span class='glyphicon glyphicon-time'></span> Duración ".$duracion."</div>";
+                                }
+                                if(!empty($detalle['duracion_observacion'])) {
+                                    $opcion_venta.= "<div class='opcion-venta-excursion titulo-observacion'>".$detalle['duracion_observacion']."</div>";
+                                }
                                 $opcion_venta.= "</div>";
                                 $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
                                 
@@ -307,6 +328,8 @@ foreach ($data as $detalle) {
                                 $opcion_venta_bottom.= "</div>";
                                 
                                 $tipo_seleccion      = $opciones['tipo_seleccion']; 
+                                $cabecera_seleccion  = $opciones['cabecera_precio']; 
+                                $mostrar_detalle     = $opciones['mostrar_detalle'];
                                 $dias_bloqueo        = $opciones['dias_bloqueo']; 
                                 $valori              = $opciones['valor_inicial']; 
                                 $valorf              = $opciones['valor_final'];
@@ -318,64 +341,161 @@ foreach ($data as $detalle) {
                                 if( !empty($opciones['id_opcion_seleccion']) ) {
                                 
                                     $opcion_seleccion = "<div class='form-group opcion-seleccion'>";
-                                    $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
+                                    if(empty($cabecera_seleccion) && empty($mostrar_detalle)) {
+                                        $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
+                                    }
                                     $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
                                     $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
                                     $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='keyseleccion-opcion-seleccion[]' value=''>";
-                                    $opcion_seleccion.= "<div class='col-lg-5'>";
+                                    if($tipo_pantalla == 3) {
+                                        $opcion_seleccion.= "<div>";
+                                    } else {
+                                        $opcion_seleccion.= "<div class='col-lg-5'>";
+                                    }
 
 
                                     switch ($tipo_seleccion) {
                                         case '1':
                                         case '3':
+                                            if($tipo_seleccion == '3' && !empty($opciones['id_opcion_seleccion_referencia'])) continue;
                                             $cantidad_seleccion++;
-                                            $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
-                                            if(!empty($opciones['id_opcion_seleccion_referencia'])) {
-                                                $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
-                                            }
-                                            $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
-                                            
-                                            $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
-                                            $contar_i=0;
-                                            for($i=$key;$i<count($data_s);$i++) { 
-                                                if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
-                                                    if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 1) {
-                                                        $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
+                                            if(empty($cabecera_seleccion)) {
+                                                if(empty($mostrar_detalle)) {
+                                                    $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
+                                                    if(!empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                        $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
                                                     }
-                                                    if(empty($opciones['id_opcion_seleccion_referencia'])) {
-                                                        if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
-                                                            $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
-                                                        } else {
-                                                            $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
-                                                            if( $tipo_seleccion == '3') {
-                                                                $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."'>";
-                                                            } else {
-                                                                $opcion_seleccion.= "value='".$data_s[$i]['importe_seleccion']."'>";
+                                                    $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
+
+                                                    $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
+                                                    $contar_i=0;
+                                                    for($i=$key;$i<count($data_s);$i++) { 
+                                                        if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
+                                                            if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 1) {
+                                                                $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
                                                             }
-                                                            
-                                                            if( $tipo_seleccion == '1') {
-                                                                
-                                                                if($utiliza_descripcion == '1') {
-                                                                    $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." x ".$data_s[$i]['importe_seleccion'];
+                                                            if(empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                                if($contar_i == 0 && $data_s[$i]['cantidad_seleccion'] == 0) {
+                                                                    $opcion_seleccion.= "<option cantidad='0' value='0'>0</option>";
                                                                 } else {
-                                                                    $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." ".$descripcion;
+                                                                    $opcion_seleccion.= "<option keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
+                                                                    if( $tipo_seleccion == '3') {
+                                                                        $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."'>";
+                                                                    } else {
+                                                                        $opcion_seleccion.= "value='".$data_s[$i]['importe_seleccion']."'>";
+                                                                    }
+
+                                                                    if( $tipo_seleccion == '1') {
+
+                                                                        if($utiliza_descripcion == '1') {
+                                                                            $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." x ".$data_s[$i]['importe_seleccion'];
+                                                                        } else {
+                                                                            $opcion_seleccion.= $data_s[$i]['cantidad_seleccion']." ".$descripcion;
+                                                                        }
+                                                                    } else {
+                                                                        $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
+                                                                    }
+                                                                    $opcion_seleccion.= "</option>";
                                                                 }
-                                                            } else {
-                                                                $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
                                                             }
-                                                            $opcion_seleccion.= "</option>";
+                                                        } else {
+                                                            continue;
                                                         }
+                                                        $contar_i++;
                                                     }
+                                                    $opcion_seleccion.= "</select>";
                                                 } else {
-                                                    continue;
+                                                    $opcion_seleccion.= "<div campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
+                                                    if(!empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                        $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
+                                                    }
+                                                    $opcion_seleccion.= "name='opcion-seleccion[]' >";
+
+                                                    $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
+                                                    $contar_i=0;
+                                                    for($i=$key;$i<count($data_s);$i++) { 
+                                                        if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
+                                                            if(empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                                    $opcion_seleccion.= "<div class='opcion-seleccion-detallado'><input type='radio' keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' >";
+                                                                    $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
+                                                                    $opcion_seleccion.= "</input></div>";
+                                                            }
+                                                        } else {
+                                                            continue;
+                                                        }
+                                                        $contar_i++;
+                                                    }
+                                                    $opcion_seleccion.= "</div>";
                                                 }
-                                                $contar_i++;
+                                            } else {
+                                                $opcion_seleccion.= "<div class='opcion-seleccion-row'>";
+
+                                                $key = array_search($opciones['id_opcion_seleccion'], array_column($data_s, 'id_opcion_seleccion'));
+                                                $contar_i=0;
+                                                for($i=$key;$i<count($data_s);$i++) { 
+                                                    if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
+                                                        if(empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                                $opcion_seleccion.= "<div><div>";
+                                                                $opcion_seleccion.= "<input type='hidden' ";
+                                                                $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                $opcion_seleccion.= "keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                $opcion_seleccion.= "cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
+                                                                $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."' >";
+                                                                $opcion_seleccion.= "<div>".$data_s[$i]['descripcion_detalle']."</div>";
+                                                                $opcion_seleccion.= "</div>";
+                                                                
+                                                                $key_referencia_precio = array_search('4', array_column($data_o, 'tipo_seleccion'));
+                                                                $opcion_seleccion.= "<div><input type='text' ";
+                                                                $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";
+                                                                $opcion_seleccion.= "opcion-seleccion='".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
+                                                                $opcion_seleccion.= "tipo-seleccion='4' id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
+                                                                $opcion_seleccion.= "id-referencia='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia']."' ";
+                                                                $opcion_seleccion.= "id-referencia-doble='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_doble']."' ";
+                                                                $opcion_seleccion.= "id-referencia-triple='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_triple']."' ";
+                                                                $opcion_seleccion.= "padre-referencia='".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                $opcion_seleccion.= "value='300.00'/></div>";
+                                                                
+                                                                $opcion_seleccion.= "<div>";
+                                                                $key_referencia = array_search($data_s[$i]['id_opcion_seleccion_detalle'], array_column($data_s, 'id_detalle_referencia'));
+                                                                if($key_referencia != null) {
+                                                                    $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='keyseleccion-opcion-seleccion[]' value=''>";
+                                                                    $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' ";
+                                                                    $opcion_seleccion.= "opcion-seleccion='".$data_s[$key_referencia]['id_opcion_seleccion']."' ";
+                                                                    $opcion_seleccion.= "tipo-seleccion='".$tipo_seleccion."' ";
+                                                                    $opcion_seleccion.= "id='opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+//                                                                    if(!empty($data_s[$key_referencia]['id_opcion_seleccion_referencia'])) {
+//                                                                        $opcion_seleccion.= " id-referencia='opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion_referencia']."' disabled='disabled' ";
+//                                                                    }
+                                                                    $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
+                                                                    $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
+                                                                    for($j=$key_referencia;$j<count($data_s);$j++) { 
+                                                                        if($data_s[$j]['id_detalle_referencia'] == $data_s[$i]['id_opcion_seleccion_detalle']) {
+                                                                            $opcion_seleccion.= "<option keyseleccion='".$data_s[$j]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$j]['cantidad_seleccion']."' value='".$data_s[$j]['descripcion_detalle']."'>".$data_s[$j]['descripcion_detalle']."</option>";
+                                                                        } else {
+                                                                            continue;
+                                                                        }
+                                                                    }
+                                                                    $opcion_seleccion.= "</select>";
+                                                                    
+                                                                }
+                                                                
+                                                                $opcion_seleccion.= "</div></div>";
+                                                        }
+                                                    } else {
+                                                        continue;
+                                                    }
+                                                    $contar_i++;
+                                                }
+
+                                                $opcion_seleccion.= "</div>";
                                             }
-                                            
-                                            $opcion_seleccion.= "</select>";
                                             $opcion_seleccion.= "</div></div>";
                                             if($tipo_seleccion == '1') $opcion_seleccion_right.= $opcion_seleccion;
-                                            else $opcion_seleccion_left.= $opcion_seleccion;
+                                            else
+                                                if(empty($cabecera_seleccion)) $opcion_seleccion_left.= $opcion_seleccion;
+                                                else $opcion_seleccion_right.= $opcion_seleccion;
                                             break;
                                         case '2':
                                             $opcion_seleccion.= "<div class='input-group date'>";
@@ -392,9 +512,13 @@ foreach ($data as $detalle) {
                                 $id_opcion_anterior = $opciones['id_campana_opcion'];   
                          
                         }
-                        
+                        if($tipo_pantalla == 3) {
+                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-paquete-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                        } else {
+                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                        }
                         $venta_opciones[] = array('id'   => $id_opcion_anterior,
-                                                  'form' => $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom);
+                                                  'form' => $opcion_venta_total);
                         
                         ?>
                         
@@ -441,7 +565,7 @@ foreach ($data as $detalle) {
                 foreach($venta_opciones as $venta_opcion) {
                 ?>
                 <div>
-                <form class="form-horizontal" role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
+                <form role="form" id="form-opcion-venta<?php echo $venta_opcion['id'];?>">
                     <?php echo $venta_opcion['form'];?>
                 </form>
                 </div>
@@ -728,10 +852,10 @@ foreach ($data_p as $dato) {
                     break;
                 case '3':
                     key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
-                    
                     var cantidad_object;
+                    var tipo_seleccion_referencia;
                     cantidad_object = 0;
-                    if($('[id-referencia=' + id_selecion + ']').size() > 0) {
+                    if($('[id-referencia=' + id_selecion + ']').size() > 0 || $('[id-referencia-doble=' + id_selecion + ']').size() > 0 || $('[id-referencia-triple=' + id_selecion + ']').size() > 0) {
                         $.blockUI({ 
                             message:'Estamos procesando su petición ...',
                             css: { 
@@ -747,29 +871,53 @@ foreach ($data_p as $dato) {
                             cantidad_object++;
                             opcion_seleccion = $(this).attr('opcion-seleccion');
                             id_opcion_seleccion = $(this).attr('id');
-                            $(this).find('[keyseleccion]').remove();
-                            $.ajax({
-                                type: "POST",
-                                url: "/campana/selecciondetallereferencia",
-                                data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
-                                success: function (data) {
-                                    var valores = $.parseJSON(data);
-                                    if(valores.datos.length > 0) {
-                                        for(var i=0;i<valores.datos.length;i++){
-                                            $('#' + valores.name).append("<option keyseleccion='" + valores.datos[i].id_opcion_seleccion_detalle + "' cantidad='" + valores.datos[i].cantidad_seleccion + "' value='" + valores.datos[i].importe_seleccion + "'>" + valores.datos[i].cantidad_seleccion + ' x ' + valores.datos[i].importe_seleccion + "</option>");
+                            tipo_seleccion_referencia = $(this).attr('tipo-seleccion');
+                            if(tipo_seleccion_referencia == '1') {
+                                $(this).find('[keyseleccion]').remove();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/campana/selecciondetallereferencia",
+                                    data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion},
+                                    success: function (data) {
+                                        var valores = $.parseJSON(data);
+                                        if(valores.datos.length > 0) {
+                                            for(var i=0;i<valores.datos.length;i++){
+                                                $('#' + valores.name).append("<option keyseleccion='" + valores.datos[i].id_opcion_seleccion_detalle + "' cantidad='" + valores.datos[i].cantidad_seleccion + "' value='" + valores.datos[i].importe_seleccion + "'>" + valores.datos[i].cantidad_seleccion + ' x ' + valores.datos[i].importe_seleccion + "</option>");
+                                            }
+                                            $('#' + valores.name).removeAttr('disabled');
+                                        } else {
+                                            $('#' + valores.name).attr('disabled','disabled');
                                         }
-                                        $('#' + valores.name).removeAttr('disabled');
-                                    } else {
-                                        $('#' + valores.name).attr('disabled','disabled');
+                                        $('#cantidad-' + valores.name).val($("#" + valores.name + " option" ).first().attr('cantidad'));
+                                        $('#keyseleccion-' + valores.name).val($("#" + valores.name + " option" ).first().attr('keyseleccion'));
+                                        if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
+
                                     }
-                                    $('#cantidad-' + valores.name).val($("#" + valores.name + " option" ).first().attr('cantidad'));
-                                    $('#keyseleccion-' + valores.name).val($("#" + valores.name + " option" ).first().attr('keyseleccion'));
-                                    if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
-                                    
+                                });
+                                if( parseFloat($("#" + id_opcion_seleccion + " option:selected" ).val()) < 0) {
+                                    habilitar = false;
                                 }
-                            });
-                            if( parseFloat($("#" + id_opcion_seleccion + " option:selected" ).val()) < 0) {
-                                habilitar = false;
+                            } else {
+                                var id_referencia_doble = $(this).attr('id-referencia-doble');
+                                var id_referencia_triple = $(this).attr('id-referencia-triple');
+                                var key_padre = $(this).attr('padre-referencia');
+                                var id_doble, id_triple, id_doble_sel, id_triple_sel;
+                                
+                                if($('#' + id_referencia_doble).length) id_doble = id_referencia_doble;
+                                else id_doble = id_referencia_doble + '-' + key_padre;
+                                
+                                if( $('#' + id_doble).prop('tagName') == 'SELECT')  id_doble_sel = $("#" + id_doble + " option:selected").attr('keyseleccion') ? $("#" + id_doble + " option:selected").attr('keyseleccion') : $("#" + id_doble + " option:selected").val();
+                                else id_doble_sel = $("#" + id_doble).attr('keyseleccion');
+                                                                
+                                if($('#' + id_referencia_triple).length) id_triple = id_referencia_triple;
+                                else id_triple = id_referencia_triple + '-' +key_padre;
+                                
+                                if( $('#' + id_triple).prop('tagName') == 'SELECT')  id_triple_sel = $("#" + id_triple + " option:selected").attr('keyseleccion') ? $("#" + id_triple + " option:selected").attr('keyseleccion') : $("#" + id_triple + " option:selected").val();
+                                else id_triple_sel = $("#" + id_triple).attr('keyseleccion');
+                                
+                                alert(id_doble_sel);
+                                alert(id_triple_sel);
+                                $.unblockUI();
                             }
                         });
                     } 

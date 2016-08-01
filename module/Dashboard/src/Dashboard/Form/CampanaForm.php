@@ -25,6 +25,10 @@ class CampanaForm extends Form
             $selTipoPantalla[$id] = $pantalla->getDescripcion_pantalla();
         }
         
+        $selEntornoVisualizacion = array('1' => 'Publico Externo',
+                                         '2' => 'Agente de Ventas',
+                                         '3' => 'Ambos');
+        
         $this->setAttributes(array('method' => 'post',
                                   'class'  => 'form-horizontal',
                                   'role'   => 'form'));
@@ -156,11 +160,56 @@ class CampanaForm extends Form
                 'class' => 'form-control input-sm',
             ),
           ));
+        
+        
+        $this->add(array(
+            'name' => 'duracion_dias',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control input-sm',
+            ),
+          ));
+        
+         $this->add(array(
+            'name' => 'duracion_noches',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control input-sm',
+            ),
+          ));
+        
+        $this->add(array(
+            'name' => 'duracion_horas',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control input-sm'
+            ),
+          ));
+        
+        $this->add(array(
+            'name' => 'duracion_observacion',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control input-sm'
+            ),
+        ));
+        
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_tipo_pantalla',
             'options' => array(
                  'value_options' => $selTipoPantalla,
+             ),
+            'attributes' => array(
+                'class' => 'form-control input-sm'
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_entorno_visualizacion',
+            'options' => array(
+                 'value_options' => $selEntornoVisualizacion,
              ),
             'attributes' => array(
                 'class' => 'form-control input-sm'

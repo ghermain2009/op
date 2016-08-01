@@ -47,9 +47,15 @@ class IndexController extends AbstractActionController
 
         $user_session = new Container('user');
         
-        if( !isset($user_session->facebook)) {
+        if( !isset($user_session->facebook['id'])) {
             $user_session->facebook = array('id' => $constantes["id_facebook"],
                                         've' => $constantes["ve_facebook"]);
+        }
+        
+        if( !isset($user_session->agente) ) {
+            $tipo_usuario = '1';
+        } else {
+            $tipo_usuario = '2';
         }
         
         $variados = new Variados($serviceLocator);
@@ -57,8 +63,8 @@ class IndexController extends AbstractActionController
         
         $campanaTable = $serviceLocator->get('Dashboard\Model\CupcampanaTable');
 
-        $data = $campanaTable->getCampanasAll($empresa_promocion);
-        $dataG = $campanaTable->getCampanaGrupo();
+        $data = $campanaTable->getCampanasAll($empresa_promocion,$tipo_usuario);
+        $dataG = $campanaTable->getCampanaGrupo($tipo_usuario);
 
         return new ViewModel(array('data' => $data, 
                                    'dataG' => $dataG,

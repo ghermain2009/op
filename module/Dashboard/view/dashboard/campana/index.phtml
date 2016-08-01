@@ -142,6 +142,45 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="duracion_dias" class="col-lg-2 control-label">Dias de Duración :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='duracion_dias'>
+                    <?php echo $this->formRow($this->form->get('duracion_dias')); ?>
+                </div>
+            </div>
+            <label class="col-lg-2 control-label">días</label>
+        </div>
+        <div class="form-group">
+            <label for="duracion_noches" class="col-lg-2 control-label">Noches de Duración :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='duracion_dias'>
+                    <?php echo $this->formRow($this->form->get('duracion_noches')); ?>
+                </div>
+            </div>
+            <label class="col-lg-2 control-label">noches</label>
+        </div>
+        <div class="form-group">
+            <label for="duracion_horas" class="col-lg-2 control-label">Horas de Duración :</label>
+            <div class="col-lg-1">
+                <div class="input-group date" id='duracion_horas'>
+                    <?php echo $this->formRow($this->form->get('duracion_horas')); ?>
+                </div>
+            </div>
+            <label class="col-lg-1 control-label">Horas</label>
+        </div>
+        <div class="form-group">
+            <label for="duracion_observacion" class="col-lg-2 control-label">Cancelación :</label>
+            <div class="col-lg-8">
+                <?php echo $this->formRow($this->form->get('duracion_observacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_entorno_visualizacion" class="col-lg-2 control-label">Entorno Visualización :</label>
+            <div class="col-lg-2">
+                <?php echo $this->formRow($this->form->get('id_entorno_visualizacion')); ?>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-lg-offset-2 col-lg-7">
                 <?php echo $this->formRow($this->form->get('submit')); ?>
             </div>

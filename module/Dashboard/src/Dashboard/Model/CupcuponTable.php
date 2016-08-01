@@ -82,49 +82,191 @@ class CupcuponTable {
         return ArrayUtils::iteratorToArray($result);
     }
 
-    public function addCupon($datos,$sl) {
+    public function addCupon($datos,$sl,$datos_carrito = null ) {
 
 
         if (isset($datos)) {
 
             $sql = new Sql($this->tableGateway->adapter);
-
-            $insert = $sql->insert('cup_cupon')->values(array(
-                'email_cliente' => (isset($datos['email'])) ? $datos['email'] : null,
-                'id_campana' => (isset($datos['IdCampana'])) ? base64_decode($datos['IdCampana']) : null,
-                'id_campana_opcion' => (isset($datos['IdOpcion'])) ? base64_decode($datos['IdOpcion']) : null,
-                'cantidad' => (isset($datos['cantidad'])) ? $datos['cantidad'] : null,
-                'precio_unitario' => (isset($datos['PriceUnit'])) ? $datos['PriceUnit'] : null,
+            
+            $insert_carrito = $sql->insert('cup_cupon_carrito')->values(array(
+                'cantidad_carrito' => (isset($datos['cantidad'])) ? $datos['cantidad'] : null,
                 'precio_total' => (isset($datos['PriceTotal'])) ? $datos['PriceTotal'] : null,
                 'id_tarjeta' => (isset($datos['metodo'])) ? $datos['metodo'] : null,
                 'id_estado_compra' => '1',
-                'fecha_registro' => new Expression("NOW()")
+                'fecha_registro' => new Expression("NOW()"),
+                'id_empresa' => (isset($datos['ruc_empresa'])) ? $datos['ruc_empresa'] : null,
+                'user_id' => (isset($datos['user_empresa'])) ? $datos['user_empresa'] : null
             ));
-            
-            $statement = $sql->prepareStatementForSqlObject($insert);
 
-            $id_cuponera = $statement->execute()->getGeneratedValue();
+            $statement = $sql->prepareStatementForSqlObject($insert_carrito);
+
+            $id_carrito = $statement->execute()->getGeneratedValue();
             
-            $cantidad_cupones = $datos['cantidad'];
-            
-            for($i=0;$i<$cantidad_cupones;$i++) {
-                $codigo_cupon = $this->_getCodigoCupon($sl);
+            if(count($datos_carrito) > 0) {
                 
-                $insert = $sql->insert('cup_cupon_detalle')->values(array(
-                    'codigo_cupon' => $codigo_cupon,
-                    'id_cupon' => $id_cuponera,
-                    'precio_unitario' => $datos['PriceUnit'],
-                    'id_estado_cupon' => '1',
-                    'fecha_cancelacion' => new Expression("NOW()")
+                $carrito = $datos_carrito['carrito'];
+                $carrito_nombres = $datos_carrito['carrito_nombres'];
+                
+                for($i=0; $i<count($carrito); $i++){
+                    
+                    $id_campana = $carrito[$i]['id'];
+                    $id_campana_opcion = $carrito[$i]['op'];
+                    $total_opcion = $carrito[$i]['total-opcion'.base64_decode($id_campana_opcion)];  
+                            
+                    $insert_cupon = $sql->insert('cup_cupon')->values(array(
+                        'email_cliente' => (isset($datos['email'])) ? $datos['email'] : null,
+                        'id_campana' => (isset($id_campana)) ? base64_decode($id_campana) : null,
+                        'id_campana_opcion' => (isset($id_campana_opcion)) ? base64_decode($id_campana_opcion) : null,
+                        'cantidad' => '1',
+                        'precio_unitario' => (isset($total_opcion)) ? $total_opcion : null,
+                        'precio_total' => (isset($total_opcion)) ? $total_opcion : null,
+                        'id_tarjeta' => (isset($datos['metodo'])) ? $datos['metodo'] : null,
+                        'id_estado_compra' => '1',
+                        'fecha_registro' => new Expression("NOW()"),
+                        'id_cupon_carrito' => $id_carrito
+                    ));
+                    
+                    $statement = $sql->prepareStatementForSqlObject($insert_cupon);
+
+                    $id_cuponera = $statement->execute()->getGeneratedValue();
+                    
+                    //genero cupon
+                    $codigo_cupon = $this->_getCodigoCupon($sl);
+
+                    $insert_cupon_detalle = $sql->insert('cup_cupon_detalle')->values(array(
+                        'codigo_cupon' => $codigo_cupon,
+                        'id_cupon' => $id_cuponera,
+                        'precio_unitario' => $total_opcion,
+                        'id_estado_cupon' => '1',
+                        'fecha_cancelacion' => new Expression("NOW()")
+                    ));
+
+                    $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle);
+
+                    $statement->execute();
+                    
+                    //opcion = 1 , label = 2, cantidad = 3, key = 4
+                    $opcion       = $carrito[$i]['opcion-seleccion'];
+                    $label        = $carrito[$i]['label-opcion-seleccion'];
+                    $cantidad     = $carrito[$i]['cantidad-opcion-seleccion'];
+                    $keyseleccion = $carrito[$i]['keyseleccion-opcion-seleccion'];
+                    
+                    for($j=0; $j< count($opcion); $j++) {
+                        $insert_cupon_detalle_opcion = $sql->insert('cup_cupon_detalle_opcion')->values(array(
+                            'id_cupon' => $codigo_cupon,
+                            'id_tipo_opcion_detalle' => '1',
+                            'indice' => $j,
+                            'valor' => $opcion[$j]
+                        ));
+                        
+                        $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle_opcion);
+
+                        $statement->execute();
+                    }
+                    
+                    for($j=0; $j< count($label); $j++) {
+                        $insert_cupon_detalle_opcion = $sql->insert('cup_cupon_detalle_opcion')->values(array(
+                            'id_cupon' => $codigo_cupon,
+                            'id_tipo_opcion_detalle' => '2',
+                            'indice' => $j,
+                            'valor' => $label[$j]
+                        ));
+                        
+                        $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle_opcion);
+
+                        $statement->execute();
+                    }
+                    
+                    for($j=0; $j<count($cantidad); $j++) {
+                        $insert_cupon_detalle_opcion = $sql->insert('cup_cupon_detalle_opcion')->values(array(
+                            'id_cupon' => $codigo_cupon,
+                            'id_tipo_opcion_detalle' => '3',
+                            'indice' => $j,
+                            'valor' => $cantidad[$j]
+                        ));
+                        
+                        $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle_opcion);
+                        
+                        $id_cupon_detalle_opcion = $statement->execute()->getGeneratedValue();
+                        
+                        for($k=0; $k<count($carrito_nombres); $k++) {
+                            if($carrito_nombres[$k]['indice_padre'] == $i && $carrito_nombres[$k]['indice_hijo'] == $j ) {
+                                $opciones_nombres = $carrito_nombres[$k]['opciones_nombre'];
+                                for($l=0;$l<count($opciones_nombres);$l++) {
+                                    $insert_cupon_detalle_identidad = $sql->insert('cup_cupon_detalle_identidad')->values(array(
+                                        'id_cupon_detalle_opcion' => $id_cupon_detalle_opcion,
+                                        'indice' => $l,
+                                        'apellidos' => $opciones_nombres[$l]['apellido'],
+                                        'nombres' => $opciones_nombres[$l]['nombre']
+                                    ));
+                                    
+                                    $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle_identidad);
+
+                                    $statement->execute();
+                                }
+                            }
+                        }
+                        
+
+                        
+                    }
+                    
+                    for($j=0; $j< count($keyseleccion); $j++) {
+                        $insert_cupon_detalle_opcion = $sql->insert('cup_cupon_detalle_opcion')->values(array(
+                            'id_cupon' => $codigo_cupon,
+                            'id_tipo_opcion_detalle' => '4',
+                            'indice' => $j,
+                            'valor' => $keyseleccion[$j]
+                        ));
+                        
+                        $statement = $sql->prepareStatementForSqlObject($insert_cupon_detalle_opcion);
+
+                        $statement->execute();
+                    }
+                }
+
+            } else {
+                
+                $insert = $sql->insert('cup_cupon')->values(array(
+                    'email_cliente' => (isset($datos['email'])) ? $datos['email'] : null,
+                    'id_campana' => (isset($datos['IdCampana'])) ? base64_decode($datos['IdCampana']) : null,
+                    'id_campana_opcion' => (isset($datos['IdOpcion'])) ? base64_decode($datos['IdOpcion']) : null,
+                    'cantidad' => (isset($datos['cantidad'])) ? $datos['cantidad'] : null,
+                    'precio_unitario' => (isset($datos['PriceUnit'])) ? $datos['PriceUnit'] : null,
+                    'precio_total' => (isset($datos['PriceTotal'])) ? $datos['PriceTotal'] : null,
+                    'id_tarjeta' => (isset($datos['metodo'])) ? $datos['metodo'] : null,
+                    'id_estado_compra' => '1',
+                    'fecha_registro' => new Expression("NOW()"),
+                    'id_cupon_carrito' => $id_carrito
                 ));
-                
+
                 $statement = $sql->prepareStatementForSqlObject($insert);
 
-                $statement->execute();
-                
-            }
+                $id_cuponera = $statement->execute()->getGeneratedValue();
 
-            return $id_cuponera; /* Se inserto Informacion */
+                $cantidad_cupones = $datos['cantidad'];
+
+                for($i=0;$i<$cantidad_cupones;$i++) {
+                    $codigo_cupon = $this->_getCodigoCupon($sl);
+
+                    $insert = $sql->insert('cup_cupon_detalle')->values(array(
+                        'codigo_cupon' => $codigo_cupon,
+                        'id_cupon' => $id_cuponera,
+                        'precio_unitario' => $datos['PriceUnit'],
+                        'id_estado_cupon' => '1',
+                        'fecha_cancelacion' => new Expression("NOW()")
+                    ));
+
+                    $statement = $sql->prepareStatementForSqlObject($insert);
+
+                    $statement->execute();
+
+                }
+
+            }
+            
+            return $id_carrito;
         }
     }
     

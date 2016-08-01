@@ -40,7 +40,7 @@ class CupcampanaTable {
         return $resultSet;
     }
     
-    public function getCampanasAll($empresa_promocion)
+    public function getCampanasAll($empresa_promocion,$tipo_usuario = '1')
     {
         
         $sql = new Sql($this->tableGateway->adapter);
@@ -54,6 +54,9 @@ class CupcampanaTable {
             'subtitulo',
             'maximo_cupones' => new Expression("IFNULL(cantidad_cupones,0)"),
             'mostrar' => new Expression("case when IFNULL(tiempo_online,0) > 0 and IFNULL(tiempo_offline,0) > 0 then CASE WHEN MOD(ROUND(TIME_TO_SEC(TIMEDIFF(NOW(),STR_TO_DATE(CONCAT(DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' ',hora_inicio),'%d/%m/%Y %H:%i:%s'))) / 3600),tiempo_online + tiempo_offline) > tiempo_online THEN 0 ELSE 1 END else 1 end"),
+            'id_tipo_pantalla',
+            'duracion_dias' => new Expression("IFNULL(duracion_dias,0)"),
+            'duracion_horas' => new Expression("IFNULL(duracion_horas,0)")
         ))
         ->from('cup_campana')
         ->join('cup_campana_opcion', new Expression("cup_campana.id_campana = cup_campana_opcion.id_campana"),
@@ -63,11 +66,17 @@ class CupcampanaTable {
                       'descuento'  => new Expression("100-ROUND(MIN(precio_especial)*100/MIN(precio_regular))") ,
                     ))
         ->where("NOW() >= CONCAT(DATE_FORMAT(cup_campana.fecha_inicio,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_inicio,'%H:%i:%s'))")
-        ->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))");
+        ->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))")
+        ->where("IFNULL(cup_campana.id_entorno_visualizacion,'1') IN ('".$tipo_usuario."','3')");
+        //->where->In('cup_campana.id_entorno_visualizacion', array($tipo_usuario,'3'));
         
         $select->group(array('prioridad'));
         $select->group(array('cup_campana.id_campana'));
         $select->group(array('cup_campana.subtitulo'));
+        $select->group(array('cup_campana.id_tipo_pantalla'));
+        $select->group(array('cup_campana.duracion_dias'));
+        $select->group(array('cup_campana.duracion_horas'));
+        
         $select->order('prioridad ASC');
         $select->order('cup_campana.fecha_inicio DESC');
         $select->order('cup_campana_opcion.precio_especial ASC');
@@ -79,7 +88,7 @@ class CupcampanaTable {
         return ArrayUtils::iteratorToArray($result);
     }
     
-    public function getCampanasAllNotId($id_campana)
+    public function getCampanasAllNotId($id_campana,$tipo_usuario = '1')
     {
         $sql = new Sql($this->tableGateway->adapter);
                 
@@ -102,6 +111,7 @@ class CupcampanaTable {
       
         $select->where("NOW() >= CONCAT(DATE_FORMAT(cup_campana.fecha_inicio,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_inicio,'%H:%i:%s'))");
         $select->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))");
+        $select->where("IFNULL(cup_campana.id_entorno_visualizacion,'1') IN ('".$tipo_usuario."','3')");
         $select->where->notIn('cup_campana.id_campana', array($id_campana)) ;
         $select->group(array('cup_campana.id_campana'));
         $select->group(array('cup_campana.subtitulo'));
@@ -112,7 +122,7 @@ class CupcampanaTable {
         return ArrayUtils::iteratorToArray($result);
     }
     
-    public function getCampanaGrupo()
+    public function getCampanaGrupo($tipo_usuario = '1')
     {
         $sql = new Sql($this->tableGateway->adapter);
                 
@@ -137,6 +147,7 @@ class CupcampanaTable {
         ->join('gen_categoria', new Expression("gen_sub_categoria.id_categoria = gen_categoria.id_categoria"),array('categoria' => 'descripcion','id_categoria','comentario','icono'));
         $select->where("NOW() >= CONCAT(DATE_FORMAT(cup_campana.fecha_inicio,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_inicio,'%H:%i:%s'))");
         $select->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))");
+        $select->where("IFNULL(cup_campana.id_entorno_visualizacion,'1') IN ('".$tipo_usuario."','3')");
         $select->group(array('gen_categoria.descripcion'));
         $select->group(array('gen_categoria.id_categoria'));
         $select->group(array('gen_categoria.comentario'));
@@ -150,7 +161,7 @@ class CupcampanaTable {
         return ArrayUtils::iteratorToArray($result);
     }
     
-    public function getCampanaCategoria($id_categoria, $id_subcategoria)
+    public function getCampanaCategoria($id_categoria, $id_subcategoria, $tipo_usuario = '1')
     {
         $sql = new Sql($this->tableGateway->adapter);
                 
@@ -182,7 +193,8 @@ class CupcampanaTable {
         }
         $select->where("NOW() >= CONCAT(DATE_FORMAT(cup_campana.fecha_inicio,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_inicio,'%H:%i:%s'))");
         $select->where("NOW() <= CONCAT(DATE_FORMAT(cup_campana.fecha_final,'%Y-%m-%d'),' ',TIME_FORMAT(cup_campana.hora_final,'%H:%i:%s'))");
-
+        $select->where("IFNULL(cup_campana.id_entorno_visualizacion,'1') IN ('".$tipo_usuario."','3')");
+        
         $select->group(array('gen_categoria.descripcion'));
         $select->group(array('gen_categoria.id_categoria'));
         $select->group(array('cup_campana.id_campana'));
@@ -210,7 +222,11 @@ class CupcampanaTable {
             'fecha_final' => new Expression("DATE_FORMAT(ADDTIME(fecha_final, hora_final),'%m/%d/%Y %l:%i %p')"),
             'comision_campana',
             'id_empresa',
-            'id_tipo_pantalla' => new Expression("IFNULL(cup_campana.id_tipo_pantalla,1)")
+            'id_tipo_pantalla' => new Expression("IFNULL(cup_campana.id_tipo_pantalla,1)"),
+            'duracion_dias' => new Expression("IFNULL(cup_campana.duracion_dias,0)"),
+            'duracion_noches' => new Expression("IFNULL(cup_campana.duracion_noches,0)"),
+            'duracion_horas' => new Expression("IFNULL(cup_campana.duracion_horas,0)"),
+            'duracion_observacion'
         ))
         ->from('cup_campana')
         ->join('con_contrato_anexo', new Expression("cup_campana.id_campana = con_contrato_anexo.id_campana"),
@@ -310,7 +326,11 @@ class CupcampanaTable {
                       'descripcion_interna',
                       'fecha_bloqueo' => new Expression("DATE_FORMAT(ADDDATE(NOW(),IFNULL(dias_bloqueo,0)),'%Y-%m-%d')"),
                       'opcion_multiple',
-                      'id_opcion_seleccion_referencia'),'left')
+                      'id_opcion_seleccion_referencia',
+                      'id_opcion_seleccion_referencia_doble',
+                      'id_opcion_seleccion_referencia_triple',
+                      'mostrar_detalle',
+                      'cabecera_precio'),'left')
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
         $select->order('cup_opcion_seleccion.tipo_seleccion desc');
 
@@ -335,7 +355,9 @@ class CupcampanaTable {
                       'cantidad_seleccion',
                       'importe_seleccion',
                       'descripcion_detalle' => 'descripcion_seleccion',
-                      'id_detalle_referencia'))
+                      'id_detalle_referencia',
+                      'id_detalle_referencia_doble',
+                      'id_detalle_referencia_triple'))
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
         $select->order('cup_opcion_seleccion.tipo_seleccion desc');
         $select->order('cup_opcion_seleccion_detalle.cantidad_seleccion asc');
