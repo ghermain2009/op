@@ -1431,11 +1431,13 @@ class CampanaController extends AbstractActionController {
         $objeto = $this->params()->fromPost("objeto", null);
         $id_opcion_seleccion = $this->params()->fromPost("id_opcion_seleccion", null);
         $id_referencia = $this->params()->fromPost("id_referencia", null);
+        $id_referencia_doble = $this->params()->fromPost("id_referencia_doble", null);
+        $id_referencia_triple = $this->params()->fromPost("id_referencia_triple", null);
 
         $serviceLocator = $this->getServiceLocator();
         $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionselecciondetalleTable');
 
-        $datos = $campanaOpcionTable->getSeleccionDetalleReferenciaId($id_opcion_seleccion,$id_referencia);
+        $datos = $campanaOpcionTable->getSeleccionDetalleReferenciaId($id_opcion_seleccion,$id_referencia, $id_referencia_doble, $id_referencia_triple);
 
         $respuesta = array('name' => $objeto,
                            'datos' => $datos);

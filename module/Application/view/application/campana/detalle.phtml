@@ -917,6 +917,29 @@ foreach ($data_p as $dato) {
                                 
                                 alert(id_doble_sel);
                                 alert(id_triple_sel);
+                                
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/campana/selecciondetallereferencia",
+                                    data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion, id_referencia_doble: id_doble_sel, id_referencia_triple: id_triple_sel },
+                                    success: function (data) {
+                                        alert(data);
+                                        var valores = $.parseJSON(data);
+                                        if(valores.datos.length > 0) {
+                                            for(var i=0;i<valores.datos.length;i++){
+                                                $('#' + valores.name).append("<option keyseleccion='" + valores.datos[i].id_opcion_seleccion_detalle + "' cantidad='" + valores.datos[i].cantidad_seleccion + "' value='" + valores.datos[i].importe_seleccion + "'>" + valores.datos[i].cantidad_seleccion + ' x ' + valores.datos[i].importe_seleccion + "</option>");
+                                            }
+                                            $('#' + valores.name).removeAttr('disabled');
+                                        } else {
+                                            $('#' + valores.name).attr('disabled','disabled');
+                                        }
+                                        $('#cantidad-' + valores.name).val($("#" + valores.name + " option" ).first().attr('cantidad'));
+                                        $('#keyseleccion-' + valores.name).val($("#" + valores.name + " option" ).first().attr('keyseleccion'));
+                                        if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
+
+                                    }
+                                });
+                                
                                 $.unblockUI();
                             }
                         });

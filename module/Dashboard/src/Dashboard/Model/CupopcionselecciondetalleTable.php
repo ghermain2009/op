@@ -57,7 +57,7 @@ class CupopcionselecciondetalleTable {
         
     }
     
-    public function getSeleccionDetalleReferenciaId($id_opcion_selecion,$id_referencia) {
+    public function getSeleccionDetalleReferenciaId($id_opcion_selecion,$id_referencia,$id_referencia_doble,$id_referencia_triple) {
         $sql = new Sql($this->tableGateway->adapter);
 
         $select = $sql->select();
@@ -72,7 +72,10 @@ class CupopcionselecciondetalleTable {
                 ))
                 ->from('cup_opcion_seleccion_detalle')
                 ->where(array('id_opcion_seleccion' => $id_opcion_selecion,
-                              'id_detalle_referencia' => $id_referencia));
+                              'id_detalle_referencia' => $id_referencia,
+                              'id_referencia_doble' => $id_referencia_doble,
+                              'id_referencia_triple' => $id_referencia_triple
+                          ));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
