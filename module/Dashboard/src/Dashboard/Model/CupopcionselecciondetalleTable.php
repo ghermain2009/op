@@ -73,8 +73,8 @@ class CupopcionselecciondetalleTable {
                 ->from('cup_opcion_seleccion_detalle')
                 ->where(array('id_opcion_seleccion' => $id_opcion_selecion,
                               'id_detalle_referencia' => $id_referencia,
-                              'id_referencia_doble' => $id_referencia_doble,
-                              'id_referencia_triple' => $id_referencia_triple
+                              'id_detalle_referencia_doble' => $id_referencia_doble,
+                              'id_detalle_referencia_triple' => $id_referencia_triple
                           ));
 
         $statement = $sql->prepareStatementForSqlObject($select);

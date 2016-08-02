@@ -448,7 +448,7 @@ foreach ($data as $detalle) {
                                                                 $opcion_seleccion.= "<div><input type='text' ";
                                                                 $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";
                                                                 $opcion_seleccion.= "opcion-seleccion='".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
-                                                                $opcion_seleccion.= "tipo-seleccion='4' id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
+                                                                $opcion_seleccion.= "tipo-seleccion='4' id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
                                                                 $opcion_seleccion.= "id-referencia='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia']."' ";
                                                                 $opcion_seleccion.= "id-referencia-doble='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_doble']."' ";
                                                                 $opcion_seleccion.= "id-referencia-triple='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_triple']."' ";
@@ -915,27 +915,22 @@ foreach ($data_p as $dato) {
                                 if( $('#' + id_triple).prop('tagName') == 'SELECT')  id_triple_sel = $("#" + id_triple + " option:selected").attr('keyseleccion') ? $("#" + id_triple + " option:selected").attr('keyseleccion') : $("#" + id_triple + " option:selected").val();
                                 else id_triple_sel = $("#" + id_triple).attr('keyseleccion');
                                 
-                                alert(id_doble_sel);
-                                alert(id_triple_sel);
-                                
                                 $.ajax({
                                     type: "POST",
                                     url: "/campana/selecciondetallereferencia",
                                     data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: key_seleccion, id_referencia_doble: id_doble_sel, id_referencia_triple: id_triple_sel },
                                     success: function (data) {
-                                        alert(data);
                                         var valores = $.parseJSON(data);
                                         if(valores.datos.length > 0) {
-                                            for(var i=0;i<valores.datos.length;i++){
-                                                $('#' + valores.name).append("<option keyseleccion='" + valores.datos[i].id_opcion_seleccion_detalle + "' cantidad='" + valores.datos[i].cantidad_seleccion + "' value='" + valores.datos[i].importe_seleccion + "'>" + valores.datos[i].cantidad_seleccion + ' x ' + valores.datos[i].importe_seleccion + "</option>");
+                                            if(valores.datos.length == 1){
+                                                $('#' + valores.name).val(valores.datos[0].importe_seleccion);
+                                            } else {
+                                                $('#' + valores.name).val('0.00');
                                             }
-                                            $('#' + valores.name).removeAttr('disabled');
                                         } else {
-                                            $('#' + valores.name).attr('disabled','disabled');
+                                            $('#' + valores.name).val('0.00');
                                         }
-                                        $('#cantidad-' + valores.name).val($("#" + valores.name + " option" ).first().attr('cantidad'));
-                                        $('#keyseleccion-' + valores.name).val($("#" + valores.name + " option" ).first().attr('keyseleccion'));
-                                        if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
+                           
 
                                     }
                                 });
