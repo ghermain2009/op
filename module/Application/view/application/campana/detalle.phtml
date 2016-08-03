@@ -443,7 +443,7 @@ foreach ($data as $detalle) {
                                                                 $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."' >";
                                                                 $opcion_seleccion.= "<div>".$data_s[$i]['descripcion_detalle']."</div>";
                                                                 $opcion_seleccion.= "</div>";
-                                                                
+                                                                error_log(print_r($data_o,true));
                                                                 $key_referencia_precio = array_search('4', array_column($data_o, 'tipo_seleccion'));
                                                                 $opcion_seleccion.= "<div><input type='text' ";
                                                                 $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";

@@ -333,7 +333,7 @@ class CupcampanaTable {
                       'cabecera_precio'),'left')
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
         $select->order('cup_opcion_seleccion.tipo_seleccion desc');
-
+        
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
 
@@ -359,12 +359,14 @@ class CupcampanaTable {
                       'id_detalle_referencia_doble',
                       'id_detalle_referencia_triple'))
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
+        $select->order('cup_opcion_seleccion.id_opcion_seleccion asc');
+        $select->order('cup_opcion_seleccion_detalle.id_opcion_seleccion_detalle asc');
         $select->order('cup_opcion_seleccion.tipo_seleccion desc');
         $select->order('cup_opcion_seleccion_detalle.cantidad_seleccion asc');
 
-        $statement = $sql->prepareStatementForSqlObject($select);
+        $statement = $sql->prepareStatementForSqlObject($select);        
         $result = $statement->execute();
-
+        
         return ArrayUtils::iteratorToArray($result);
     }
     
