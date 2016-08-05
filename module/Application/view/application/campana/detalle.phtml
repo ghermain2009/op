@@ -443,7 +443,7 @@ foreach ($data as $detalle) {
                                                                 $opcion_seleccion.= "value='".$data_s[$i]['descripcion_detalle']."' >";
                                                                 $opcion_seleccion.= "<div>".$data_s[$i]['descripcion_detalle']."</div>";
                                                                 $opcion_seleccion.= "</div>";
-                                                                error_log(print_r($data_o,true));
+
                                                                 $key_referencia_precio = array_search('4', array_column($data_o, 'tipo_seleccion'));
                                                                 $opcion_seleccion.= "<div><input type='text' ";
                                                                 $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";
@@ -465,14 +465,18 @@ foreach ($data as $detalle) {
                                                                     $opcion_seleccion.= "opcion-seleccion='".$data_s[$key_referencia]['id_opcion_seleccion']."' ";
                                                                     $opcion_seleccion.= "tipo-seleccion='".$tipo_seleccion."' ";
                                                                     $opcion_seleccion.= "id='opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
-//                                                                    if(!empty($data_s[$key_referencia]['id_opcion_seleccion_referencia'])) {
-//                                                                        $opcion_seleccion.= " id-referencia='opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion_referencia']."' disabled='disabled' ";
-//                                                                    }
                                                                     $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
                                                                     $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
                                                                     for($j=$key_referencia;$j<count($data_s);$j++) { 
                                                                         if($data_s[$j]['id_detalle_referencia'] == $data_s[$i]['id_opcion_seleccion_detalle']) {
-                                                                            $opcion_seleccion.= "<option keyseleccion='".$data_s[$j]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$j]['cantidad_seleccion']."' value='".$data_s[$j]['descripcion_detalle']."'>".$data_s[$j]['descripcion_detalle']."</option>";
+                                                                            $opcion_seleccion.= "<option keyseleccion='".$data_s[$j]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$j]['cantidad_seleccion']."' ";
+                                                                            if($data_s[$j]['cantidad_seleccion_ninos'] != null) {
+                                                                                $opcion_seleccion.= "cantidad-ninos='".$data_s[$j]['cantidad_seleccion_ninos']."' ";
+                                                                            }
+                                                                            if($data_s[$j]['cantidad_seleccion_infantes'] != null) {
+                                                                                $opcion_seleccion.= "cantidad-infantes='".$data_s[$j]['cantidad_seleccion_infante']."' ";
+                                                                            }
+                                                                            $opcion_seleccion.= "value='".$data_s[$j]['descripcion_detalle']."'>".$data_s[$j]['descripcion_detalle']."</option>";
                                                                         } else {
                                                                             continue;
                                                                         }
@@ -797,11 +801,13 @@ foreach ($data_p as $dato) {
         $("[tipo-seleccion]").change(function () {
             var tipo_selecion = $(this).attr('tipo-seleccion');
             var id_selecion = $(this).attr('id');
+            var opcion_seleccion_attr = $(this).attr('opcion-seleccion');
             var id_opcion = $(this).attr('campana-opcion');
             var name_selecion_each;
             var total;
             var habilitar;
             var key_seleccion, opcion_seleccion, id_opcion_seleccion;
+            
             habilitar = true;
             switch(tipo_selecion){
                 case '1':
@@ -851,11 +857,14 @@ foreach ($data_p as $dato) {
                     }
                     break;
                 case '3':
-                    key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
                     var cantidad_object;
-                    var tipo_seleccion_referencia;
+                    var tipo_seleccion_referencia, id_opcion_seleccion_attr;
                     cantidad_object = 0;
-                    if($('[id-referencia=' + id_selecion + ']').size() > 0 || $('[id-referencia-doble=' + id_selecion + ']').size() > 0 || $('[id-referencia-triple=' + id_selecion + ']').size() > 0) {
+                    id_opcion_seleccion_attr = 'opcion-seleccion' + opcion_seleccion_attr;
+                    key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
+                    
+                    if($('[id-referencia=' + id_selecion + ']').size() > 0 || $('[id-referencia-doble=' + id_opcion_seleccion_attr + ']').size() > 0 || $('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() > 0) {
+
                         $.blockUI({ 
                             message:'Estamos procesando su petición ...',
                             css: { 
@@ -866,7 +875,8 @@ foreach ($data_p as $dato) {
                             '-moz-border-radius': '10px', 
                             opacity: .5, 
                             color: '#fff' 
-                        } });
+                            } });
+                        
                         $('[id-referencia=' + id_selecion + ']').each(function (index, value) { 
                             cantidad_object++;
                             opcion_seleccion = $(this).attr('opcion-seleccion');
@@ -898,6 +908,7 @@ foreach ($data_p as $dato) {
                                     habilitar = false;
                                 }
                             } else {
+                                
                                 var id_referencia_doble = $(this).attr('id-referencia-doble');
                                 var id_referencia_triple = $(this).attr('id-referencia-triple');
                                 var key_padre = $(this).attr('padre-referencia');
@@ -930,13 +941,62 @@ foreach ($data_p as $dato) {
                                         } else {
                                             $('#' + valores.name).val('0.00');
                                         }
-                           
-
+                                        if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
                                     }
                                 });
-                                
-                                $.unblockUI();
                             }
+                        });
+                        
+                        $('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').each(function (index, value) { 
+                            var id_referencia_uno    = $(this).attr('id-referencia');
+                            var id_referencia_doble  = $(this).attr('id-referencia-doble');
+                            var id_referencia_triple  = $(this).attr('id-referencia-triple');
+                            var key_padre = $(this).attr('padre-referencia');
+                            var id_doble, id_uno, id_doble_sel, id_uno_sel,id_triple_sel, id_triple_sel;
+                            
+                            cantidad_object++;
+                            opcion_seleccion = $(this).attr('opcion-seleccion');
+                            id_opcion_seleccion = $(this).attr('id');
+                            tipo_seleccion_referencia = $(this).attr('tipo-seleccion');
+                            
+                            if($('#' + id_referencia_uno).length) id_uno = id_referencia_uno;
+                            else id_uno = id_referencia_uno + '-' +key_padre;
+
+                            if($('#' + id_uno).prop('tagName') == 'SELECT')  id_uno_sel = $("#" + id_uno + " option:selected").attr('keyseleccion') ? $("#" + id_uno + " option:selected").attr('keyseleccion') : $("#" + id_uno + " option:selected").val();
+                            else id_uno_sel = $("#" + id_uno).attr('keyseleccion');
+
+                            if($('#' + id_referencia_doble).length) id_doble = id_referencia_doble;
+                            else id_doble = id_referencia_doble + '-' + key_padre;
+
+                            if($('#' + id_doble).prop('tagName') == 'SELECT')  id_doble_sel = $("#" + id_doble + " option:selected").attr('keyseleccion') ? $("#" + id_doble + " option:selected").attr('keyseleccion') : $("#" + id_doble + " option:selected").val();
+                            else id_doble_sel = $("#" + id_doble).attr('keyseleccion');
+
+                            if($('#' + id_referencia_triple).length) id_triple = id_referencia_triple;
+                            else id_triple = id_referencia_triple + '-' + key_padre;
+
+                            if($('#' + id_triple).prop('tagName') == 'SELECT')  id_triple_sel = $("#" + id_triple + " option:selected").attr('keyseleccion') ? $("#" + id_triple + " option:selected").attr('keyseleccion') : $("#" + id_triple + " option:selected").val();
+                            else id_triple_sel = $("#" + id_triple).attr('keyseleccion');
+                            
+                            alert($('[keyseleccion=' + id_triple_sel + ']').attr('cantidad-ninos'));
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/campana/selecciondetallereferencia",
+                                data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: id_uno_sel, id_referencia_doble: id_doble_sel, id_referencia_triple: id_triple_sel },
+                                success: function (data) {
+                                    var valores = $.parseJSON(data);
+                                    if(valores.datos.length > 0) {
+                                        if(valores.datos.length == 1){
+                                            $('#' + valores.name).val(valores.datos[0].importe_seleccion);
+                                        } else {
+                                            $('#' + valores.name).val('0.00');
+                                        }
+                                    } else {
+                                        $('#' + valores.name).val('0.00');
+                                    }
+                                   if($('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() == cantidad_object ) $.unblockUI();
+                                }
+                            });
                         });
                         
                         
