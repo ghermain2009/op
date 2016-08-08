@@ -3487,6 +3487,11 @@ section {
 .opcion-venta-excursion.opcion-venta {
    width:100% !important;
 }
+   
+.opcion-venta-excursion.piepaquete-left {
+   width:100% !important;
+   background: #e4e5e6;
+}
 
 .completa-datos-left {
    width:70%;
@@ -3601,6 +3606,29 @@ section {
     padding-bottom: 5px;
     text-align: center;
     font-weight: bold;  
+}
+
+.opcion-seleccion-row.pie-left {
+    background-color: #0094d8;
+    color: #ffffff;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight:normal;
+    font-size: 11px;
+}
+
+.opcion-seleccion-row.pie-right {
+    background-color: #e4e5e6;
+    color: #000000;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight:normal;
+    font-size: 11px;
+    min-height: 100%;
 }
 
 .opcion-seleccion-row > div {

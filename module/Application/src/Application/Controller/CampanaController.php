@@ -1433,6 +1433,8 @@ class CampanaController extends AbstractActionController {
         $id_referencia = $this->params()->fromPost("id_referencia", null);
         $id_referencia_doble = $this->params()->fromPost("id_referencia_doble", null);
         $id_referencia_triple = $this->params()->fromPost("id_referencia_triple", null);
+        $id_auxiliar_sel = $this->params()->fromPost("id_auxiliar_sel", null);
+        $id_auxiliar = $this->params()->fromPost("id_auxiliar", null);
 
         $serviceLocator = $this->getServiceLocator();
         $campanaOpcionTable = $serviceLocator->get('Dashboard\Model\CupopcionselecciondetalleTable');
@@ -1440,6 +1442,8 @@ class CampanaController extends AbstractActionController {
         $datos = $campanaOpcionTable->getSeleccionDetalleReferenciaId($id_opcion_seleccion,$id_referencia, $id_referencia_doble, $id_referencia_triple);
 
         $respuesta = array('name' => $objeto,
+                           'nameauxiliarsel' => $id_auxiliar_sel,
+                           'nameauxiliar' => $id_auxiliar,
                            'datos' => $datos);
 
         return $this->getResponse()->setContent(Json::encode($respuesta));
@@ -1448,11 +1452,108 @@ class CampanaController extends AbstractActionController {
     public function agregarcarritoAction() {
         
         $datos_carrito = $this->params()->fromPost();
-        $carrito_session = new Container('carrito');
-        if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
-        array_push($carrito_session->carrito,$datos_carrito);
+        error_log(print_r($datos_carrito,true));
         
-        return $this->getResponse()->setContent(Json::encode($carrito_session->carrito));
+        $carrito_session   = new Container('carrito');
+        $carrito_pendiente = new Container('carrito_pendiente');
+        
+        if($datos_carrito['tp'] == '3') {
+            $total_adultos = 0;
+            $total_ninos = 0;
+            $total_infantes = 0;
+            $avance_adultos = 0;
+            $avance_ninos = 0;
+            $avance_infantes = 0;
+            
+            foreach($datos_carrito as $item => $datos) {
+                switch($item) {
+                    case 'total-adultos-opcion-seleccion':
+                        for($i=0; $i<count($datos); $i++) {
+                            if(!empty($datos[$i])) {
+                                $total_adultos += $datos[$i];
+                                $total_ninos += $datos_carrito['total-ninos-opcion-seleccion'][$i];
+                            }
+                        }
+                        break;
+                    case 'total-infantes-opcion-seleccion':
+                        for($i=0; $i<count($datos); $i++) {
+                            if(!empty($datos[$i])) {
+                                $total_infantes += $datos[$i];
+                            }
+                        }
+                        break;
+                    case 'cantidad-opcion-seleccion':
+                        for($i=0; $i<count($datos); $i++) {
+                            if(!empty($datos[$i])) {
+                                $avance_adultos+= $datos[$i];
+                            }
+                        }
+                        break;
+                    case 'cantidad-ninos-opcion-seleccion':
+                        for($i=0; $i<count($datos); $i++) {
+                            if(!empty($datos[$i])) {
+                                $avance_ninos+= $datos[$i];
+                            }
+                        }
+                        break;
+                    case 'cantidad-infantes-opcion-seleccion':
+                        for($i=0; $i<count($datos); $i++) {
+                            if(!empty($datos[$i])) {
+                                $avance_infantes+= $datos[$i];
+                            }
+                        }
+                        break;
+                }
+            }
+            
+            if($total_adultos == $avance_adultos) $activar_adulto = 'N';
+            else $activar_adulto = 'S';
+            
+            if($total_ninos == $avance_ninos) $activar_nino = 'N';
+            else $activar_nino = 'S';
+            
+            if($total_infantes == $avance_infantes || $avance_infantes == 1) $activar_infante = 'N';
+            else $activar_infante = 'S';
+            
+            if($activar_adulto == 'N' && $activar_nino == 'N' && $activar_infante = 'N') {
+                $variables = array('completo' => 'S',
+                                   'activacion' => array('A' => $activar_adulto,
+                                                         'N' => $activar_nino,
+                                                         'I' => $activar_infante
+                                                        )
+                                  );
+            } else {
+                $variables = array('completo' => 'N',
+                                   'activacion' => array('A' => $activar_adulto,
+                                                         'N' => $activar_nino,
+                                                         'I' => $activar_infante
+                                                        )
+                                  );
+            }
+        } else {
+            $variables = array('completo' => 'S',
+                               'activacion' => array());
+        }
+        
+        
+        
+        if( $variables['completo'] == 'S') {
+            //if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
+            if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
+            
+            if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
+            array_push($carrito_session->carrito,$datos_carrito);
+            
+        } else {
+            if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
+            array_push($carrito_pendiente->carrito,$datos_carrito);
+
+            if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
+        }
+        
+        return $this->getResponse()->setContent(Json::encode(array('respuesta' => $variables,
+                                                                   'carrito'   => $carrito_session->carrito,
+                                                                   'pendiente' => $carrito_pendiente->carrito)));
     }
     
     public function completardatosAction() {

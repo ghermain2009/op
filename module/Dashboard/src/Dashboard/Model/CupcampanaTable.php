@@ -359,7 +359,8 @@ class CupcampanaTable {
                       'id_detalle_referencia_doble',
                       'id_detalle_referencia_triple',
                       'cantidad_seleccion_ninos',
-                      'cantidad_seleccion_infantes'))
+                      'cantidad_seleccion_infantes',
+                      'tipo_seleccion_detalle'))
         ->where(array('cup_campana_opcion.id_campana' => $id_campana));
         $select->order('cup_opcion_seleccion.id_opcion_seleccion asc');
         $select->order('cup_opcion_seleccion_detalle.id_opcion_seleccion_detalle asc');

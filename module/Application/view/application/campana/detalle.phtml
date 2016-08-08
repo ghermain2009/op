@@ -250,8 +250,12 @@ foreach ($data as $detalle) {
                                     $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>";
                                     $opcion_venta_total.= "<div class='opcion-seleccion-row titulo-left'>Estandar</div>";
                                     $opcion_venta_total.= $opcion_seleccion_left;
+                                    $opcion_venta_total.= "<div class='opcion-seleccion-row pie-left'>Seleccionar Hotel prioridad</div>";
                                     $opcion_venta_total.= "</div>";
-                                    $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                                    $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>";
+                                    $opcion_venta_total.= $opcion_seleccion_right;
+                                    $opcion_venta_total.= "<div class='opcion-seleccion-row pie-right'>En caso de no contar con disponibilidad se acomodara al pax en similar o superior</div>";
+                                    $opcion_venta_total.= "</div>".$opcion_venta_bottom;
                                 } else {
                                     $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
                                 }
@@ -342,17 +346,28 @@ foreach ($data as $detalle) {
                                 
                                     $opcion_seleccion = "<div class='form-group opcion-seleccion'>";
                                     if(empty($cabecera_seleccion) && empty($mostrar_detalle)) {
-                                        $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
+                                        $opcion_seleccion.= "<label for='categoria' class='col-lg-8 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
                                     }
+                                    $opcion_seleccion.= "<input type='hidden' id='precio-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='precio-opcion-seleccion[]' value=''>";
                                     $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
                                     $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
                                     $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='keyseleccion-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='total-adultos-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='total-adultos-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='total-ninos-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='total-ninos-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='total-infantes-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='total-infantes-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-ninos-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-ninos-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-infantes-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='cantidad-infantes-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='label-habitacion-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-habitacion-opcion-seleccion[]' value=''>";
+                                    $opcion_seleccion.= "<input type='hidden' id='label-cama-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-cama-opcion-seleccion[]' value=''>";
+                                    
+                                    
+                                    
+                                    
                                     if($tipo_pantalla == 3) {
                                         $opcion_seleccion.= "<div>";
                                     } else {
                                         $opcion_seleccion.= "<div class='col-lg-5'>";
                                     }
-
 
                                     switch ($tipo_seleccion) {
                                         case '1':
@@ -416,8 +431,11 @@ foreach ($data as $detalle) {
                                                     for($i=$key;$i<count($data_s);$i++) { 
                                                         if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
                                                             if(empty($opciones['id_opcion_seleccion_referencia'])) {
-                                                                    $opcion_seleccion.= "<div class='opcion-seleccion-detallado'><input type='radio' keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' >";
-                                                                    $opcion_seleccion.= $data_s[$i]['descripcion_detalle'];
+                                                                    $opcion_seleccion.= "<div class='opcion-seleccion-detallado'><input type='radio' keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
+                                                                    $opcion_seleccion.= "value = '".$data_s[$i]['descripcion_detalle']."' ";
+                                                                    $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."' ";
+                                                                    $opcion_seleccion.= "name='opcion-seleccion[]' ";
+                                                                    $opcion_seleccion.= ">".$data_s[$i]['descripcion_detalle'];
                                                                     $opcion_seleccion.= "</input></div>";
                                                             }
                                                         } else {
@@ -435,6 +453,33 @@ foreach ($data as $detalle) {
                                                 for($i=$key;$i<count($data_s);$i++) { 
                                                     if($data_s[$i]['id_opcion_seleccion'] == $opciones['id_opcion_seleccion']) {
                                                         if(empty($opciones['id_opcion_seleccion_referencia'])) {
+                                                                switch($data_s[$i]['tipo_seleccion_detalle']) {
+                                                                    case 'A':
+                                                                        $disabled = "";
+                                                                        $total_adultos  = 1;
+                                                                        $total_ninos    = 0;
+                                                                        $total_infantes = 0;
+                                                                        break;
+                                                                    case 'N':
+                                                                        $disabled = "disabled='disabled' ";
+                                                                        $total_adultos  = 0;
+                                                                        $total_ninos    = 1;
+                                                                        $total_infantes = 0;
+                                                                        break;
+                                                                    case 'I':
+                                                                        $disabled = "disabled='disabled' ";
+                                                                        $total_adultos  = 0;
+                                                                        $total_ninos    = 0;
+                                                                        $total_infantes = 1;
+                                                                        break;
+                                                                    default:
+                                                                        $disabled = "";
+                                                                        $total_adultos  = 0;
+                                                                        $total_ninos    = 0;
+                                                                        $total_infantes = 0;
+                                                                        break;
+                                                                }
+                                                            
                                                                 $opcion_seleccion.= "<div><div>";
                                                                 $opcion_seleccion.= "<input type='hidden' ";
                                                                 $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
@@ -448,24 +493,40 @@ foreach ($data as $detalle) {
                                                                 $opcion_seleccion.= "<div><input type='text' ";
                                                                 $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";
                                                                 $opcion_seleccion.= "opcion-seleccion='".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
-                                                                $opcion_seleccion.= "tipo-seleccion='4' id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                $opcion_seleccion.= "tipo-seleccion='4' ";
+                                                                $opcion_seleccion.= "id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                $opcion_seleccion.= "name='precio-opcion-seleccion[]' ";
                                                                 $opcion_seleccion.= "id-referencia='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia']."' ";
                                                                 $opcion_seleccion.= "id-referencia-doble='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_doble']."' ";
                                                                 $opcion_seleccion.= "id-referencia-triple='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_triple']."' ";
                                                                 $opcion_seleccion.= "padre-referencia='".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
-                                                                $opcion_seleccion.= "value='300.00'/></div>";
+                                                                $opcion_seleccion.= "value='0.00' ".$disabled."/></div>";
                                                                 
                                                                 $opcion_seleccion.= "<div>";
                                                                 $key_referencia = array_search($data_s[$i]['id_opcion_seleccion_detalle'], array_column($data_s, 'id_detalle_referencia'));
                                                                 if($key_referencia != null) {
-                                                                    $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
-                                                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='cantidad-opcion-seleccion[]' value=''>";
-                                                                    $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."' name='keyseleccion-opcion-seleccion[]' value=''>";
+                                                                    
+                                                                    $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='cantidad-opcion-seleccion[]' value='".$total_adultos."' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='keyseleccion-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='keyseleccion-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='total-adultos-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='total-adultos-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='total-ninos-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='total-ninos-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='total-infantes-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='total-infantes-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-ninos-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='cantidad-ninos-opcion-seleccion[]' value='".$total_ninos."' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='cantidad-infantes-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='cantidad-infantes-opcion-seleccion[]' value='".$total_infantes."' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='label-habitacion-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='label-habitacion-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    $opcion_seleccion.= "<input type='hidden' id='label-cama-opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' name='label-cama-opcion-seleccion[]' value='' ".$disabled.">";
+                                                                    
                                                                     $opcion_seleccion.= "<select campana-opcion='".$opciones['id_campana_opcion']."' ";
                                                                     $opcion_seleccion.= "opcion-seleccion='".$data_s[$key_referencia]['id_opcion_seleccion']."' ";
+                                                                    $opcion_seleccion.= "opcion-seleccion-padre='".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
                                                                     $opcion_seleccion.= "tipo-seleccion='".$tipo_seleccion."' ";
+                                                                    $opcion_seleccion.= "opcion-habilitar='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
+                                                                    if($data_s[$i]['tipo_seleccion_detalle'] != null) {
+                                                                        $opcion_seleccion.= "tipo-seleccion-detalle='".$data_s[$i]['tipo_seleccion_detalle']."' ";
+                                                                    }
                                                                     $opcion_seleccion.= "id='opcion-seleccion".$data_s[$key_referencia]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
-                                                                    $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm'>";
+                                                                    $opcion_seleccion.= "name='opcion-seleccion[]' class='form-control input-sm' ".$disabled.">";
                                                                     $opcion_seleccion.= "<option value='-1'>Seleccionar</option>";
                                                                     for($j=$key_referencia;$j<count($data_s);$j++) { 
                                                                         if($data_s[$j]['id_detalle_referencia'] == $data_s[$i]['id_opcion_seleccion_detalle']) {
@@ -474,8 +535,12 @@ foreach ($data as $detalle) {
                                                                                 $opcion_seleccion.= "cantidad-ninos='".$data_s[$j]['cantidad_seleccion_ninos']."' ";
                                                                             }
                                                                             if($data_s[$j]['cantidad_seleccion_infantes'] != null) {
-                                                                                $opcion_seleccion.= "cantidad-infantes='".$data_s[$j]['cantidad_seleccion_infante']."' ";
+                                                                                $opcion_seleccion.= "cantidad-infantes='".$data_s[$j]['cantidad_seleccion_infantes']."' ";
                                                                             }
+                                                                            if($data_s[$i]['descripcion_detalle'] != null) {
+                                                                                $opcion_seleccion.= "tipo-habitacion='".$data_s[$i]['descripcion_detalle']."' ";
+                                                                            }
+                                                                            
                                                                             $opcion_seleccion.= "value='".$data_s[$j]['descripcion_detalle']."'>".$data_s[$j]['descripcion_detalle']."</option>";
                                                                         } else {
                                                                             continue;
@@ -517,7 +582,12 @@ foreach ($data as $detalle) {
                          
                         }
                         if($tipo_pantalla == 3) {
-                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-paquete-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>";
+                            $opcion_venta_total.= $opcion_seleccion_left;
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion piepaquete-left'>Seleccionar Hotel prioridad</div>";
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>";
+                            $opcion_venta_total.= $opcion_seleccion_right."</div>".$opcion_venta_bottom;
                         } else {
                             $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
                         }
@@ -859,12 +929,13 @@ foreach ($data_p as $dato) {
                 case '3':
                     var cantidad_object;
                     var tipo_seleccion_referencia, id_opcion_seleccion_attr;
+                    var cantidad_personas, cantidad_ninos, cantidad_infantes;
                     cantidad_object = 0;
                     id_opcion_seleccion_attr = 'opcion-seleccion' + opcion_seleccion_attr;
                     key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
                     
                     if($('[id-referencia=' + id_selecion + ']').size() > 0 || $('[id-referencia-doble=' + id_opcion_seleccion_attr + ']').size() > 0 || $('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() > 0) {
-
+                        
                         $.blockUI({ 
                             message:'Estamos procesando su petición ...',
                             css: { 
@@ -876,6 +947,19 @@ foreach ($data_p as $dato) {
                             opacity: .5, 
                             color: '#fff' 
                             } });
+                        
+                        if($("#" + id_selecion).attr('tipo-seleccion-detalle')) {
+                            if($("#" + id_selecion + " option:selected" ).attr('cantidad'))          cantidad_personas = $("#" + id_selecion + " option:selected" ).attr('cantidad'); 
+                            else cantidad_personas = -1;
+                            if($("#" + id_selecion + " option:selected" ).attr('cantidad-ninos'))    cantidad_ninos    = $("#" + id_selecion + " option:selected" ).attr('cantidad-ninos'); 
+                            else cantidad_ninos    = -1
+                            if($("#" + id_selecion + " option:selected" ).attr('cantidad-infantes')) cantidad_infantes = $("#" + id_selecion + " option:selected" ).attr('cantidad-infantes'); 
+                            else cantidad_infantes = -1;
+                        } else {
+                            cantidad_personas = -1; 
+                            cantidad_ninos    = -1; 
+                            cantidad_infantes = -1; 
+                        }
                         
                         $('[id-referencia=' + id_selecion + ']').each(function (index, value) { 
                             cantidad_object++;
@@ -953,11 +1037,25 @@ foreach ($data_p as $dato) {
                             var id_referencia_triple  = $(this).attr('id-referencia-triple');
                             var key_padre = $(this).attr('padre-referencia');
                             var id_doble, id_uno, id_doble_sel, id_uno_sel,id_triple_sel, id_triple_sel;
+                            var id_seleccion_key;
                             
                             cantidad_object++;
                             opcion_seleccion = $(this).attr('opcion-seleccion');
                             id_opcion_seleccion = $(this).attr('id');
                             tipo_seleccion_referencia = $(this).attr('tipo-seleccion');
+                            
+                            $('#label-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#cantidad-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#keyseleccion-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#precio-' + id_referencia_doble).attr('disabled','disabled');
+                            
+                            $('#total-adultos-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#total-ninos-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#total-infantes-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#cantidad-ninos-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#cantidad-infantes-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#label-habitacion-' + id_referencia_doble).attr('disabled','disabled');
+                            $('#label-cama-' + id_referencia_doble).attr('disabled','disabled');
                             
                             if($('#' + id_referencia_uno).length) id_uno = id_referencia_uno;
                             else id_uno = id_referencia_uno + '-' +key_padre;
@@ -977,14 +1075,67 @@ foreach ($data_p as $dato) {
                             if($('#' + id_triple).prop('tagName') == 'SELECT')  id_triple_sel = $("#" + id_triple + " option:selected").attr('keyseleccion') ? $("#" + id_triple + " option:selected").attr('keyseleccion') : $("#" + id_triple + " option:selected").val();
                             else id_triple_sel = $("#" + id_triple).attr('keyseleccion');
                             
-                            alert($('[keyseleccion=' + id_triple_sel + ']').attr('cantidad-ninos'));
-
+                            id_seleccion_key = id_referencia_triple + '-' + key_padre;
+                            
                             $.ajax({
                                 type: "POST",
                                 url: "/campana/selecciondetallereferencia",
-                                data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: id_uno_sel, id_referencia_doble: id_doble_sel, id_referencia_triple: id_triple_sel },
+                                data: {objeto:id_opcion_seleccion, id_opcion_seleccion: opcion_seleccion, id_referencia: id_uno_sel, id_referencia_doble: id_doble_sel, id_referencia_triple: id_triple_sel, id_auxiliar_sel:id_selecion, id_auxiliar:id_seleccion_key },
                                 success: function (data) {
                                     var valores = $.parseJSON(data);
+                                    if(valores.nameauxiliarsel != valores.nameauxiliar) { 
+                                        switch($('#' + valores.nameauxiliarsel).attr('tipo-seleccion-detalle')) {
+                                            case 'A':
+                                                if( $('#' + valores.nameauxiliar).attr('disabled') ) {
+                                                    if( ( $('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-ninos') > 0 && $('#' + valores.nameauxiliar).attr('tipo-seleccion-detalle') == 'N') || $('#' + valores.nameauxiliar).attr('tipo-seleccion-detalle') == 'I' ) {
+                                                        $('#' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#label-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#cantidad-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#keyseleccion-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#total-adultos-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#total-ninos-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#total-infantes-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#cantidad-ninos-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#cantidad-infantes-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#label-habitacion-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#label-cama-' + valores.nameauxiliar).removeAttr('disabled');
+                                                        $('#' + $('#' + valores.nameauxiliar).attr('opcion-habilitar')).removeAttr('disabled');
+                                                    }
+                                                } else {
+                                                    $('#' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#label-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#cantidad-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#keyseleccion-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#total-adultos-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#total-ninos-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#total-infantes-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#cantidad-ninos-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#cantidad-infantes-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#label-habitacion-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#label-cama-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                    $('#' + $('#' + valores.nameauxiliar).attr('opcion-habilitar')).attr('disabled','disabled');
+                                                }
+                                                
+                                                
+                                                
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    } else {
+                                        if( $('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad') ) $('#total-adultos-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad'));
+                                        else $('#total-adultos-' + valores.nameauxiliarsel).val('');
+                                        if( $('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-ninos') ) $('#total-ninos-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-ninos'));
+                                        else $('#total-ninos-' + valores.nameauxiliarsel).val('');
+                                        if( $('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-infantes') ) $('#total-infantes-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-infantes'));
+                                        else $('#total-infantes-' + valores.nameauxiliarsel).val('');
+                                        if( $('#' + valores.nameauxiliarsel + " option:selected").attr('keyseleccion') ) $('#keyseleccion-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").attr('keyseleccion'));
+                                        else $('#keyseleccion-' + valores.nameauxiliarsel).val('');
+                                        if( $('#' + valores.nameauxiliarsel + " option:selected").attr('tipo-habitacion') ) $('#label-habitacion-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").attr('tipo-habitacion'));
+                                        else $('#label-habitacion-' + valores.nameauxiliarsel).val('');
+                                        $('#label-cama-' + valores.nameauxiliarsel).val($('#' + valores.nameauxiliarsel + " option:selected").html());
+                                    }
+                                    
                                     if(valores.datos.length > 0) {
                                         if(valores.datos.length == 1){
                                             $('#' + valores.name).val(valores.datos[0].importe_seleccion);
@@ -994,6 +1145,7 @@ foreach ($data_p as $dato) {
                                     } else {
                                         $('#' + valores.name).val('0.00');
                                     }
+                                    $('#' + valores.name).trigger('change');
                                    if($('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() == cantidad_object ) $.unblockUI();
                                 }
                             });
@@ -1002,6 +1154,20 @@ foreach ($data_p as $dato) {
                         
                     } 
                     
+                    break;
+                case '4':
+                    total = 0;
+                    
+                    $('[tipo-seleccion=4]').each(function (index, value) { 
+                        name_selecion_each = $(this).attr('id');
+                        //if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) >= 0) {
+                            total += parseFloat($("#" + name_selecion_each).val());
+                        //} else {
+                        //    habilitar = false;
+                        //}
+                    });
+                    $('#total-opcion' + id_opcion).val(total);
+                    $('#btntotal-opcion' + id_opcion).html('<div style=\'font-size:13px\'>Precio</div>' + '$ ' + total.toFixed(2));
                     break;
             }
             if(habilitar) {
@@ -1046,8 +1212,10 @@ foreach ($data_p as $dato) {
                     color: '#fff' 
                 } });
                 
+                $("<input type='hidden'/>").attr("name", "tp").attr("value", '<?php echo $tipo_pantalla;?>').prependTo('#'+formulario_seleccion);
                 $("<input type='hidden'/>").attr("name", "op").attr("value", $(this).attr('campana-opcion')).prependTo('#'+formulario_seleccion);
                 $("<input type='hidden'/>").attr("name", "id").attr("value", $(this).attr('campana')).prependTo('#'+formulario_seleccion);
+                
 
                 var dataString = $('#'+formulario_seleccion).serialize();
 
@@ -1057,7 +1225,100 @@ foreach ($data_p as $dato) {
                     data: dataString,
                     success: function (data) {
                         var valores = $.parseJSON(data);
-                        $("#opcion-cantidad-carrito").html(valores.length);
+                        var id_seleccion;
+                        if(valores.respuesta.completo == 'N') {
+                            $('[tipo-seleccion-detalle=A]').each(function (index, value) { 
+                                id_seleccion = $(this).attr('id');
+                                alert('es un A ' + id_seleccion);
+                                if(valores.respuesta.activacion.A == 'N') {
+                                    if(!$('#' + id_seleccion).attr('disabled')) {
+                                        alert('desabilitar ' + id_seleccion);
+                                        $('#' + id_seleccion).val('-1');
+                                        $('#' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-' + id_seleccion).attr('disabled','disabled');
+                                        $('#keyseleccion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-adultos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-habitacion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-cama-' + id_seleccion).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).val('0.00');
+                                    }
+                                } else {
+                                    if(!$('#' + id_seleccion).attr('disabled')) {
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).val('0.00');
+                                        $('#' + id_seleccion + ' option:not(:selected)').attr('disabled', true);
+                                        $('#' + $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).attr('id-referencia')).val('-1');
+                                        $('input[type="radio"]:not(:checked)').attr('disabled','disabled');
+                                    }
+                                }
+                            });
+                            $('[tipo-seleccion-detalle=N]').each(function (index, value) { 
+                                id_seleccion = $(this).attr('id');
+                                alert('es un N ' + id_seleccion);
+                                if(valores.respuesta.activacion.N == 'N') {
+                                    if(!$(this).attr('disabled')) {
+                                        alert('desabilitar '+id_seleccion);
+                                        $(this).val('-1');
+                                        $('#' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-' + id_seleccion).attr('disabled','disabled');
+                                        $('#keyseleccion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-adultos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-habitacion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-cama-' + id_seleccion).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).val('0.00');
+                                    }
+                                } else {
+                                    //alert('activar '+ $(this).attr('disabled').length);
+                                    if(!$(this).attr('disabled')) {
+                                        alert('change '+id_seleccion);
+                                        $(this).val('-1');
+                                        $(this).trigger('change');
+                                    }
+                                }
+                            });
+                            $('[tipo-seleccion-detalle=I]').each(function (index, value) { 
+                                id_seleccion = $(this).attr('id');
+                                alert('es un I ' + id_seleccion);
+                                if(valores.respuesta.activacion.I == 'N') {
+                                    if(!$(this).attr('disabled')) {
+                                        alert('desabilitar '+id_seleccion);
+                                        $(this).val('-1');
+                                        $('#' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-' + id_seleccion).attr('disabled','disabled');
+                                        $('#keyseleccion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-adultos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#total-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-ninos-' + id_seleccion).attr('disabled','disabled');
+                                        $('#cantidad-infantes-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-habitacion-' + id_seleccion).attr('disabled','disabled');
+                                        $('#label-cama-' + id_seleccion).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).attr('disabled','disabled');
+                                        $('#' + $('#' + id_seleccion).attr('opcion-habilitar')).val('0.00');
+                                    }
+                                } else {
+                                    if(!$(this).attr('disabled')) {
+                                        $(this).val('-1');
+                                        $(this).trigger('change');
+                                        alert('change '+id_seleccion);
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#opcion-cantidad-carrito").html(valores.carrito.length);
+                        }
                         $.unblockUI();
                     }
                 });
