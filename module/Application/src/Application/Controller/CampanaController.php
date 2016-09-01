@@ -227,22 +227,29 @@ class CampanaController extends AbstractActionController {
             $nombres_opciones = array();
             $indice_padre_ant = -1;
             $indice_hijo_ant = -1;
+            $indice_extra_ant = -1;
             $contador = -1;
             $contador_opciones = -1;
             $opciones = array();
             if(count($variables_post) > 0) {
                 foreach($variables_post as $item => $value) {
                     $dato = explode('-',$item);
-                    if(count($dato) == 3) {
+                    if(count($dato) == 3 || count($dato) == 4) {
                         if( strcmp($dato[0],'nombre') || strcmp($dato[0],'apellido') ) {
                             $indice_padre = $dato[1];
                             $indice_hijo = $dato[2];
+                            if(count($dato) == 4) {
+                                $indice_extra = $dato[3];
+                            } else {
+                                $indice_extra = -1;
+                            }
                             $contador_opciones++;
-                            if($indice_padre != $indice_padre_ant || $indice_hijo != $indice_hijo_ant) {
+                            if($indice_padre != $indice_padre_ant || $indice_hijo != $indice_hijo_ant || $indice_extra != $indice_extra_ant) {
                                 if($contador >= 0) $nombres_opciones[$contador]['opciones_nombre'] = $opciones;
                                 $contador++;
                                 $nombres_opciones[$contador] = array('indice_padre' => $indice_padre,
-                                                                     'indice_hijo'  => $indice_hijo);
+                                                                     'indice_hijo'  => $indice_hijo,
+                                                                     'indice_extra' => $indice_extra);
                                 $opciones = array();
                                 $contador_opciones = 0;
                             }
@@ -252,11 +259,14 @@ class CampanaController extends AbstractActionController {
 
                             $indice_padre_ant = $indice_padre;
                             $indice_hijo_ant = $indice_hijo;
+                            $indice_extra_ant = $indice_extra;
                         }
-                    }
+                    } 
                 }
                 $nombres_opciones[$contador]['opciones_nombre'] = $opciones;
             }
+            
+            error_log(print_r($nombres_opciones,true));
             
             $carrito_session = new Container('carrito');
             if(empty($carrito_session->carrito)) {
@@ -1452,7 +1462,7 @@ class CampanaController extends AbstractActionController {
     public function agregarcarritoAction() {
         
         $datos_carrito = $this->params()->fromPost();
-        error_log(print_r($datos_carrito,true));
+        $datos_carrito_pendiente = array();
         
         $carrito_session   = new Container('carrito');
         $carrito_pendiente = new Container('carrito_pendiente');
@@ -1464,6 +1474,76 @@ class CampanaController extends AbstractActionController {
             $avance_adultos = 0;
             $avance_ninos = 0;
             $avance_infantes = 0;
+            
+            if(!empty($carrito_pendiente->carrito)) {
+                $datos_carrito_pendiente = $carrito_pendiente->carrito;
+                error_log('Hay carrito pendiente .....');
+                error_log(print_r($datos_carrito_pendiente,true));
+                
+                foreach($datos_carrito_pendiente as $item => $datos) {
+                    switch($item) {
+                        case 'cantidad-opcion-seleccion':
+                            for($i=0; $i<count($datos); $i++) {
+                                if(!empty($datos[$i])) {
+                                    $avance_adultos+= $datos[$i];
+                                }
+                            }
+                            break;
+                        case 'cantidad-ninos-opcion-seleccion':
+                            for($i=0; $i<count($datos); $i++) {
+                                if(!empty($datos[$i])) {
+                                    $avance_ninos+= $datos[$i];
+                                }
+                            }
+                            break;
+                        case 'cantidad-infantes-opcion-seleccion':
+                            for($i=0; $i<count($datos); $i++) {
+                                if(!empty($datos[$i])) {
+                                    $avance_infantes+= $datos[$i];
+                                }
+                            }
+                            break;
+                        case 'extra-reserva':
+                            error_log('Hay carrito pendiente extra.....');
+                            error_log(print_r($datos,true));
+                            for($i=0; $i<count($datos); $i++) {
+                                $datos_carrito_pendiente_extra = $datos[$i];
+                                foreach($datos_carrito_pendiente_extra as $item_pendiente => $datos_pendiente) {
+                                    switch($item_pendiente) {
+                                        case 'cantidad-opcion-seleccion':
+                                            for($i=0; $i<count($datos_pendiente); $i++) {
+                                                if(!empty($datos_pendiente[$i])) {
+                                                    $avance_adultos+= $datos_pendiente[$i];
+                                                }
+                                            }
+                                            break;
+                                        case 'cantidad-ninos-opcion-seleccion':
+                                            for($i=0; $i<count($datos_pendiente); $i++) {
+                                                if(!empty($datos_pendiente[$i])) {
+                                                    $avance_ninos+= $datos_pendiente[$i];
+                                                }
+                                            }
+                                            break;
+                                        case 'cantidad-infantes-opcion-seleccion':
+                                            for($i=0; $i<count($datos_pendiente); $i++) {
+                                                if(!empty($datos_pendiente[$i])) {
+                                                    $avance_infantes+= $datos_pendiente[$i];
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                
+                error_log(print_r('avance-pendiente-adultos : '.$avance_adultos,true));
+                error_log(print_r('avance-pendiente-ninos : '.$avance_ninos,true));
+                error_log(print_r('avance-pendiente-infantes : '.$avance_infantes,true));
+                
+                
+            } 
             
             foreach($datos_carrito as $item => $datos) {
                 switch($item) {
@@ -1506,6 +1586,10 @@ class CampanaController extends AbstractActionController {
                 }
             }
             
+            error_log(print_r('final-pendiente-adultos : '.$avance_adultos,true));
+            error_log(print_r('final-pendiente-ninos : '.$avance_ninos,true));
+            error_log(print_r('final-pendiente-infantes : '.$avance_infantes,true));
+            
             if($total_adultos == $avance_adultos) $activar_adulto = 'N';
             else $activar_adulto = 'S';
             
@@ -1538,18 +1622,39 @@ class CampanaController extends AbstractActionController {
         
         
         if( $variables['completo'] == 'S') {
-            //if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
-            if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
+
+            if(!empty($carrito_pendiente->carrito)) {
+                if(empty($carrito_pendiente->carrito['extra-reserva'])) {
+                    $extra_reserva = array();
+                } else {
+                    $extra_reserva = $carrito_pendiente->carrito['extra-reserva'];
+                }
+                array_push($extra_reserva,$datos_carrito);
+                $carrito_pendiente->carrito['extra-reserva'] = $extra_reserva;
+                
+                $datos_carrito = $carrito_pendiente->carrito;
+                unset($carrito_pendiente->carrito);
+            }   
             
             if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
             array_push($carrito_session->carrito,$datos_carrito);
             
         } else {
-            if(empty($carrito_pendiente->carrito)) $carrito_pendiente->carrito = array();
-            array_push($carrito_pendiente->carrito,$datos_carrito);
-
-            if(empty($carrito_session->carrito)) $carrito_session->carrito = array();
+            
+            if(!empty($carrito_pendiente->carrito)) {
+                if(empty($carrito_pendiente->carrito['extra-reserva'])) {
+                    $extra_reserva = array();
+                } else {
+                    $extra_reserva = $carrito_pendiente->carrito['extra-reserva'];
+                }
+                array_push($extra_reserva,$datos_carrito);
+                $carrito_pendiente->carrito['extra-reserva'] = $extra_reserva;
+            } else {
+                $carrito_pendiente->carrito = $datos_carrito;
+            }
         }
+        
+        error_log(print_r($datos_carrito,true));
         
         return $this->getResponse()->setContent(Json::encode(array('respuesta' => $variables,
                                                                    'carrito'   => $carrito_session->carrito,

@@ -223,6 +223,7 @@ class ClienteController extends AbstractActionController {
                     $user_session->genero = '';
                     $user_session->facebook['login'] = 'N';
                     $user_session->agente = 'S';
+                    $user_session->emailagente = $data[0]['email'];
                 } else {
                     $data[0]['validar'] = '2';
                     $user_session->getManager()->getStorage()->clear('user');

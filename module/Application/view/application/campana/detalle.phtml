@@ -247,7 +247,10 @@ foreach ($data as $detalle) {
                                 $opcion_venta_ant.= "</div>";
                                 
                                 if($tipo_pantalla == 3) {
-                                    $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>";
+                                    $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-top'>";
+                                    $opcion_venta_total.= $opcion_seleccion_top;
+                                    $opcion_venta_total.= "</div>";
+                                    $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-left'>";
                                     $opcion_venta_total.= "<div class='opcion-seleccion-row titulo-left'>Estandar</div>";
                                     $opcion_venta_total.= $opcion_seleccion_left;
                                     $opcion_venta_total.= "<div class='opcion-seleccion-row pie-left'>Seleccionar Hotel prioridad</div>";
@@ -273,6 +276,7 @@ foreach ($data as $detalle) {
                                     <?php
                                     $opcion_seleccion_left = "";
                                     $opcion_seleccion_right = "";
+                                    $opcion_seleccion_top = "";
                                 }
                                 
                                 
@@ -287,20 +291,22 @@ foreach ($data as $detalle) {
                                 $opcion_venta.= "<span class='text-precio'>Precio Regular : ".$moneda['simbolo']." ".$opciones['precio_regular'];
                                 $opcion_venta.= " - Descuento : ".$opciones['descuento'];
                                 $opcion_venta.= " % - Ahorra : ".$moneda['simbolo']." ".$opciones['ahorro']."</span></label>";*/
+                                if($tipo_pantalla == 2) {
+                                    $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
+                                    $opcion_venta.= "<div class='opcion-venta-excursion titulo-excursion'>Seleccionar fecha y Cantidad de pax</div>";
+                                    $duracion = "";
+                                    if(!empty($detalle['duracion_dias'])) $duracion .= $detalle['duracion_dias']." días ";
+                                    if(!empty($detalle['duracion_noches'])) $duracion .= $detalle['duracion_noches']." noches ";
+                                    if(!empty($detalle['duracion_horas'])) $duracion .= $detalle['duracion_horas']." horas";
+                                    if(!empty($duracion)) {
+                                        $opcion_venta.= "<div class='opcion-venta-excursion titulo-duracion'><span class='glyphicon glyphicon-time'></span> Duración ".$duracion."</div>";
+                                    }
+                                    if(!empty($detalle['duracion_observacion'])) {
+                                        $opcion_venta.= "<div class='opcion-venta-excursion titulo-observacion'>".$detalle['duracion_observacion']."</div>";
+                                    }
+                                    $opcion_venta.= "</div>";
+                                }
                                 
-                                $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
-                                $opcion_venta.= "<div class='opcion-venta-excursion titulo-excursion'>Seleccionar fecha y Cantidad de pax</div>";
-                                $duracion = "";
-                                if(!empty($detalle['duracion_dias'])) $duracion .= $detalle['duracion_dias']." días ";
-                                if(!empty($detalle['duracion_noches'])) $duracion .= $detalle['duracion_noches']." noches ";
-                                if(!empty($detalle['duracion_horas'])) $duracion .= $detalle['duracion_horas']." horas";
-                                if(!empty($duracion)) {
-                                    $opcion_venta.= "<div class='opcion-venta-excursion titulo-duracion'><span class='glyphicon glyphicon-time'></span> Duración ".$duracion."</div>";
-                                }
-                                if(!empty($detalle['duracion_observacion'])) {
-                                    $opcion_venta.= "<div class='opcion-venta-excursion titulo-observacion'>".$detalle['duracion_observacion']."</div>";
-                                }
-                                $opcion_venta.= "</div>";
                                 $opcion_venta.= "<div class='opcion-venta-excursion opcion-venta'>";
                                 
                                 $opcion_venta_bottom = "</div>";
@@ -345,8 +351,9 @@ foreach ($data as $detalle) {
                                 if( !empty($opciones['id_opcion_seleccion']) ) {
                                 
                                     $opcion_seleccion = "<div class='form-group opcion-seleccion'>";
+                                    $es_extendido = false;
                                     if(empty($cabecera_seleccion) && empty($mostrar_detalle)) {
-                                        $opcion_seleccion.= "<label for='categoria' class='col-lg-8 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
+                                        $opcion_seleccion.= "<label for='categoria' class='col-lg-5 control-label'><b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']." :</label>";
                                     }
                                     $opcion_seleccion.= "<input type='hidden' id='precio-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='precio-opcion-seleccion[]' value=''>";
                                     $opcion_seleccion.= "<input type='hidden' id='label-opcion-seleccion".$opciones['id_opcion_seleccion']."' name='label-opcion-seleccion[]' value='<b>".$opciones['descripcion_primaria']."</b> ".$opciones['descripcion_secundaria']."'>";
@@ -420,6 +427,7 @@ foreach ($data as $detalle) {
                                                     }
                                                     $opcion_seleccion.= "</select>";
                                                 } else {
+                                                    $es_extendido = true;
                                                     $opcion_seleccion.= "<div campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
                                                     if(!empty($opciones['id_opcion_seleccion_referencia'])) {
                                                         $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
@@ -435,6 +443,7 @@ foreach ($data as $detalle) {
                                                                     $opcion_seleccion.= "value = '".$data_s[$i]['descripcion_detalle']."' ";
                                                                     $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."' ";
                                                                     $opcion_seleccion.= "name='opcion-seleccion[]' ";
+                                                                    $opcion_seleccion.= "campana-opcion='".$opciones['id_campana_opcion']."' ";
                                                                     $opcion_seleccion.= ">".$data_s[$i]['descripcion_detalle'];
                                                                     $opcion_seleccion.= "</input></div>";
                                                             }
@@ -490,13 +499,16 @@ foreach ($data as $detalle) {
                                                                 $opcion_seleccion.= "</div>";
 
                                                                 $key_referencia_precio = array_search('4', array_column($data_o, 'tipo_seleccion'));
-                                                                $opcion_seleccion.= "<div><input type='text' ";
+                                                                $opcion_seleccion.= "<div>";
+                                                                $opcion_seleccion.= "<div id='precio-opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' class='opcion-venta-excursion precio-individual' >0.00</div>";
+                                                                $opcion_seleccion.= "<input type='hidden' ";
                                                                 $opcion_seleccion.= "campana-opcion='".$data_o[$key_referencia_precio]['id_campana_opcion']."' ";
                                                                 $opcion_seleccion.= "opcion-seleccion='".$data_o[$key_referencia_precio]['id_opcion_seleccion']."' ";
                                                                 $opcion_seleccion.= "tipo-seleccion='4' ";
                                                                 $opcion_seleccion.= "id='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
                                                                 $opcion_seleccion.= "name='precio-opcion-seleccion[]' ";
                                                                 $opcion_seleccion.= "id-referencia='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia']."' ";
+                                                                
                                                                 $opcion_seleccion.= "id-referencia-doble='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_doble']."' ";
                                                                 $opcion_seleccion.= "id-referencia-triple='opcion-seleccion".$data_o[$key_referencia_precio]['id_opcion_seleccion_referencia_triple']."' ";
                                                                 $opcion_seleccion.= "padre-referencia='".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
@@ -563,8 +575,16 @@ foreach ($data as $detalle) {
                                             $opcion_seleccion.= "</div></div>";
                                             if($tipo_seleccion == '1') $opcion_seleccion_right.= $opcion_seleccion;
                                             else
-                                                if(empty($cabecera_seleccion)) $opcion_seleccion_left.= $opcion_seleccion;
-                                                else $opcion_seleccion_right.= $opcion_seleccion;
+                                                if($tipo_pantalla == 3) {
+                                                    if(empty($cabecera_seleccion))  {
+                                                        if($es_extendido) $opcion_seleccion_left.= $opcion_seleccion;
+                                                        else $opcion_seleccion_top.= $opcion_seleccion;
+                                                    } else {
+                                                        $opcion_seleccion_right.= $opcion_seleccion;
+                                                    }
+                                                } else {
+                                                    $opcion_seleccion_left.= $opcion_seleccion;
+                                                }
                                             break;
                                         case '2':
                                             $opcion_seleccion.= "<div class='input-group date'>";
@@ -572,7 +592,16 @@ foreach ($data as $detalle) {
                                             $opcion_seleccion.= "<span class='input-group-addon' id='hora_inicio_addon'><span class='glyphicon glyphicon-calendar'></span></span>";
                                             $opcion_seleccion.= "</div>";
                                             $opcion_seleccion.= "</div></div>";
-                                            $opcion_seleccion_left.= $opcion_seleccion;
+                                            if($tipo_pantalla == 3) {
+                                                if(empty($cabecera_seleccion))  {
+                                                    if($es_extendido) $opcion_seleccion_left.= $opcion_seleccion;
+                                                    else $opcion_seleccion_top.= $opcion_seleccion;
+                                                } else {
+                                                    $opcion_seleccion_left.= $opcion_seleccion;
+                                                }
+                                            } else {
+                                                $opcion_seleccion_left.= $opcion_seleccion;
+                                            }
                                             break;
                                     }
                                    
@@ -582,12 +611,25 @@ foreach ($data as $detalle) {
                          
                         }
                         if($tipo_pantalla == 3) {
-                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-left'>";
+                            $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-paquete-top'>";
+                            $opcion_venta_total.= $opcion_seleccion_top;
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-left'>";
+                            $opcion_venta_total.= "<div class='opcion-seleccion-row titulo-left'>Estandar</div>";
                             $opcion_venta_total.= $opcion_seleccion_left;
-                            $opcion_venta_total.= "<div class='opcion-venta-excursion piepaquete-left'>Seleccionar Hotel prioridad</div>";
                             $opcion_venta_total.= "</div>";
                             $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>";
-                            $opcion_venta_total.= $opcion_seleccion_right."</div>".$opcion_venta_bottom;
+                            $opcion_venta_total.= $opcion_seleccion_right;
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-bottom'>";
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-left'>";
+                            $opcion_venta_total.= "<div class='opcion-seleccion-row pie-left'>Seleccionar Hotel prioridad</div>";
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= "<div class='opcion-venta-excursion grupo-paquete-right'>";
+                            $opcion_venta_total.= "<div class='opcion-seleccion-row pie-right'>En caso de no contar con disponibilidad se acomodara al pax en similar o superior</div>";
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= "</div>";
+                            $opcion_venta_total.= $opcion_venta_bottom;
                         } else {
                             $opcion_venta_total = $opcion_venta."<div class='opcion-venta-excursion grupo-seleccion-left'>".$opcion_seleccion_left."</div><div class='opcion-venta-excursion grupo-seleccion-right'>".$opcion_seleccion_right."</div>".$opcion_venta_bottom;
                         }
@@ -879,6 +921,7 @@ foreach ($data_p as $dato) {
             var key_seleccion, opcion_seleccion, id_opcion_seleccion;
             
             habilitar = true;
+
             switch(tipo_selecion){
                 case '1':
                     total = 0;
@@ -1028,6 +1071,19 @@ foreach ($data_p as $dato) {
                                         if($('[id-referencia=' + id_selecion + ']').size() == cantidad_object ) $.unblockUI();
                                     }
                                 });
+                                
+                                $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
+                                    name_selecion_each = $(this).attr('id');
+                                    if( $(this).attr('tipo-seleccion') == '1' ) {
+                                        if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
+                                            habilitar = false;
+                                        }
+                                    } else {
+                                        if($("#" + name_selecion_each).val() == ''){
+                                            habilitar = false;
+                                        }
+                                    }
+                                });
                             }
                         });
                         
@@ -1149,10 +1205,34 @@ foreach ($data_p as $dato) {
                                    if($('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() == cantidad_object ) $.unblockUI();
                                 }
                             });
+                            
+                            $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
+                                name_selecion_each = $(this).attr('id');
+                                if( $(this).attr('tipo-seleccion') == '1' ) {
+                                    if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
+                                        habilitar = false;
+                                    }
+                                } else {
+                                    if($("#" + name_selecion_each).val() == ''){
+                                        habilitar = false;
+                                    }
+                                }
+                            });
                         });
-                        
-                        
-                    } 
+                    } else {
+                        $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
+                            name_selecion_each = $(this).attr('id');
+                            if( $(this).attr('tipo-seleccion') == '1' ) {
+                                if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
+                                    habilitar = false;
+                                }
+                            } else {
+                                if($("#" + name_selecion_each).val() == ''){
+                                    habilitar = false;
+                                }
+                            }
+                        });
+                    }
                     
                     break;
                 case '4':

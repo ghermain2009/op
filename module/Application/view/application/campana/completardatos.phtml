@@ -1,16 +1,30 @@
 <div  class="container">
 <?php 
+    //Para seleccion de pantalla 3
+    $label_adulto = 'Adultos';
+    $label_nino = 'Niños';
+    $label_infante = 'Infantes';
+    //****************************
 
     $div_left  = "<div class='completa-datos-left'>"; 
     $div_right = "<div class='completa-datos-right'>";
     
-    error_log(print_r($datos_carrito_campana,true));
+    error_log(print_r($datos_carrito,true));
     
     $total_carrito = 0;
     for($i=0; $i<count($datos_carrito); $i++) {
         $cantidad_seleccion = $datos_carrito[$i]['cantidad-opcion-seleccion'];
+        $cantidad_seleccion_ninos = $datos_carrito[$i]['cantidad-ninos-opcion-seleccion'] ? $datos_carrito[$i]['cantidad-ninos-opcion-seleccion'] : 0;
+        $cantidad_seleccion_infantes = $datos_carrito[$i]['cantidad-infantes-opcion-seleccion'] ? $datos_carrito[$i]['cantidad-infantes-opcion-seleccion'] : 0;
         $label_seleccion = $datos_carrito[$i]['label-opcion-seleccion'];
         $opcion_seleccion = $datos_carrito[$i]['opcion-seleccion'];
+        $precio_seleccion = $datos_carrito[$i]['precio-opcion-seleccion'];
+        $tipo_pantalla = $datos_carrito[$i]['tp'];
+        if(empty($datos_carrito[$i]['extra-reserva'])) {
+            $extra_reserva = null;
+        } else {
+            $extra_reserva = $datos_carrito[$i]['extra-reserva'];
+        }
         
         $ruta_imagen_pro = $directorio.$datos_carrito_campana[$i]['datos_campana'][0]['id_campana'].$sep_path.'small2'.$sep_path.'image1.jpg';
         if (file_exists($ruta_imagen_pro)){
@@ -38,16 +52,139 @@
         $cantidad_sel = 0;
         
         $div_left .= "<div>";
-        $div_left .= "<div>City tour Panoramico</div>";
+        $div_left .= "<div>".$datos_carrito_campana[$i]['datos_campana'][0]['subtitulo']."</div>";
         $total_item = 0;
         for($j=0;$j<count($cantidad_seleccion);$j++) {
+            $cantidad_pendiente = 0;
             if(!empty($cantidad_seleccion[$j]) && $cantidad_seleccion[$j] > 0) {
-                $total_item += $opcion_seleccion[$j];
+                if($tipo_pantalla == '3') {
+                    $total_item += $precio_seleccion[$j];
+                } else {
+                    $total_item += $opcion_seleccion[$j];
+                }
                 if( $cantidad_sel > 0 ) $div_right .= ' - ';
-                $div_right .= $cantidad_seleccion[$j]." ".$label_seleccion[$j];
+                $cantidad_pendiente += $cantidad_seleccion[$j];
+                
                 for($k=0;$k<$cantidad_seleccion[$j];$k++) { 
                     $div_left .= "<div>"; 
-                    $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_seleccion[$j]."</label></div>";
+                    if($tipo_pantalla == '3') {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_adulto."</label></div>";
+                    } else {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_seleccion[$j]."</label></div>";
+                    }
+                    $div_left .= "</div>";
+                    $div_left .= "<div>"; 
+                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Nombres</label></div>";
+                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Apellidos</label></div>";
+                    $div_left .= "</div>"; 
+                    $div_left .= "<div>"; 
+                    $div_left .= "<div class='col-lg-4'><input name='nombre-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
+                    $div_left .= "<div class='col-lg-4'><input name='apellido-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
+                    $div_left .= "</div>"; 
+                    
+                    
+                }
+                if(is_array($extra_reserva)) {
+                    for($k=0;$k<count($extra_reserva);$k++) {
+                        $cantidad_seleccion_extra = $extra_reserva[$k]['cantidad-opcion-seleccion'];
+                        $precio_seleccion_extra = $extra_reserva[$k]['precio-opcion-seleccion'];
+                        $cantidad_seleccion_ninos_extra = $extra_reserva[$k]['cantidad-ninos-opcion-seleccion'] ? $extra_reserva[$k]['cantidad-ninos-opcion-seleccion'] : 0;
+                        $cantidad_seleccion_infantes_extra = $extra_reserva[$k]['cantidad-infantes-opcion-seleccion'] ? $extra_reserva[$k]['cantidad-infantes-opcion-seleccion'] : 0;
+                        for($m=0; $m<count($cantidad_seleccion_extra); $m++) {
+                            if(!empty($cantidad_seleccion_extra[$m]) && $cantidad_seleccion_extra[$m] > 0) {
+                                $total_item += $precio_seleccion_extra[$m];
+                                $cantidad_pendiente += $cantidad_seleccion_extra[$m];
+                                for($n=0;$n<$cantidad_seleccion[$m];$n++) { 
+                                    $div_left .= "<div>"; 
+                                    if($tipo_pantalla == '3') {
+                                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_adulto."</label></div>";
+                                    } else {
+                                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_seleccion[$j]."</label></div>";
+                                    }
+                                    $div_left .= "</div>";
+                                    $div_left .= "<div>"; 
+                                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Nombres</label></div>";
+                                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Apellidos</label></div>";
+                                    $div_left .= "</div>"; 
+                                    $div_left .= "<div>"; 
+                                    $div_left .= "<div class='col-lg-4'><input name='nombre-".$m."-".$n."-".$k."[]' type='text' class='form-control input-sm'></div>";
+                                    $div_left .= "<div class='col-lg-4'><input name='apellido-".$m."-".$n."-".$k."[]' type='text' class='form-control input-sm'></div>";
+                                    $div_left .= "</div>"; 
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+                if($tipo_pantalla == '3') {
+                    $div_right .= $cantidad_pendiente." ".$label_adulto;
+                } else {
+                    $div_right .= $cantidad_seleccion[$j]." ".$label_seleccion[$j];
+                }
+                
+                $cantidad_sel++;
+            }
+        }
+        for($j=0;$j<count($cantidad_seleccion_ninos);$j++) {
+            if(!empty($cantidad_seleccion_ninos[$j]) && $cantidad_seleccion_ninos[$j] > 0) {
+                if($tipo_pantalla == '3') {
+                    $total_item += $precio_seleccion[$j];
+                } else {
+                    $total_item += $opcion_seleccion[$j];
+                }
+                
+                if( $cantidad_sel > 0 ) $div_right .= ' - ';
+                if($tipo_pantalla == '3') {
+                    $div_right .= $cantidad_seleccion_ninos[$j]." ".$label_nino;
+                } else {
+                    $div_right .= $cantidad_seleccion_ninos[$j]." ".$label_seleccion[$j];
+                }
+                
+                for($k=0;$k<$cantidad_seleccion_ninos[$j];$k++) { 
+                    $div_left .= "<div>"; 
+                    if($tipo_pantalla == '3') {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_nino."</label></div>";
+                    } else {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_seleccion[$j]."</label></div>";
+                    }
+                    $div_left .= "</div>";
+                    $div_left .= "<div>"; 
+                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Nombres</label></div>";
+                    $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Apellidos</label></div>";
+                    $div_left .= "</div>"; 
+                    $div_left .= "<div>"; 
+                    $div_left .= "<div class='col-lg-4'><input name='nombre-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
+                    $div_left .= "<div class='col-lg-4'><input name='apellido-".$i."-".$j."[]' type='text' class='form-control input-sm'></div>";
+                    $div_left .= "</div>"; 
+                    
+                    
+                }
+                $cantidad_sel++;
+            }
+        }
+        for($j=0;$j<count($cantidad_seleccion_infantes);$j++) {
+            if(!empty($cantidad_seleccion_infantes[$j]) && $cantidad_seleccion_infantes[$j] > 0) {
+                if($tipo_pantalla == '3') {
+                    $total_item += $precio_seleccion[$j];
+                } else {
+                    $total_item += $opcion_seleccion[$j];
+                }
+                
+                if( $cantidad_sel > 0 ) $div_right .= ' - ';
+                if($tipo_pantalla == '3') {
+                    $div_right .= $cantidad_seleccion_infantes[$j]." ".$label_infante;
+                } else {
+                    $div_right .= $cantidad_seleccion_infantes[$j]." ".$label_seleccion[$j];
+                }
+                
+                for($k=0;$k<$cantidad_seleccion_infantes[$j];$k++) { 
+                    $div_left .= "<div>"; 
+                    if($tipo_pantalla == '3') {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_infante."</label></div>";
+                    } else {
+                        $div_left .= "<div class='col-lg-4 completa-datos-label'><label class='col-lg-2 control-label'>".$label_seleccion[$j]."</label></div>";
+                    }
                     $div_left .= "</div>";
                     $div_left .= "<div>"; 
                     $div_left .= "<div class='col-lg-4 completa-datos'><label class='col-lg-2 control-label'>Nombres</label></div>";

@@ -1,3 +1,10 @@
+<?php
+    //Para seleccion de pantalla 3
+    $label_adulto = 'Adultos';
+    $label_nino = 'Niños';
+    $label_infante = 'Infantes';
+    //****************************
+?>
 <div class="container">
 <form name="frmpago" role="form" action="/campana/pago" method="POST" data-parsley-validate>
     <div>
@@ -13,8 +20,8 @@
                 <div class="col-xs-7">
                 <input type="hidden" class="form-control" name="facebook" id="facebook" value="<?php echo $user_session->facebook['login'];?>">
                 <input type="hidden" class="form-control" name="email" id="email" value="<?php echo $user_session->username;?>">
-                <input type="hidden" class="form-control" name="nombre" id="email" value="<?php echo $user_session->nombre;?>">
-                <input type="hidden" class="form-control" name="apellido" id="email" value="<?php echo $user_session->apellido;?>">
+                <input type="hidden" class="form-control" name="nombre" id="nombre" value="<?php echo $user_session->nombre;?>">
+                <input type="hidden" class="form-control" name="apellido" id="apellido" value="<?php echo $user_session->apellido;?>">
                 <div class="cfacebook">Conectado con Facebook</div>
                 </div>
             </div>
@@ -29,9 +36,16 @@
             <div class="form-group">
                 <label for="nombres" class="col-lg-2 control-label">Nombres:</label>
                 <div class="col-xs-7"> 
+                    <?php if($user_session->agente == 'S') { ?>
+                    <input type="hidden" class="form-control" name="email" id="email" value="<?php echo base64_decode($user_session->emailagente);?>">
+                    <input type="hidden" class="form-control" name="useragente" id="useragente" value="<?php echo $user_session->username;?>">
+                    <?php } else { ?>
                     <input type="hidden" class="form-control" name="email" id="email" value="<?php echo $user_session->username;?>">
-                    <input type="hidden" class="form-control" name="nombre" id="email" value="<?php echo $user_session->nombre;?>">
-                    <input type="hidden" class="form-control" name="apellido" id="email" value="<?php echo $user_session->apellido;?>">
+                    <input type="hidden" class="form-control" name="useragente" id="useragente" value="">
+                    <?php } ?>
+                    <input type="hidden" class="form-control" name="nombre" id="nombre" value="<?php echo $user_session->nombre;?>">
+                    <input type="hidden" class="form-control" name="apellido" id="apellido" value="<?php echo $user_session->apellido;?>">
+                    
                     <input type="text" class="form-control" name="nombres" id="nombres" value="<?php echo $user_session->nombre;?>" disabled>
                     <span class="help-block with-errors"></span>
                 </div>
@@ -273,10 +287,21 @@
                         $datos_carrito = $user_session->carrito;
                         $total_carrito = 0;
                         $div_right ="";
+                        error_log(print_r($data_o,true));
+                        
                         for($i=0; $i<count($datos_carrito); $i++) {
                             $cantidad_seleccion = $datos_carrito[$i]['cantidad-opcion-seleccion'];
-                            $label_seleccion = $datos_carrito[$i]['label-opcion-seleccion'];
-                            $opcion_seleccion = $datos_carrito[$i]['opcion-seleccion'];
+                            $cantidad_seleccion_ninos = $datos_carrito[$i]['cantidad-ninos-opcion-seleccion'] ? $datos_carrito[$i]['cantidad-ninos-opcion-seleccion'] : 0;
+                            $cantidad_seleccion_infantes = $datos_carrito[$i]['cantidad-infantes-opcion-seleccion'] ? $datos_carrito[$i]['cantidad-infantes-opcion-seleccion'] : 0;
+                            $label_seleccion    = $datos_carrito[$i]['label-opcion-seleccion'];
+                            $opcion_seleccion   = $datos_carrito[$i]['opcion-seleccion'];
+                            $precio_seleccion   = $datos_carrito[$i]['precio-opcion-seleccion'];
+                            $tipo_pantalla      = $datos_carrito[$i]['tp'];
+                            if(empty($datos_carrito[$i]['extra-reserva'])) {
+                                $extra_reserva = null;
+                            } else {
+                                $extra_reserva = $datos_carrito[$i]['extra-reserva'];
+                            }
 
                             $div_right .= "<div class='formulario-pago-carrito'>";
                             $div_right .= "<div>City tour Panoramico</div>";
@@ -287,13 +312,76 @@
 
                             $total_item = 0;
                             for($j=0;$j<count($cantidad_seleccion);$j++) {
+                                $cantidad_pendiente = 0;
                                 if(!empty($cantidad_seleccion[$j]) && $cantidad_seleccion[$j] > 0) {
-                                    $total_item += $opcion_seleccion[$j];
+                                    if($tipo_pantalla == '3') {
+                                        $total_item += $precio_seleccion[$j];
+                                    } else {
+                                        $total_item += $opcion_seleccion[$j];
+                                    }
                                     if( $cantidad_sel > 0 ) $div_right .= ' - ';
-                                    $div_right .= $cantidad_seleccion[$j]." ".$label_seleccion[$j];
+                                    $cantidad_pendiente += $cantidad_seleccion[$j];
+                                    
+                                    if(is_array($extra_reserva)) {
+                                        for($k=0;$k<count($extra_reserva);$k++) {
+                                            $cantidad_seleccion_extra = $extra_reserva[$k]['cantidad-opcion-seleccion'];
+                                            $precio_seleccion_extra = $extra_reserva[$k]['precio-opcion-seleccion'];
+                                            for($m=0; $m<count($cantidad_seleccion_extra); $m++) {
+                                                if(!empty($cantidad_seleccion_extra[$m]) && $cantidad_seleccion_extra[$m] > 0) {
+                                                    $total_item += $precio_seleccion_extra[$m];
+                                                    $cantidad_pendiente += $cantidad_seleccion_extra[$m];
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    if($tipo_pantalla == '3') {
+                                        $div_right .= $cantidad_pendiente." ".$label_adulto;
+                                    } else {
+                                        $div_right .= $cantidad_seleccion[$j]." ".$label_seleccion[$j];
+                                    }
                                     $cantidad_sel++;
                                 }
                             }
+                            
+                            for($j=0;$j<count($cantidad_seleccion_ninos);$j++) {
+                                if(!empty($cantidad_seleccion_ninos[$j]) && $cantidad_seleccion_ninos[$j] > 0) {
+                                    if($tipo_pantalla == '3') {
+                                        $total_item += $precio_seleccion[$j];
+                                    } else {
+                                        $total_item += $opcion_seleccion[$j];
+                                    }
+
+                                    if( $cantidad_sel > 0 ) $div_right .= ' - ';
+                                    if($tipo_pantalla == '3') {
+                                        $div_right .= $cantidad_seleccion_ninos[$j]." ".$label_nino;
+                                    } else {
+                                        $div_right .= $cantidad_seleccion_ninos[$j]." ".$label_seleccion[$j];
+                                    }
+
+                                    $cantidad_sel++;
+                                }
+                            }
+                            
+                            for($j=0;$j<count($cantidad_seleccion_infantes);$j++) {
+                                if(!empty($cantidad_seleccion_infantes[$j]) && $cantidad_seleccion_infantes[$j] > 0) {
+                                    if($tipo_pantalla == '3') {
+                                        $total_item += $precio_seleccion[$j];
+                                    } else {
+                                        $total_item += $opcion_seleccion[$j];
+                                    }
+
+                                    if( $cantidad_sel > 0 ) $div_right .= ' - ';
+                                    if($tipo_pantalla == '3') {
+                                        $div_right .= $cantidad_seleccion_infantes[$j]." ".$label_infante;
+                                    } else {
+                                        $div_right .= $cantidad_seleccion_infantes[$j]." ".$label_seleccion[$j];
+                                    }
+
+                                    $cantidad_sel++;
+                                }
+                            }
+                            
                             $div_right .= "</div>";
                             $div_right .= "</div>";
                             $div_right .= "</div>";
