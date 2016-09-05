@@ -195,7 +195,7 @@ class CupcuponTable {
                         $id_cupon_detalle_opcion = $statement->execute()->getGeneratedValue();
                         
                         for($k=0; $k<count($carrito_nombres); $k++) {
-                            if($carrito_nombres[$k]['indice_padre'] == $i && $carrito_nombres[$k]['indice_hijo'] == $j ) {
+                            if($carrito_nombres[$k]['indice_padre'] == $i && $carrito_nombres[$k]['indice_hijo'] == $j && $carrito_nombres[$k]['indice_extra'] == -1 ) {
                                 $opciones_nombres = $carrito_nombres[$k]['opciones_nombre'];
                                 for($l=0;$l<count($opciones_nombres);$l++) {
                                     
@@ -279,7 +279,7 @@ class CupcuponTable {
                             $id_cupon_detalle_opcion = $statement->execute()->getGeneratedValue();
 
                             for($l=0; $l<count($carrito_nombres); $l++) {
-                                if($carrito_nombres[$l]['indice_padre'] == $j && $carrito_nombres[$l]['indice_hijo'] == $k ) {
+                                if($carrito_nombres[$l]['indice_padre'] == $j && $carrito_nombres[$l]['indice_hijo'] == $k && $carrito_nombres[$l]['indice_extra'] != -1 ) {
                                     $opciones_nombres = $carrito_nombres[$l]['opciones_nombre'];
                                     for($m=0;$m<count($opciones_nombres);$m++) {
 

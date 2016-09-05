@@ -1656,7 +1656,8 @@ class CampanaController extends AbstractActionController {
         
         error_log(print_r($datos_carrito,true));
         
-        return $this->getResponse()->setContent(Json::encode(array('respuesta' => $variables,
+        return $this->getResponse()->setContent(Json::encode(array('opcion' => base64_decode($datos_carrito['op']),
+                                                                   'respuesta' => $variables,
                                                                    'carrito'   => $carrito_session->carrito,
                                                                    'pendiente' => $carrito_pendiente->carrito)));
     }

@@ -1250,6 +1250,7 @@ foreach ($data_p as $dato) {
                     $('#btntotal-opcion' + id_opcion).html('<div style=\'font-size:13px\'>Precio</div>' + '$ ' + total.toFixed(2));
                     break;
             }
+            alert($('#opcion-cantidad-carrito').html());
             if(habilitar) {
                $('#btncomprar-opcion' + id_opcion).removeAttr('disabled');
                $('#btncarrito-opcion' + id_opcion).removeAttr('disabled');
@@ -1398,6 +1399,16 @@ foreach ($data_p as $dato) {
                             });
                         } else {
                             $("#opcion-cantidad-carrito").html(valores.carrito.length);
+                            alert('agrego');
+                            $('[campana-opcion=' + valores.opcion + ']').each(function (index, value) { 
+                                if($(this).prop('tagName') == 'SELECT') {
+                                    $(this).val('-1');
+                                    if($(this).attr('id-referencia')) $(this).attr('disabled','disabled');
+                                }
+                                if($(this).prop('tagName') == 'INPUT') {
+                                    $(this).val('');
+                                }
+                            });
                         }
                         $.unblockUI();
                     }
