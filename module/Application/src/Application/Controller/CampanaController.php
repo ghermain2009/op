@@ -837,7 +837,16 @@ class CampanaController extends AbstractActionController {
 
         $user_session = new Container('user');
         $user_session->getManager()->getStorage()->clear('user');
-
+        
+        $carrito_session = new Container('carrito');
+        $carrito_session->getManager()->getStorage()->clear('carrito');
+        
+        $carrito_pendiente_session = new Container('carrito_pendiente');
+        $carrito_pendiente_session->getManager()->getStorage()->clear('carrito_pendiente');
+        
+        $edit_campana_session = new Container('edit_campana');
+        $edit_campana_session->getManager()->getStorage()->clear('edit_campana');
+        
         $data = array();
         return $this->getResponse()->setContent(Json::encode($data));
     }

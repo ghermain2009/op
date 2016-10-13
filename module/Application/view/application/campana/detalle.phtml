@@ -428,7 +428,7 @@ foreach ($data as $detalle) {
                                                     $opcion_seleccion.= "</select>";
                                                 } else {
                                                     $es_extendido = true;
-                                                    $opcion_seleccion.= "<div campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' ";
+                                                    $opcion_seleccion.= "<div campana-opcion='".$opciones['id_campana_opcion']."' opcion-seleccion='".$opciones['id_opcion_seleccion']."' tipo-seleccion='".$tipo_seleccion."' id='opcion-seleccion".$opciones['id_opcion_seleccion']."' extendido='1' ";
                                                     if(!empty($opciones['id_opcion_seleccion_referencia'])) {
                                                         $opcion_seleccion.= " id-referencia='opcion-seleccion".$opciones['id_opcion_seleccion_referencia']."' disabled='disabled' ";
                                                     }
@@ -441,9 +441,10 @@ foreach ($data as $detalle) {
                                                             if(empty($opciones['id_opcion_seleccion_referencia'])) {
                                                                     $opcion_seleccion.= "<div class='opcion-seleccion-detallado'><input type='radio' keyseleccion='".$data_s[$i]['id_opcion_seleccion_detalle']."' cantidad='".$data_s[$i]['cantidad_seleccion']."' ";
                                                                     $opcion_seleccion.= "value = '".$data_s[$i]['descripcion_detalle']."' ";
-                                                                    $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."' ";
+                                                                    $opcion_seleccion.= "id='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."-".$data_s[$i]['id_opcion_seleccion_detalle']."' ";
                                                                     $opcion_seleccion.= "name='opcion-seleccion[]' ";
                                                                     $opcion_seleccion.= "campana-opcion='".$opciones['id_campana_opcion']."' ";
+                                                                    $opcion_seleccion.= "radio-name='opcion-seleccion".$data_s[$i]['id_opcion_seleccion']."' ";
                                                                     $opcion_seleccion.= ">".$data_s[$i]['descripcion_detalle'];
                                                                     $opcion_seleccion.= "</input></div>";
                                                             }
@@ -976,7 +977,7 @@ foreach ($data_p as $dato) {
                     cantidad_object = 0;
                     id_opcion_seleccion_attr = 'opcion-seleccion' + opcion_seleccion_attr;
                     key_seleccion = $("#" + id_selecion + " option:selected" ).attr('keyseleccion');
-                    
+
                     if($('[id-referencia=' + id_selecion + ']').size() > 0 || $('[id-referencia-doble=' + id_opcion_seleccion_attr + ']').size() > 0 || $('[id-referencia-triple=' + id_opcion_seleccion_attr + ']').size() > 0) {
                         
                         $.blockUI({ 
@@ -1074,13 +1075,30 @@ foreach ($data_p as $dato) {
                                 
                                 $('[campana-opcion=' + id_opcion + ']').each(function (index, value) { 
                                     name_selecion_each = $(this).attr('id');
-                                    if( $(this).attr('tipo-seleccion') == '1' ) {
-                                        if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
-                                            habilitar = false;
-                                        }
-                                    } else {
-                                        if($("#" + name_selecion_each).val() == ''){
-                                            habilitar = false;
+                                    
+                                    if(!$(this).attr('disabled')) {
+                                        if( $(this).attr('tipo-seleccion') == '1' || $(this).attr('tipo-seleccion') == '3' ) {
+                                            if($("#" + name_selecion_each).attr('extendido') == '1'){
+                                                if($("input:radio[radio-name='" + name_selecion_each + "']:checked").size() == 0) {
+                                                    habilitar = false;
+                                                    alert("pos1 => " + name_selecion_each);
+                                                } else {
+                                                    if($("input:radio[radio-name='" + name_selecion_each + "']:checked").val() == '') {
+                                                        habilitar = false;
+                                                        alert("pos2 => " + name_selecion_each);
+                                                    }
+                                                }
+                                            } else {
+                                                if( parseFloat($("#" + name_selecion_each + " option:selected" ).val()) < 0) {
+                                                    habilitar = false;
+                                                    alert("pos3 => " + name_selecion_each);
+                                                }
+                                            }
+                                        } else {
+                                            if($("#" + name_selecion_each).val() == ''){
+                                                habilitar = false;
+                                                alert("pos4 => " + name_selecion_each);
+                                            }
                                         }
                                     }
                                 });
@@ -1144,6 +1162,8 @@ foreach ($data_p as $dato) {
                                             case 'A':
                                                 if( $('#' + valores.nameauxiliar).attr('disabled') ) {
                                                     if( ( $('#' + valores.nameauxiliarsel + " option:selected").attr('cantidad-ninos') > 0 && $('#' + valores.nameauxiliar).attr('tipo-seleccion-detalle') == 'N') || $('#' + valores.nameauxiliar).attr('tipo-seleccion-detalle') == 'I' ) {
+                                                        alert(valores.nameauxiliarsel);
+                                                        alert(valores.nameauxiliar);
                                                         $('#' + valores.nameauxiliar).removeAttr('disabled');
                                                         $('#label-' + valores.nameauxiliar).removeAttr('disabled');
                                                         $('#cantidad-' + valores.nameauxiliar).removeAttr('disabled');
@@ -1156,6 +1176,8 @@ foreach ($data_p as $dato) {
                                                         $('#label-habitacion-' + valores.nameauxiliar).removeAttr('disabled');
                                                         $('#label-cama-' + valores.nameauxiliar).removeAttr('disabled');
                                                         $('#' + $('#' + valores.nameauxiliar).attr('opcion-habilitar')).removeAttr('disabled');
+                                                        //$('#btncomprar-' + valores.nameauxiliar).attr('disabled','disabled');
+                                                        $('#btncarrito-opcion5').attr('disabled','disabled');
                                                     }
                                                 } else {
                                                     $('#' + valores.nameauxiliar).attr('disabled','disabled');
@@ -1171,8 +1193,6 @@ foreach ($data_p as $dato) {
                                                     $('#label-cama-' + valores.nameauxiliar).attr('disabled','disabled');
                                                     $('#' + $('#' + valores.nameauxiliar).attr('opcion-habilitar')).attr('disabled','disabled');
                                                 }
-                                                
-                                                
                                                 
                                                 break;
                                             default:
@@ -1250,7 +1270,7 @@ foreach ($data_p as $dato) {
                     $('#btntotal-opcion' + id_opcion).html('<div style=\'font-size:13px\'>Precio</div>' + '$ ' + total.toFixed(2));
                     break;
             }
-            alert($('#opcion-cantidad-carrito').html());
+            alert('opcion-cantidad-carrito => ' + $('#opcion-cantidad-carrito').html());
             if(habilitar) {
                $('#btncomprar-opcion' + id_opcion).removeAttr('disabled');
                $('#btncarrito-opcion' + id_opcion).removeAttr('disabled');
